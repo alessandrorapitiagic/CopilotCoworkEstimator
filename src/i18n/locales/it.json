@@ -601,6 +601,18 @@
       "storageTitle": "Utilizzo spazio",
       "storageBody": "La barra in Impostazioni mostra lo spazio usato. Se si avvicina al limite (5 MB ca.), esporta un backup e considera di resettare i dati meno utilizzati."
     },
+    "exportImportShare": {
+      "title": "Export, Import e Condivisione",
+      "body": "Esporta in CSV per analisi in Excel o Power BI. Esporta in JSON per backup e portabilità. Usa il link condivisibile per inviare uno scenario a un collega senza allegati.",
+      "csvTitle": "Export CSV",
+      "csvBody": "Dal dettaglio scenario puoi esportare riepilogo, breakdown segmenti o breakdown modelli. Dal portfolio puoi esportare tutti gli scenari attivi in un file.",
+      "jsonTitle": "Export / Import JSON",
+      "jsonBody": "Il backup JSON include aziende, scenari, profili custom, pack custom e funding plan. Importalo dalla schermata Impostazioni — la preview mostra quanti oggetti verranno importati.",
+      "shareTitle": "Link condivisibile",
+      "shareBody": "Clicca 'Condividi scenario' dal dettaglio scenario. Il link viene generato nel browser (nessun server). Chi lo apre vede una preview e può scegliere se salvare nel proprio browser.",
+      "limitTitle": "Limite dimensioni link",
+      "limitBody": "Per scenari grandi il link può superare il limite URL (~8KB). In quel caso l'app suggerisce automaticamente di usare l'export JSON."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -701,6 +713,10 @@
     "settingsStorage": {
       "title": "Salvataggio locale",
       "body": "Qui vedi lo spazio usato, il numero di dati salvati, lo schema version e l'ultimo export. Esporta regolarmente un backup JSON."
+    },
+    "shareBtn": {
+      "title": "Condividi scenario",
+      "body": "Genera un link condivisibile per inviare questo scenario a un collega. Il link contiene tutti i dati — nessun server coinvolto."
     },
     "tasksList": {
       "title": "Task preset",
@@ -903,5 +919,54 @@
     "scenariosCount": "Scenari",
     "profilesCount": "Profili custom",
     "packsCount": "Pack custom"
+  },
+  "export": {
+    "csvTypes": {
+      "scenario_summary": "Riepilogo scenario",
+      "segment_breakdown": "Breakdown segmenti",
+      "model_breakdown": "Breakdown modelli",
+      "portfolio_summary": "Riepilogo portfolio"
+    },
+    "exportCsvLabel": "Esporta CSV",
+    "exportType": "Tipo di export",
+    "downloadCsv": "Scarica CSV",
+    "includeArchived": "Includi archiviati",
+    "exportedAt": "Esportato il"
+  },
+  "import": {
+    "title": "Importa JSON",
+    "previewTitle": "Anteprima import",
+    "previewBody": "Verifica i dati prima di importarli.",
+    "companiesFound": "Aziende trovate",
+    "scenariosFound": "Scenari trovati",
+    "profilesFound": "Profili custom trovati",
+    "packsFound": "Pack custom trovati",
+    "conflictWarning": "Alcuni ID sono già presenti. Verranno creati nuovi ID.",
+    "mergeMode": "Unisci (mantieni dati esistenti)",
+    "replaceMode": "Sostituisci tutto",
+    "confirmImport": "Conferma import",
+    "importSuccess": "Import completato. La dashboard è stata aggiornata.",
+    "importError": "File non valido. Nessun dato è stato modificato.",
+    "schemaFuture": "Il file è stato creato con una versione più recente dell'app."
+  },
+  "share": {
+    "title": "Condividi scenario",
+    "generateLink": "Genera link",
+    "copyLink": "Copia link",
+    "copied": "Copiato!",
+    "shareTeams": "Condividi su Teams",
+    "shareWhatsApp": "Condividi su WhatsApp",
+    "shareEmail": "Invia via email",
+    "payloadTooLong": "Il payload supera il limite URL. Usa l'export JSON per condividere.",
+    "payloadWarning": "Il link è lungo. Potrebbe non funzionare in tutti i sistemi di messaggistica.",
+    "fallbackJson": "Usa export JSON",
+    "disclaimerNote": "Il link contiene tutti i dati dello scenario. Non include informazioni sensibili.",
+    "previewTitle": "Scenario condiviso",
+    "previewSave": "Salva nel browser",
+    "previewView": "Visualizza senza salvare",
+    "previewDiscard": "Ignora",
+    "savedFromShare": "Scenario salvato dal link condiviso.",
+    "payloadCorrupted": "Il link non è valido o è corrotto.",
+    "payloadTooLargeUse": "Il link è troppo grande. Chiedi al mittente di esportare in JSON."
   }
 }

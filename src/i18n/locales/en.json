@@ -601,6 +601,18 @@
       "storageTitle": "Storage usage",
       "storageBody": "The bar in Settings shows the space used. If it approaches the limit (~5 MB), export a backup and consider resetting less-used data."
     },
+    "exportImportShare": {
+      "title": "Export, Import & Sharing",
+      "body": "Export to CSV for analysis in Excel or Power BI. Export to JSON for backup and portability. Use the shareable link to send a scenario to a colleague without attachments.",
+      "csvTitle": "CSV export",
+      "csvBody": "From a scenario detail you can export a summary, segment breakdown or model breakdown. From the portfolio you can export all active scenarios in one file.",
+      "jsonTitle": "JSON export / import",
+      "jsonBody": "The JSON backup includes companies, scenarios, custom profiles, custom packs and funding plans. Import it from Settings — the preview shows how many objects will be imported.",
+      "shareTitle": "Shareable link",
+      "shareBody": "Click 'Share scenario' from a scenario detail. The link is generated in the browser (no server). The recipient sees a preview and can choose whether to save it in their browser.",
+      "limitTitle": "Link size limit",
+      "limitBody": "For large scenarios the link may exceed the URL limit (~8KB). In that case the app automatically suggests using JSON export."
+    },
     "quickstart": {
       "title": "Quick start in 4 steps",
       "step1Title": "1. Create a company",
@@ -701,6 +713,10 @@
     "settingsStorage": {
       "title": "Local storage",
       "body": "Here you see the space used, the number of saved items, the schema version and the last export. Export a JSON backup regularly."
+    },
+    "shareBtn": {
+      "title": "Share scenario",
+      "body": "Generate a shareable link to send this scenario to a colleague. The link contains all the data — no server involved."
     },
     "tasksList": {
       "title": "Task presets",
@@ -903,5 +919,54 @@
     "scenariosCount": "Scenarios",
     "profilesCount": "Custom profiles",
     "packsCount": "Custom packs"
+  },
+  "export": {
+    "csvTypes": {
+      "scenario_summary": "Scenario summary",
+      "segment_breakdown": "Segment breakdown",
+      "model_breakdown": "Model breakdown",
+      "portfolio_summary": "Portfolio summary"
+    },
+    "exportCsvLabel": "Export CSV",
+    "exportType": "Export type",
+    "downloadCsv": "Download CSV",
+    "includeArchived": "Include archived",
+    "exportedAt": "Exported on"
+  },
+  "import": {
+    "title": "Import JSON",
+    "previewTitle": "Import preview",
+    "previewBody": "Review the data before importing.",
+    "companiesFound": "Companies found",
+    "scenariosFound": "Scenarios found",
+    "profilesFound": "Custom profiles found",
+    "packsFound": "Custom packs found",
+    "conflictWarning": "Some IDs already exist. New IDs will be created.",
+    "mergeMode": "Merge (keep existing data)",
+    "replaceMode": "Replace all",
+    "confirmImport": "Confirm import",
+    "importSuccess": "Import completed. The dashboard has been updated.",
+    "importError": "Invalid file. No data has been modified.",
+    "schemaFuture": "The file was created with a newer version of the app."
+  },
+  "share": {
+    "title": "Share scenario",
+    "generateLink": "Generate link",
+    "copyLink": "Copy link",
+    "copied": "Copied!",
+    "shareTeams": "Share on Teams",
+    "shareWhatsApp": "Share on WhatsApp",
+    "shareEmail": "Send by email",
+    "payloadTooLong": "The payload exceeds the URL limit. Use JSON export to share.",
+    "payloadWarning": "The link is long. It may not work in all messaging systems.",
+    "fallbackJson": "Use JSON export",
+    "disclaimerNote": "The link contains all scenario data. It does not include sensitive information.",
+    "previewTitle": "Shared scenario",
+    "previewSave": "Save to browser",
+    "previewView": "View without saving",
+    "previewDiscard": "Ignore",
+    "savedFromShare": "Scenario saved from shared link.",
+    "payloadCorrupted": "The link is not valid or is corrupted.",
+    "payloadTooLargeUse": "The link is too large. Ask the sender to export as JSON."
   }
 }

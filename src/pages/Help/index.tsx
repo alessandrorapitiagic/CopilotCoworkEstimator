@@ -15,6 +15,7 @@ import {
   Users,
   GitCompareArrows,
   DatabaseZap,
+  Download,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -64,6 +65,7 @@ export default function Help() {
     { id: 'fundingCalculation', icon: FlaskConical, label: t('help.fundingCalculation.title') },
     { id: 'compareScenarios', icon: GitCompareArrows, label: t('help.compareScenarios.title') },
     { id: 'localStorage', icon: ShieldCheck, label: t('help.localStorage.title') },
+    { id: 'exportImportShare', icon: Download, label: t('help.exportImportShare.title') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -361,6 +363,29 @@ export default function Help() {
               { title: 'help.localStorage.backupTitle', body: 'help.localStorage.backupBody' },
               { title: 'help.localStorage.migrationTitle', body: 'help.localStorage.migrationBody' },
               { title: 'help.localStorage.storageTitle', body: 'help.localStorage.storageBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}><p className="font-semibold">{t(title)}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p></div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Export Import Share */}
+        <SectionAnchor id="exportImportShare" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Download className="size-4 text-primary" />
+              {t('help.exportImportShare.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.exportImportShare.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.exportImportShare.csvTitle', body: 'help.exportImportShare.csvBody' },
+              { title: 'help.exportImportShare.jsonTitle', body: 'help.exportImportShare.jsonBody' },
+              { title: 'help.exportImportShare.shareTitle', body: 'help.exportImportShare.shareBody' },
+              { title: 'help.exportImportShare.limitTitle', body: 'help.exportImportShare.limitBody' },
             ].map(({ title, body }, i) => (
               <div key={i}><p className="font-semibold">{t(title)}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p></div>
             ))}

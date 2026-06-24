@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, RefreshCw, Download, AlertTriangle, Info, Users } from 'lucide-react'
+import { ArrowLeft, RefreshCw, AlertTriangle, Info, Users, Share2 } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -8,6 +9,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { formatCurrency, formatNumber } from '@/lib/utils'
 import { FundingPlanEditor } from './components/FundingPlanEditor'
+import { CsvExportMenu } from './components/CsvExportMenu'
+import { ShareScenarioDialog } from '@/components/shared/ShareScenarioDialog'
+import { exportScenarioSummaryCsv } from '@/services/exportService'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as ReTooltip, ResponsiveContainer, Cell,
 } from 'recharts'
@@ -18,6 +22,7 @@ export default function ScenarioDetail() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
+  const [showShare, setShowShare] = useState(false)
   const { scenarios, companies, assumptionPacks, fundingPlans,
     recalculateScenario, upsertFundingPlan, preferences } = useAppStore()
 
@@ -54,38 +59,6 @@ export default function ScenarioDetail() {
     cost: Number(b.monthlyCost.mid.toFixed(2)),
   })) ?? []
 
-  function handleExportCSV() {
-    if (!result) return
-    const rows = [
-      ['Company', 'Scenario', 'Assumption Pack', 'Segment', 'Headcount', 'Enabled Users', 'Active Users', 'Monthly Credits Min', 'Monthly Credits Mid', 'Monthly Credits Max', 'Monthly Cost Mid', 'Annual Cost Mid'],
-      ...result.breakdownBySegment.map((b) => {
-        const seg = s.segments.find((s) => s.id === b.segmentId)
-        return [
-          company?.name ?? '',
-          s.name,
-          pack?.name ?? '',
-          b.segmentName,
-          seg?.headcount ?? 0,
-          b.enabledUsers,
-          b.activeUsers,
-          Math.round(b.monthlyCredits.min),
-          Math.round(b.monthlyCredits.mid),
-          Math.round(b.monthlyCredits.max),
-          b.monthlyCost.mid.toFixed(2),
-          (b.monthlyCost.mid * 12).toFixed(2),
-        ]
-      }),
-    ]
-    const csv = rows.map((r) => r.join(',')).join('\n')
-    const blob = new Blob([csv], { type: 'text/csv' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `scenario-${s.name}-${new Date().toISOString().slice(0, 10)}.csv`
-    a.click()
-    URL.revokeObjectURL(url)
-  }
-
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Header */}
@@ -111,13 +84,9 @@ export default function ScenarioDetail() {
           <Button variant="outline" size="sm" onClick={() => recalculateScenario(s.id)}>
             <RefreshCw className="size-4" /> {t('scenarios.recalculate')}
           </Button>
-          <Button variant="outline" size="sm" onClick={handleExportCSV} disabled={!result}>
-            <Download className="size-4" /> CSV
-          </Button>
-          <Button variant="outline" size="sm" asChild>
-            <Link to={`/scenarios/${id}/edit`}>
-              Edit
-            </Link>
+          <CsvExportMenu scenario={s} company={company} pack={pack} currency={currency} />
+          <Button variant="outline" size="sm" onClick={() => setShowShare(true)} data-tour="share-btn">
+            <Share2 className="size-4" /> {t('share.title')}
           </Button>
         </div>
       </div>
@@ -363,6 +332,15 @@ monthlyCost = max(0, totalCredits - existingCapacity) × pricePerCredit`}
             </TabsContent>
           </Tabs>
         </>
+      )}
+
+      {/* Share dialog */}
+      {showShare && (
+        <ShareScenarioDialog
+          scenario={s}
+          onClose={() => setShowShare(false)}
+          onFallbackExport={() => exportScenarioSummaryCsv(s, company, pack, currency)}
+        />
       )}
     </div>
   )

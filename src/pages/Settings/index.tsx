@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Download, Upload, Trash2, Moon, Sun, Monitor, Languages, AlertTriangle, DatabaseZap } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
@@ -11,7 +11,8 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { APP_VERSION, BUILD_DATE } from '@/lib/appInfo'
 import { STORAGE_SCHEMA_VERSION } from '@/types/domain'
-import type { Theme, Language } from '@/types/domain'
+import { ImportPreviewDialog } from '@/components/shared/ImportPreviewDialog'
+import type { Theme, Language, AppStorageSchema } from '@/types/domain'
 
 const CURRENCIES = ['EUR', 'USD', 'GBP', 'CHF']
 const MAX_STORAGE_BYTES = 5 * 1024 * 1024 // 5 MB rough browser limit
@@ -20,6 +21,8 @@ export default function Settings() {
   const { t } = useTranslation()
   const { preferences, updatePreferences, hydrate, companies, scenarios, usageProfiles, assumptionPacks } = useAppStore()
   const fileRef = useRef<HTMLInputElement>(null)
+  const [importPreview, setImportPreview] = useState<Partial<AppStorageSchema> | null>(null)
+  const [pendingImportJson, setPendingImportJson] = useState<string | null>(null)
 
   const storageStatus = useMemo(() => storageService.isAvailable() ? (() => {
     let total = 0
@@ -60,16 +63,29 @@ export default function Settings() {
     const reader = new FileReader()
     reader.onload = (ev) => {
       const content = ev.target?.result as string
-      const result = storageService.importAll(content)
-      if (result.success) {
-        hydrate()
-        alert(t('common.success'))
-      } else {
-        alert(`${t('errors.importInvalid')}: ${result.error}`)
+      try {
+        const parsed = JSON.parse(content) as Partial<AppStorageSchema>
+        setPendingImportJson(content)
+        setImportPreview(parsed)
+      } catch {
+        alert(t('import.importError'))
       }
     }
     reader.readAsText(file)
     e.target.value = ''
+  }
+
+  function confirmImport() {
+    if (!pendingImportJson) return
+    const result = storageService.importAll(pendingImportJson)
+    if (result.success) {
+      hydrate()
+      setImportPreview(null)
+      setPendingImportJson(null)
+      alert(t('import.importSuccess'))
+    } else {
+      alert(`${t('import.importError')}: ${result.error}`)
+    }
   }
 
   function handleReset() {
@@ -238,6 +254,15 @@ export default function Settings() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Import preview dialog */}
+      {importPreview && (
+        <ImportPreviewDialog
+          data={importPreview}
+          onConfirm={confirmImport}
+          onClose={() => { setImportPreview(null); setPendingImportJson(null) }}
+        />
+      )}
     </div>
   )
 }

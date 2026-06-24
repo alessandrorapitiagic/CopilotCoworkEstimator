@@ -7,6 +7,7 @@ import { useAppStore } from '@/store/appStore'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { TourProvider } from '@/components/tour/TourProvider'
 import { TourOverlay } from '@/components/tour/TourOverlay'
+import { SharedScenarioPreview } from '@/components/shared/SharedScenarioPreview'
 import Layout from '@/components/layout/Layout'
 import Dashboard from '@/pages/Dashboard'
 import Companies from '@/pages/Companies'
@@ -50,6 +51,7 @@ function AppRoot() {
           </Routes>
         </HashRouter>
         <TourOverlay />
+        <SharedScenarioPreview />
       </TourProvider>
     </TooltipProvider>
   )
