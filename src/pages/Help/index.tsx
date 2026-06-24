@@ -12,6 +12,7 @@ import {
   Layers,
   SlidersHorizontal,
   BookOpen,
+  Users,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -53,6 +54,7 @@ export default function Help() {
     { id: 'intro', icon: Lightbulb, label: t('help.intro.title') },
     { id: 'quickstart', icon: Rocket, label: t('help.quickstart.title') },
     { id: 'companies', icon: Building2, label: t('nav.companies') },
+    { id: 'segments', icon: Users, label: t('scenarios.segments') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -150,6 +152,32 @@ export default function Help() {
               { title: 'help.companies.archiveTitle', body: 'help.companies.archiveBody' },
               { title: 'help.companies.deleteTitle', body: 'help.companies.deleteBody' },
               { title: 'help.companies.duplicateTitle', body: 'help.companies.duplicateBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}>
+                <p className="font-semibold">{t(title)}</p>
+                <p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Segments */}
+        <SectionAnchor id="segments" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Users className="size-4 text-primary" />
+              {t('help.segments.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.segments.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.segments.addTitle', body: 'help.segments.addBody' },
+              { title: 'help.segments.calcTitle', body: 'help.segments.calcBody' },
+              { title: 'help.segments.baselineTitle', body: 'help.segments.baselineBody' },
+              { title: 'help.segments.excludeTitle', body: 'help.segments.excludeBody' },
             ].map(({ title, body }, i) => (
               <div key={i}>
                 <p className="font-semibold">{t(title)}</p>

@@ -32,6 +32,8 @@ interface AppState {
   updateCompany: (id: string, updates: Partial<Company>) => void
   deleteCompany: (id: string) => void
   duplicateCompany: (id: string, withScenarios: boolean) => Company | null
+  saveBaselineFromScenario: (companyId: string, scenarioId: string) => void
+  copyBaselineToScenario: (companyId: string, scenarioId: string) => void
 
   // Scenarios
   addScenario: (scenario: Omit<Scenario, 'id' | 'createdAt' | 'updatedAt' | 'calculationResult'>) => Scenario
@@ -181,6 +183,47 @@ export const useAppStore = create<AppState>((set, get) => ({
       return { companies, scenarios: newScenarios }
     })
     return newCompany
+  },
+
+  saveBaselineFromScenario(companyId, scenarioId) {
+    const s = get()
+    const scenario = s.scenarios.find((sc) => sc.id === scenarioId)
+    if (!scenario) return
+    const baselineSegments = scenario.segments.map((seg) => ({
+      ...seg,
+      id: nanoid(),
+      scenarioId: null,
+      source: 'copied' as const,
+      createdAt: now(),
+      updatedAt: now(),
+    }))
+    get().updateCompany(companyId, { baselineSegments })
+  },
+
+  copyBaselineToScenario(companyId, scenarioId) {
+    const s = get()
+    const company = s.companies.find((c) => c.id === companyId)
+    if (!company || company.baselineSegments.length === 0) return
+    // Replace scenario segments with copies of the baseline
+    const copiedSegments = company.baselineSegments.map((seg) => ({
+      ...seg,
+      id: nanoid(),
+      companyId,
+      scenarioId,
+      source: 'copied' as const,
+      createdAt: now(),
+      updatedAt: now(),
+    }))
+    set((state) => {
+      const scenarios = state.scenarios.map((sc) =>
+        sc.id === scenarioId
+          ? { ...sc, segments: copiedSegments, updatedAt: now() }
+          : sc,
+      )
+      persist({ ...state, scenarios })
+      return { scenarios }
+    })
+    get().recalculateScenario(scenarioId)
   },
 
   // ---- Scenarios ----

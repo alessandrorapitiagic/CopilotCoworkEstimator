@@ -33,8 +33,8 @@ function loadRaw(): AppStorageSchema {
     const defaults = getDefaultSchema()
     return {
       schemaVersion: parsed.schemaVersion ?? defaults.schemaVersion,
-      companies: parsed.companies ?? defaults.companies,
-      scenarios: parsed.scenarios ?? defaults.scenarios,
+      companies: migrateCompanies(parsed.companies ?? defaults.companies),
+      scenarios: migrateScenarios(parsed.scenarios ?? defaults.scenarios),
       usageProfiles: mergeSystemItems(parsed.usageProfiles ?? [], defaults.usageProfiles),
       taskPresets: mergeSystemItems(parsed.taskPresets ?? [], defaults.taskPresets),
       modelAssumptions: mergeSystemItems(parsed.modelAssumptions ?? [], defaults.modelAssumptions),
@@ -45,6 +45,58 @@ function loadRaw(): AppStorageSchema {
   } catch {
     return getDefaultSchema()
   }
+}
+
+function migrateCompanies(companies: unknown[]): import('@/types/domain').Company[] {
+  return companies.map((c) => {
+    const co = c as Record<string, unknown>
+    return {
+      ...co,
+      legalName: co.legalName ?? null,
+      region: co.region ?? null,
+      estimatedKnowledgeWorkers: co.estimatedKnowledgeWorkers ?? null,
+      source: co.source ?? 'manual',
+      ownerNotes: co.ownerNotes ?? null,
+      currency: co.currency ?? null,
+      defaultAssumptionPackId: co.defaultAssumptionPackId ?? null,
+      archivedAt: co.archivedAt ?? null,
+      metadata: co.metadata ?? {},
+      baselineSegments: migrateSegments((co.baselineSegments as unknown[]) ?? []),
+    } as import('@/types/domain').Company
+  })
+}
+
+function migrateSegments(segments: unknown[]): import('@/types/domain').WorkforceSegment[] {
+  return segments.map((s) => {
+    const seg = s as Record<string, unknown>
+    return {
+      ...seg,
+      description: seg.description ?? null,
+      categoryType: seg.categoryType ?? 'custom',
+      taskMixMode: seg.taskMixMode ?? 'profile',
+      customTaskMix: seg.customTaskMix ?? null,
+      contextFactorOverride: seg.contextFactorOverride ?? null,
+      toolsFactorOverride: seg.toolsFactorOverride ?? null,
+      runtimeFactorOverride: seg.runtimeFactorOverride ?? null,
+      browserFactorOverride: seg.browserFactorOverride ?? null,
+      imageFactorOverride: seg.imageFactorOverride ?? null,
+      rolloutPhase: seg.rolloutPhase ?? null,
+      includeInCalculation: seg.includeInCalculation !== false,
+      source: seg.source ?? 'manual',
+      metadata: seg.metadata ?? {},
+      taskMix: seg.taskMix ?? [],
+    } as import('@/types/domain').WorkforceSegment
+  })
+}
+
+function migrateScenarios(scenarios: unknown[]): import('@/types/domain').Scenario[] {
+  return scenarios.map((s) => {
+    const sc = s as Record<string, unknown>
+    return {
+      ...sc,
+      segments: migrateSegments((sc.segments as unknown[]) ?? []),
+    } as import('@/types/domain').Scenario
+  })
 }
 
 function mergeSystemItems<T extends { id: string; isSystemDefault?: boolean }>(

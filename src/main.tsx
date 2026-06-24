@@ -19,6 +19,7 @@ import Assumptions from '@/pages/Assumptions'
 import Compare from '@/pages/Compare'
 import Settings from '@/pages/Settings'
 import Help from '@/pages/Help'
+import WorkforceSegmentation from '@/pages/Segments'
 
 function AppRoot() {
   const hydrate = useAppStore((s) => s.hydrate)
@@ -37,6 +38,7 @@ function AppRoot() {
               <Route path="scenarios" element={<Scenarios />} />
               <Route path="scenarios/new" element={<ScenarioNew />} />
               <Route path="scenarios/:id" element={<ScenarioDetail />} />
+              <Route path="scenarios/:scenarioId/segments" element={<WorkforceSegmentation />} />
               <Route path="assumptions" element={<Assumptions />} />
               <Route path="compare" element={<Compare />} />
               <Route path="settings" element={<Settings />} />

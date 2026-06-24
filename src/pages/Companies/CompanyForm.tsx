@@ -109,6 +109,7 @@ export default function CompanyForm() {
         archivedAt: null,
         defaultAssumptionPackId: null,
         metadata: {},
+        baselineSegments: [],
       })
       navigate(`/companies/${company.id}`)
     }

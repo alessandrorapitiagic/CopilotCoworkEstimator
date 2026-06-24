@@ -204,7 +204,79 @@
     "preferredModel": "Modello Preferito",
     "notes": "Note",
     "enabledUsers": "Utenti Abilitati",
-    "activeUsers": "Utenti Attivi"
+    "activeUsers": "Utenti Attivi",
+    "description": "Descrizione",
+    "categoryType": "Categoria",
+    "taskMixMode": "Task Mix",
+    "taskMixProfile": "Da profilo",
+    "taskMixCustom": "Personalizzato",
+    "lightTasks": "Task Light/mese",
+    "mediumTasks": "Task Medium/mese",
+    "heavyTasks": "Task Heavy/mese",
+    "contextFactor": "Context Factor",
+    "toolsFactor": "Tools Factor",
+    "runtimeFactor": "Runtime Factor",
+    "browserFactor": "Browser Factor",
+    "imageFactor": "Image Factor",
+    "rolloutPhase": "Fase di Rollout",
+    "includeInCalc": "Includi nel calcolo",
+    "excluded": "Escluso",
+    "customLabel": "Custom",
+    "advancedAssumptions": "Assunzioni avanzate",
+    "monthlyCredits": "Crediti/mese",
+    "monthlyCost": "Costo/mese",
+    "weight": "Peso %",
+    "addSegment": "Aggiungi segmento",
+    "addFromTemplate": "Da template",
+    "duplicateSegment": "Duplica segmento",
+    "saveAsBaseline": "Salva come baseline",
+    "copyFromBaseline": "Copia dalla baseline",
+    "unclassified": "Non classificati",
+    "unclassifiedDesc": "Dipendenti non assegnati a nessun segmento",
+    "overTotal": "La somma dei segmenti supera il totale dipendenti",
+    "underTotal": "{{n}} dipendenti non classificati nei segmenti",
+    "segmentDeleted": "Segmento eliminato.",
+    "segmentDuplicated": "Segmento duplicato.",
+    "baselineSaved": "Baseline workforce aziendale aggiornata.",
+    "baselineCopied": "Segmenti copiati dalla baseline.",
+    "deleteConfirm": "Eliminare il segmento \"{{name}}\"?",
+    "categories": {
+      "manager": "Manager / Dirigenti",
+      "whiteCollar": "White Collar",
+      "blueCollar": "Blue Collar",
+      "sales": "Sales",
+      "customerCare": "Customer Care",
+      "legal": "Legal",
+      "finance": "Finance",
+      "hr": "HR",
+      "it": "IT",
+      "operations": "Operations",
+      "fieldWorkers": "Field Workers",
+      "custom": "Custom"
+    },
+    "templates": {
+      "title": "Scegli un template",
+      "basic": "Azienda base",
+      "basicDesc": "Manager, White Collar, Blue Collar",
+      "office": "Azienda office",
+      "officeDesc": "Dirigenti, Sales, Finance, HR, IT, Operations",
+      "manufacturing": "Manifattura",
+      "manufacturingDesc": "Dirigenti, Ufficio, Supervisori, Field Workers, Blue Collar",
+      "service": "Azienda servizi",
+      "serviceDesc": "Management, Customer Care, Sales, Operations, Back Office"
+    },
+    "warnings": {
+      "zeroHeadcount": "Il segmento ha zero persone e non genera consumo.",
+      "excluded": "Questo segmento è escluso dal calcolo.",
+      "highHeavy": "Questo segmento genera un consumo heavy elevato.",
+      "customFactors": "Questo segmento usa fattori personalizzati.",
+      "customTaskMix": "Questo segmento usa un task mix personalizzato.",
+      "missingProfile": "Nessun profilo di utilizzo selezionato.",
+      "nameEmpty": "Inserisci un nome per il segmento.",
+      "headcountNegative": "Il numero di persone non può essere negativo.",
+      "headcountDecimal": "Il numero di persone deve essere un intero.",
+      "percentageInvalid": "La percentuale deve essere compresa tra 0 e 100."
+    }
   },
   "profiles": {
     "title": "Profili di Utilizzo",
@@ -336,6 +408,18 @@
       "duplicateTitle": "Duplicazione",
       "duplicateBody": "Puoi duplicare un'azienda solo con i dati anagrafici, oppure con tutti gli scenari collegati (vengono assegnati nuovi ID)."
     },
+    "segments": {
+      "title": "Segmentazione workforce",
+      "body": "La segmentazione divide la forza lavoro in gruppi omogenei per produrre stime più realistiche. Ogni segmento ha headcount, percentuali di abilitazione e un profilo di utilizzo.",
+      "addTitle": "Come aggiungere segmenti",
+      "addBody": "Usa i template predefiniti (Basic, Office, Manufacturing, Service) per iniziare rapidamente, oppure aggiungi segmenti manualmente.",
+      "calcTitle": "Calcolo live",
+      "calcBody": "Ogni modifica ai segmenti ricalcola immediatamente utenti abilitati, attivi, crediti stimati e costo. Il calcolo usa il range min/mid/max.",
+      "baselineTitle": "Baseline aziendale",
+      "baselineBody": "Puoi salvare la segmentazione come baseline dell'azienda e copiarla nei nuovi scenari. Le modifiche allo scenario non alterano la baseline.",
+      "excludeTitle": "Escludere un segmento",
+      "excludeBody": "Usa il toggle 'Includi nel calcolo' per escludere temporaneamente un segmento senza eliminarlo. Utile per simulare rollout parziali."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -404,6 +488,14 @@
     "scenarios": {
       "title": "Scenari di stima",
       "body": "Uno scenario modella la forza lavoro in segmenti e calcola crediti e costi in modalità range."
+    },
+    "segmentsAdd": {
+      "title": "Aggiungi segmenti",
+      "body": "Crea i segmenti della forza lavoro: ogni segmento ha headcount, percentuali di abilitazione e un profilo di utilizzo."
+    },
+    "segmentsTable": {
+      "title": "Calcolo live",
+      "body": "La tabella mostra utenti abilitati, attivi, crediti e costo stimato per ogni segmento. I valori si aggiornano in tempo reale."
     },
     "theme": {
       "title": "Tema e lingua",

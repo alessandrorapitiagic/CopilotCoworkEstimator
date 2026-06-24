@@ -77,6 +77,21 @@ function calculateSegmentCredits(
 ): { credits: CreditsRange; enabledUsers: number; activeUsers: number; warnings: CalculationWarning[] } {
   const warnings: CalculationWarning[] = []
 
+  // Respect includeInCalculation flag
+  if (!segment.includeInCalculation) {
+    return {
+      credits: { min: 0, mid: 0, max: 0 },
+      enabledUsers: 0,
+      activeUsers: 0,
+      warnings: [{
+        code: 'SEGMENT_EXCLUDED',
+        severity: 'info',
+        message: `Segmento "${segment.name}": escluso dal calcolo.`,
+        segmentId: segment.id,
+      }],
+    }
+  }
+
   const enabledUsers = Math.floor((segment.headcount * segment.enabledPercentage) / 100)
   const activeUsers = Math.floor((enabledUsers * segment.activeUsagePercentage) / 100)
 
@@ -85,25 +100,43 @@ function calculateSegmentCredits(
       credits: { min: 0, mid: 0, max: 0 },
       enabledUsers,
       activeUsers,
-      warnings: [
-        {
-          code: 'ZERO_ACTIVE_USERS',
-          severity: 'info',
-          message: `Segmento "${segment.name}": nessun utente attivo, contributo zero.`,
-          segmentId: segment.id,
-        },
-      ],
+      warnings: [{
+        code: 'ZERO_ACTIVE_USERS',
+        severity: 'info',
+        message: `Segmento "${segment.name}": nessun utente attivo, contributo zero.`,
+        segmentId: segment.id,
+      }],
     }
   }
 
-  // Sum credits across task mix intensities
+  // Determine task counts: custom override or from profile
+  let lightPerUser: number
+  let mediumPerUser: number
+  let heavyPerUser: number
+
+  if (segment.taskMixMode === 'custom' && segment.customTaskMix) {
+    lightPerUser = segment.customTaskMix.lightTasksPerUserPerMonth
+    mediumPerUser = segment.customTaskMix.mediumTasksPerUserPerMonth
+    heavyPerUser = segment.customTaskMix.heavyTasksPerUserPerMonth
+    warnings.push({
+      code: 'CUSTOM_TASK_MIX',
+      severity: 'info',
+      message: `Segmento "${segment.name}": usa task mix personalizzato.`,
+      segmentId: segment.id,
+    })
+  } else {
+    lightPerUser = profile.lightTasksPerUserPerMonth
+    mediumPerUser = profile.mediumTasksPerUserPerMonth
+    heavyPerUser = profile.heavyTasksPerUserPerMonth
+  }
+
   const lightBand = bandRange('light', pack)
   const mediumBand = bandRange('medium', pack)
   const heavyBand = bandRange('heavy', pack)
 
-  const monthlyLightTasks = activeUsers * profile.lightTasksPerUserPerMonth
-  const monthlyMediumTasks = activeUsers * profile.mediumTasksPerUserPerMonth
-  const monthlyHeavyTasks = activeUsers * profile.heavyTasksPerUserPerMonth
+  const monthlyLightTasks = activeUsers * lightPerUser
+  const monthlyMediumTasks = activeUsers * mediumPerUser
+  const monthlyHeavyTasks = activeUsers * heavyPerUser
 
   const rawCredits: CreditsRange = {
     min: monthlyLightTasks * lightBand.min + monthlyMediumTasks * mediumBand.min + monthlyHeavyTasks * heavyBand.min,
@@ -111,13 +144,38 @@ function calculateSegmentCredits(
     max: monthlyLightTasks * lightBand.max + monthlyMediumTasks * mediumBand.max + monthlyHeavyTasks * heavyBand.max,
   }
 
-  const adjustedCredits = computeAdjustedCredits(rawCredits, profile, pack, segment.preferredModelId)
+  // Build effective profile with optional per-segment overrides
+  const effectiveProfile: UsageProfile = {
+    ...profile,
+    contextFactor: segment.contextFactorOverride ?? profile.contextFactor,
+    toolsFactor: segment.toolsFactorOverride ?? profile.toolsFactor,
+    runtimeFactor: segment.runtimeFactorOverride ?? profile.runtimeFactor,
+    browserFactor: segment.browserFactorOverride ?? profile.browserFactor,
+    imageFactor: segment.imageFactorOverride ?? profile.imageFactor,
+  }
 
-  if (profile.heavyTasksPerUserPerMonth > 30) {
+  const hasOverrides = segment.contextFactorOverride != null
+    || segment.toolsFactorOverride != null
+    || segment.runtimeFactorOverride != null
+    || segment.browserFactorOverride != null
+    || segment.imageFactorOverride != null
+
+  if (hasOverrides) {
+    warnings.push({
+      code: 'CUSTOM_FACTORS',
+      severity: 'info',
+      message: `Segmento "${segment.name}": usa fattori personalizzati.`,
+      segmentId: segment.id,
+    })
+  }
+
+  const adjustedCredits = computeAdjustedCredits(rawCredits, effectiveProfile, pack, segment.preferredModelId)
+
+  if (heavyPerUser > 30) {
     warnings.push({
       code: 'HIGH_HEAVY_USAGE',
       severity: 'warning',
-      message: `Segmento "${segment.name}": heavy tasks/utente molto elevati (${profile.heavyTasksPerUserPerMonth}/mese).`,
+      message: `Segmento "${segment.name}": heavy tasks/utente molto elevati (${heavyPerUser}/mese).`,
       segmentId: segment.id,
     })
   }

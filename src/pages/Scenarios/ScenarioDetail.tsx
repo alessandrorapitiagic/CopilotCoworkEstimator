@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, RefreshCw, Download, AlertTriangle, Info } from 'lucide-react'
+import { ArrowLeft, RefreshCw, Download, AlertTriangle, Info, Users } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -93,7 +93,12 @@ export default function ScenarioDetail() {
           </div>
           <p className="text-sm text-muted-foreground">{company?.name ?? '—'}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" size="sm" asChild>
+            <Link to={`/scenarios/${id}/segments`}>
+              <Users className="size-4" /> {t('scenarios.segments')}
+            </Link>
+          </Button>
           <Button variant="outline" size="sm" onClick={() => recalculateScenario(s.id)}>
             <RefreshCw className="size-4" /> {t('scenarios.recalculate')}
           </Button>

@@ -48,11 +48,21 @@ export interface Company extends Auditable {
   defaultAssumptionPackId: string | null
   archivedAt: string | null
   metadata: Record<string, unknown>
+  baselineSegments: WorkforceSegment[]
 }
 
 // ----- Workforce Segment ------------------------------------
 
 export type TaskIntensity = 'light' | 'medium' | 'heavy'
+export type SegmentCategoryType = 'manager' | 'whiteCollar' | 'blueCollar' | 'sales' | 'customerCare' | 'legal' | 'finance' | 'hr' | 'it' | 'operations' | 'fieldWorkers' | 'custom'
+export type TaskMixMode = 'profile' | 'custom'
+export type SegmentSource = 'manual' | 'imported' | 'copied' | 'demo'
+
+export interface CustomTaskMix {
+  lightTasksPerUserPerMonth: number
+  mediumTasksPerUserPerMonth: number
+  heavyTasksPerUserPerMonth: number
+}
 
 export interface TaskMixItem {
   taskPresetId: ID
@@ -62,15 +72,28 @@ export interface TaskMixItem {
 
 export interface WorkforceSegment extends Auditable {
   companyId: ID
-  scenarioId: ID
+  scenarioId: ID | null
   name: string
+  description: string | null
+  categoryType: SegmentCategoryType
   headcount: number
-  enabledPercentage: number    // 0–100
+  enabledPercentage: number     // 0–100
   activeUsagePercentage: number // 0–100
   usageProfileId: ID
   preferredModelId: ID
+  taskMixMode: TaskMixMode
+  customTaskMix: CustomTaskMix | null
   taskMix: TaskMixItem[]
+  contextFactorOverride: number | null
+  toolsFactorOverride: number | null
+  runtimeFactorOverride: number | null
+  browserFactorOverride: number | null
+  imageFactorOverride: number | null
+  rolloutPhase: string | null
+  includeInCalculation: boolean
   notes: string | null
+  source: SegmentSource
+  metadata: Record<string, unknown>
 }
 
 // ----- Usage Profile -----------------------------------------
@@ -259,6 +282,20 @@ export interface Scenario extends Auditable {
   calculationResult: CalculationResult | null
   status: ScenarioStatus
   tags: string[]
+}
+
+// ----- Workforce Summary (computed, not stored) ---------------
+
+export interface WorkforceSummary {
+  totalEmployees: number
+  totalSegmentedHeadcount: number
+  unclassifiedEmployees: number
+  totalEnabledUsers: number
+  totalActiveUsers: number
+  monthlyCredits: { min: number; mid: number; max: number }
+  monthlyCost: { min: number; mid: number; max: number }
+  segmentOverTotal: boolean  // sum > totalEmployees
+  segmentUnderTotal: boolean // sum < totalEmployees
 }
 
 // ----- UI Preferences ----------------------------------------
