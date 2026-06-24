@@ -11,7 +11,8 @@
     "assumptions": "Assunzioni",
     "compare": "Confronto",
     "settings": "Impostazioni",
-    "help": "Guida"
+    "help": "Guida",
+    "profiles": "Profili di Utilizzo"
   },
   "common": {
     "save": "Salva",
@@ -289,7 +290,39 @@
     "custom": "Custom",
     "lightTasks": "Task Light / mese",
     "mediumTasks": "Task Medium / mese",
-    "heavyTasks": "Task Heavy / mese"
+    "heavyTasks": "Task Heavy / mese",
+    "usageLevel": "Livello utilizzo",
+    "new": "Nuovo profilo",
+    "edit": "Modifica profilo",
+    "examples": "Esempi di utilizzo",
+    "recommendedFor": "Consigliato per",
+    "advancedFactors": "Fattori avanzati",
+    "totalTasks": "Task totali / mese",
+    "impactTitle": "Impatto stimato per utente attivo",
+    "impactCredits": "Crediti/mese per utente",
+    "impactCost": "Costo/mese per utente",
+    "impact100": "Per 100 utenti attivi",
+    "compareTitle": "Confronta profili",
+    "inUse": "In uso",
+    "notInUse": "Non in uso",
+    "deleteInUseError": "Questo profilo è usato da uno o più segmenti. Riassegnali prima di eliminarlo.",
+    "deleteSystemError": "I profili standard non possono essere eliminati.",
+    "systemNotEditable": "I profili standard non possono essere modificati direttamente. Duplicalo per personalizzarlo.",
+    "zeroTasksWarning": "Questo profilo non genera consumo (tutti i task sono zero).",
+    "highHeavyWarning": "Questo profilo prevede un uso intensivo. Verifica che l'assunzione sia realistica.",
+    "levels": {
+      "light": "Light",
+      "medium": "Medium",
+      "heavy": "Heavy",
+      "custom": "Custom"
+    },
+    "sources": {
+      "system": "Sistema",
+      "manual": "Manuale",
+      "imported": "Importato",
+      "copied": "Duplicato",
+      "shared": "Condiviso"
+    }
   },
   "assumptions": {
     "title": "Assunzioni",
@@ -430,6 +463,18 @@
       "reviewTitle": "Step Review",
       "reviewBody": "La review mostra crediti min/mid/max, costi, breakdown per segmento e tutti i warning. Puoi tornare agli step precedenti per correggere."
     },
+    "profiles": {
+      "title": "Profili di utilizzo",
+      "body": "I profili di utilizzo traducono la segmentazione workforce in volumi di task mensili stimabili. Light, Medium e Heavy sono i profili standard; puoi creare profili personalizzati.",
+      "standardTitle": "Profili standard",
+      "standardBody": "Light (uso occasionale), Medium (uso regolare) e Heavy (uso intensivo) sono sempre disponibili e non possono essere eliminati né modificati direttamente.",
+      "customTitle": "Profili custom",
+      "customBody": "Duplica un profilo standard per creare la tua variante. Puoi modificare task mensili, modello default e fattori avanzati.",
+      "factorsTitle": "Fattori avanzati",
+      "factorsBody": "I fattori (context, tools, runtime, browser, image) moltiplicano il consumo base. Il valore standard è 1. Modificali solo se hai necessità specifiche.",
+      "impactTitle": "Preview impatto",
+      "impactBody": "Ogni profilo mostra crediti e costo stimato per un singolo utente attivo, calcolati con l'assumption pack di default."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -502,6 +547,14 @@
     "wizardHeader": {
       "title": "Wizard guidato",
       "body": "Il wizard ti guida in 7 step: nome scenario, azienda, workforce, profili, modelli, funding e review. Puoi salvare una bozza in qualsiasi momento."
+    },
+    "profiles": {
+      "title": "Profili di utilizzo",
+      "body": "I profili (Light, Medium, Heavy) definiscono quanti task mensili esegue un utente attivo. Puoi duplicarli e creare profili personalizzati."
+    },
+    "profilesList": {
+      "title": "Card profili",
+      "body": "Ogni card mostra la distribuzione dei task e il costo stimato per utente attivo. Clicca 'Dettagli' per vedere i fattori avanzati."
     },
     "segmentsAdd": {
       "title": "Aggiungi segmenti",

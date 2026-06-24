@@ -98,9 +98,13 @@ export interface WorkforceSegment extends Auditable {
 
 // ----- Usage Profile -----------------------------------------
 
+export type UsageLevel = 'light' | 'medium' | 'heavy' | 'custom'
+export type UsageProfileSource = 'system' | 'manual' | 'imported' | 'copied' | 'shared'
+
 export interface UsageProfile extends Auditable {
   name: string
   description: string | null
+  usageLevel: UsageLevel
   lightTasksPerUserPerMonth: number
   mediumTasksPerUserPerMonth: number
   heavyTasksPerUserPerMonth: number
@@ -110,7 +114,28 @@ export interface UsageProfile extends Auditable {
   runtimeFactor: number
   browserFactor: number
   imageFactor: number
+  recommendedFor: string[]
+  examples: string[]
+  notes: string | null
   isSystemDefault: boolean
+  isEditable: boolean
+  source: UsageProfileSource
+  assumptionPackId: string | null
+  metadata: Record<string, unknown>
+}
+
+// Computed impact of a profile on one active user
+export interface UsageProfileImpact {
+  totalTasksPerUserPerMonth: number
+  lightTaskWeight: number
+  mediumTaskWeight: number
+  heavyTaskWeight: number
+  creditsPerActiveUserMin: number
+  creditsPerActiveUserMid: number
+  creditsPerActiveUserMax: number
+  costPerActiveUserMin: number
+  costPerActiveUserMid: number
+  costPerActiveUserMax: number
 }
 
 // ----- Task Preset -------------------------------------------

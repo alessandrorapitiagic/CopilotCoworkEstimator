@@ -49,6 +49,13 @@ interface AppState {
   // Funding plans
   upsertFundingPlan: (plan: Omit<FundingPlan, 'id' | 'createdAt' | 'updatedAt'> & { id?: string }) => FundingPlan
 
+  // Usage Profiles (custom management)
+  addUsageProfile: (profile: Omit<UsageProfile, 'id' | 'createdAt' | 'updatedAt'>) => UsageProfile
+  updateUsageProfile: (id: string, updates: Partial<UsageProfile>) => void
+  duplicateUsageProfile: (id: string) => UsageProfile | null
+  deleteUsageProfile: (id: string) => { success: boolean; reason?: string }
+  isProfileInUse: (id: string) => boolean
+
   // Preferences
   updatePreferences: (prefs: Partial<UIPreferences>) => void
 
@@ -60,7 +67,7 @@ function now() {
   return new Date().toISOString()
 }
 
-function persist(state: Omit<AppState, 'hydrate' | 'addCompany' | 'updateCompany' | 'deleteCompany' | 'addScenario' | 'updateScenario' | 'deleteScenario' | 'recalculateScenario' | 'addSegment' | 'updateSegment' | 'deleteSegment' | 'upsertFundingPlan' | 'updatePreferences' | 'resetAll'>) {
+function persist(state: Omit<AppState, 'hydrate' | 'addCompany' | 'updateCompany' | 'deleteCompany' | 'duplicateCompany' | 'saveBaselineFromScenario' | 'copyBaselineToScenario' | 'addScenario' | 'updateScenario' | 'deleteScenario' | 'recalculateScenario' | 'addSegment' | 'updateSegment' | 'deleteSegment' | 'upsertFundingPlan' | 'addUsageProfile' | 'updateUsageProfile' | 'duplicateUsageProfile' | 'deleteUsageProfile' | 'isProfileInUse' | 'updatePreferences' | 'resetAll'>) {
   storageService.save({
     schemaVersion: '1.0.0',
     companies: state.companies,
@@ -360,6 +367,76 @@ export const useAppStore = create<AppState>((set, get) => ({
       return { fundingPlans }
     })
     return plan
+  },
+
+  // ---- Usage Profiles ----
+
+  addUsageProfile(data) {
+    const profile: UsageProfile = {
+      ...data,
+      id: nanoid(),
+      createdAt: now(),
+      updatedAt: now(),
+    }
+    set((s) => {
+      const usageProfiles = [...s.usageProfiles, profile]
+      persist({ ...s, usageProfiles })
+      return { usageProfiles }
+    })
+    return profile
+  },
+
+  updateUsageProfile(id, updates) {
+    set((s) => {
+      const usageProfiles = s.usageProfiles.map((p) =>
+        p.id === id && !p.isSystemDefault ? { ...p, ...updates, updatedAt: now() } : p,
+      )
+      persist({ ...s, usageProfiles })
+      return { usageProfiles }
+    })
+  },
+
+  duplicateUsageProfile(id) {
+    const s = get()
+    const original = s.usageProfiles.find((p) => p.id === id)
+    if (!original) return null
+    const copy: UsageProfile = {
+      ...original,
+      id: nanoid(),
+      name: `Copy of ${original.name}`,
+      isSystemDefault: false,
+      isEditable: true,
+      source: 'copied',
+      createdAt: now(),
+      updatedAt: now(),
+    }
+    set((state) => {
+      const usageProfiles = [...state.usageProfiles, copy]
+      persist({ ...state, usageProfiles })
+      return { usageProfiles }
+    })
+    return copy
+  },
+
+  deleteUsageProfile(id) {
+    const s = get()
+    const profile = s.usageProfiles.find((p) => p.id === id)
+    if (!profile) return { success: false, reason: 'not_found' }
+    if (profile.isSystemDefault) return { success: false, reason: 'system_profile' }
+    // Check if in use
+    const inUse = s.scenarios.some((sc) => sc.segments.some((seg) => seg.usageProfileId === id))
+    if (inUse) return { success: false, reason: 'in_use' }
+    set((state) => {
+      const usageProfiles = state.usageProfiles.filter((p) => p.id !== id)
+      persist({ ...state, usageProfiles })
+      return { usageProfiles }
+    })
+    return { success: true }
+  },
+
+  isProfileInUse(id) {
+    const s = get()
+    return s.scenarios.some((sc) => sc.segments.some((seg) => seg.usageProfileId === id))
   },
 
   // ---- Preferences ----

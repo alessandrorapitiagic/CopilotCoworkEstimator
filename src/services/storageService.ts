@@ -99,6 +99,25 @@ function migrateScenarios(scenarios: unknown[]): import('@/types/domain').Scenar
   })
 }
 
+function migrateProfileIfNeeded<T extends { id: string; isSystemDefault?: boolean }>(item: T): T {
+  // If this is a UsageProfile-like object, add missing fields
+  const p = item as Record<string, unknown>
+  if ('lightTasksPerUserPerMonth' in p) {
+    return {
+      ...item,
+      usageLevel: p.usageLevel ?? 'custom',
+      isEditable: p.isEditable !== false,
+      source: p.source ?? 'manual',
+      assumptionPackId: p.assumptionPackId ?? null,
+      metadata: p.metadata ?? {},
+      recommendedFor: p.recommendedFor ?? [],
+      examples: p.examples ?? [],
+      notes: p.notes ?? null,
+    }
+  }
+  return item
+}
+
 function mergeSystemItems<T extends { id: string; isSystemDefault?: boolean }>(
   saved: T[],
   systemDefaults: T[],
@@ -111,7 +130,9 @@ function mergeSystemItems<T extends { id: string; isSystemDefault?: boolean }>(
   // Overlay saved items (custom ones, and override system if isSystemDefault = false)
   for (const item of saved) {
     if (!item.isSystemDefault) {
-      map.set(item.id, item)
+      // Migrate usage profiles that may lack new fields
+      const migrated = migrateProfileIfNeeded(item)
+      map.set(migrated.id, migrated)
     }
     // System defaults: keep the bundled version (ignore stale saved copies)
   }

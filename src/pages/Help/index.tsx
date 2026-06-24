@@ -56,6 +56,7 @@ export default function Help() {
     { id: 'companies', icon: Building2, label: t('nav.companies') },
     { id: 'segments', icon: Users, label: t('scenarios.segments') },
     { id: 'wizard', icon: Rocket, label: t('help.wizard.title') },
+    { id: 'profiles', icon: SlidersHorizontal, label: t('help.profiles.title') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -204,6 +205,32 @@ export default function Help() {
               { title: 'help.wizard.stepsTitle', body: 'help.wizard.stepsBody' },
               { title: 'help.wizard.draftTitle', body: 'help.wizard.draftBody' },
               { title: 'help.wizard.reviewTitle', body: 'help.wizard.reviewBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}>
+                <p className="font-semibold">{t(title)}</p>
+                <p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Profiles */}
+        <SectionAnchor id="profiles" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <SlidersHorizontal className="size-4 text-primary" />
+              {t('help.profiles.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.profiles.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.profiles.standardTitle', body: 'help.profiles.standardBody' },
+              { title: 'help.profiles.customTitle', body: 'help.profiles.customBody' },
+              { title: 'help.profiles.factorsTitle', body: 'help.profiles.factorsBody' },
+              { title: 'help.profiles.impactTitle', body: 'help.profiles.impactBody' },
             ].map(({ title, body }, i) => (
               <div key={i}>
                 <p className="font-semibold">{t(title)}</p>

@@ -17,6 +17,7 @@ import {
   X,
   HelpCircle,
   PlayCircle,
+  User,
 } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 import { useTour } from '@/components/tour/TourProvider'
@@ -92,6 +93,7 @@ export default function Layout() {
     { to: '/', icon: LayoutDashboard, label: t('nav.dashboard'), tour: 'nav-dashboard' },
     { to: '/companies', icon: Building2, label: t('nav.companies'), tour: 'nav-companies' },
     { to: '/scenarios', icon: FlaskConical, label: t('nav.scenarios'), tour: 'nav-scenarios' },
+    { to: '/profiles', icon: User, label: t('nav.profiles'), tour: 'nav-profiles' },
     { to: '/assumptions', icon: BookOpen, label: t('nav.assumptions'), tour: 'nav-assumptions' },
     { to: '/compare', icon: GitCompareArrows, label: t('nav.compare'), tour: 'nav-compare' },
   ]
