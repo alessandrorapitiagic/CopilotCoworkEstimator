@@ -160,6 +160,7 @@ export function exportModelBreakdownCsv(
   company: Company | undefined,
   _currency: string,
 ): void {
+  void _currency
   const r = scenario.calculationResult
   if (!r) return
 

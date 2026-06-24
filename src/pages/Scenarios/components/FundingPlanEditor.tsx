@@ -30,6 +30,7 @@ function computeFundingKpi(
   funding: Partial<FundingPlan>,
   _currency: string,
 ): FundingKpi | null {
+  void _currency
   if (!result) return null
 
   const totalMid = result.monthlyCredits.mid

@@ -13,6 +13,7 @@ import {
   Monitor,
   Languages,
   Cpu,
+  BriefcaseBusiness,
   Menu,
   X,
   HelpCircle,
@@ -92,6 +93,7 @@ export default function Layout() {
   const navItems = [
     { to: '/', icon: LayoutDashboard, label: t('nav.dashboard'), tour: 'nav-dashboard' },
     { to: '/companies', icon: Building2, label: t('nav.companies'), tour: 'nav-companies' },
+    { to: '/portfolio', icon: BriefcaseBusiness, label: t('nav.portfolio'), tour: 'nav-portfolio' },
     { to: '/scenarios', icon: FlaskConical, label: t('nav.scenarios'), tour: 'nav-scenarios' },
     { to: '/profiles', icon: User, label: t('nav.profiles'), tour: 'nav-profiles' },
     { to: '/assumptions', icon: BookOpen, label: t('nav.assumptions'), tour: 'nav-assumptions' },

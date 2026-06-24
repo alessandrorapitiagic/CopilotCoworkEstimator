@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, RefreshCw, AlertTriangle, Info, Users, Share2 } from 'lucide-react'
+import { ArrowLeft, RefreshCw, Info, Users, Share2 } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -11,7 +11,11 @@ import { formatCurrency, formatNumber } from '@/lib/utils'
 import { FundingPlanEditor } from './components/FundingPlanEditor'
 import { CsvExportMenu } from './components/CsvExportMenu'
 import { ShareScenarioDialog } from '@/components/shared/ShareScenarioDialog'
+import { HowCalculatedPanel } from '@/components/shared/HowCalculatedPanel'
+import { BudgetStatusBadge } from '@/components/shared/BudgetStatusBadge'
+import { ValidationPanel } from '@/components/shared/ValidationPanel'
 import { exportScenarioSummaryCsv } from '@/services/exportService'
+import { validateScenario } from '@/services/validationService'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as ReTooltip, ResponsiveContainer, Cell,
 } from 'recharts'
@@ -47,6 +51,7 @@ export default function ScenarioDetail() {
   const currency = preferences.currency
   const existingFundingPlan = fundingPlans.find((fp) => fp.scenarioId === s.id) ?? null
   const defaultPrice = pack?.fundingDefaults.paygPricePerCredit ?? 0.01
+  const validation = validateScenario(s, company ?? null, pack ?? null, existingFundingPlan)
 
   function handleSaveFunding(data: Parameters<typeof upsertFundingPlan>[0]) {
     upsertFundingPlan(data)
@@ -72,6 +77,7 @@ export default function ScenarioDetail() {
             <Badge variant={s.status === 'draft' ? 'secondary' : 'success'}>
               {t(`scenarios.status.${s.status}`)}
             </Badge>
+            <BudgetStatusBadge result={result} funding={existingFundingPlan} />
           </div>
           <p className="text-sm text-muted-foreground">{company?.name ?? '—'}</p>
         </div>
@@ -273,62 +279,23 @@ export default function ScenarioDetail() {
             <TabsContent value="warnings">
               <Card>
                 <CardContent className="pt-4 flex flex-col gap-2">
-                  {result.warnings.length === 0 ? (
+                  {validation.all.length === 0 ? (
                     <p className="text-sm text-muted-foreground">{t('results.noWarnings')}</p>
                   ) : (
-                    result.warnings.map((w, i) => (
-                      <div
-                        key={i}
-                        className={`flex items-start gap-2 rounded-md p-3 text-sm
-                          ${w.severity === 'error' ? 'bg-destructive/10 text-destructive' :
-                            w.severity === 'warning' ? 'bg-amber-50 text-amber-800 dark:bg-amber-900/20 dark:text-amber-400' :
-                            'bg-muted text-muted-foreground'}`}
-                      >
-                        <AlertTriangle className="size-4 mt-0.5 shrink-0" />
-                        <span>{w.message}</span>
-                      </div>
-                    ))
+                    <ValidationPanel result={validation} />
                   )}
                 </CardContent>
               </Card>
             </TabsContent>
 
             <TabsContent value="formula">
-              <Card>
-                <CardContent className="pt-4 flex flex-col gap-3 text-sm">
-                  <p className="font-semibold">Formula base (per segmento):</p>
-                  <pre className="bg-muted rounded-md p-3 text-xs overflow-x-auto whitespace-pre-wrap">
-{`enabledUsers = headcount × enabledPercentage / 100
-activeUsers  = enabledUsers × activeUsagePercentage / 100
-monthlyTasks = activeUsers × tasksPerActiveUserPerMonth
-baseCredits  = monthlyTasks × creditsPerTask (dalla banda light/medium/heavy)
-adjustedCredits = baseCredits × modelFactor × contextFactor × toolsFactor
-                  × runtimeFactor × browserFactor × imageFactor
-totalMonthlyCredits = Σ adjustedCredits (tutti i segmenti)
-monthlyCost = max(0, totalCredits - existingCapacity) × pricePerCredit`}
-                  </pre>
-                  {pack && (
-                    <div className="grid gap-2">
-                      <p className="font-semibold">Assumption Pack: {pack.name} v{pack.version}</p>
-                      <p className="text-muted-foreground text-xs">Fonte: {pack.source ?? '—'} · Data: {pack.sourceDate ?? '—'}</p>
-                      <div className="grid grid-cols-3 gap-2 text-xs">
-                        {(['light', 'medium', 'heavy'] as const).map((int) => (
-                          <div key={int} className="rounded border p-2">
-                            <p className="font-semibold capitalize mb-1">{int}</p>
-                            <p>Min: {pack.creditBands[`${int}Min` as keyof typeof pack.creditBands]}</p>
-                            <p>Mid: {pack.creditBands[`${int}Mid` as keyof typeof pack.creditBands]}</p>
-                            <p>Max: {pack.creditBands[`${int}Max` as keyof typeof pack.creditBands]}</p>
-                          </div>
-                        ))}
-                      </div>
-                      {pack.disclaimer && (
-                        <p className="text-xs text-muted-foreground border-t pt-2">{pack.disclaimer}</p>
-                      )}
-                    </div>
-                  )}
-                  <p className="text-xs text-muted-foreground border-t pt-2">{t('app.disclaimer')}</p>
-                </CardContent>
-              </Card>
+              <HowCalculatedPanel
+                scenario={s}
+                pack={pack ?? null}
+                funding={existingFundingPlan}
+                company={company ?? null}
+                currency={currency}
+              />
             </TabsContent>
           </Tabs>
         </>
