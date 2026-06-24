@@ -420,6 +420,16 @@
       "excludeTitle": "Excluding a segment",
       "excludeBody": "Use the 'Include in calculation' toggle to temporarily exclude a segment without deleting it. Useful for simulating partial rollouts."
     },
+    "wizard": {
+      "title": "Guided wizard for new scenarios",
+      "body": "The wizard guides scenario creation through 7 progressive steps: you don't need to know all the advanced options to get a valid estimate.",
+      "stepsTitle": "Wizard steps",
+      "stepsBody": "Scenario (name + company) → Workforce → Usage profiles → Models & assumptions → Funding & budget → Review → Save & share.",
+      "draftTitle": "Automatic saving",
+      "draftBody": "The wizard automatically saves a local draft. If you accidentally close the browser, the draft will be offered when you return.",
+      "reviewTitle": "Review step",
+      "reviewBody": "The review shows min/mid/max credits and costs, per-segment breakdown and all warnings. You can go back to previous steps to fix issues."
+    },
     "quickstart": {
       "title": "Quick start in 4 steps",
       "step1Title": "1. Create a company",
@@ -489,6 +499,10 @@
       "title": "Estimation scenarios",
       "body": "A scenario models the workforce in segments and computes credits and costs as a range."
     },
+    "wizardHeader": {
+      "title": "Guided wizard",
+      "body": "The wizard guides you through 7 steps: scenario name, company, workforce, profiles, models, funding and review. You can save a draft at any time."
+    },
     "segmentsAdd": {
       "title": "Add segments",
       "body": "Create workforce segments: each segment has headcount, enablement percentages and a usage profile."
@@ -533,6 +547,106 @@
     "companyTags": "Free labels to classify and filter the company in the portfolio.",
     "companyCurrency": "Default currency for costing this company. Overrides the global default.",
     "companyMonthlyCost": "Sum of estimated monthly costs (midpoint) across all active scenarios for this company.",
-    "companyAnnualCost": "Annual projection of the sum of monthly costs (× 12)."
+    "companyAnnualCost": "Annual projection of the sum of monthly costs (× 12).",
+    "pricePerCredit": "Unit price per credit in the PAYG plan. Determines the final economic cost.",
+    "existingCredits": "Credits already available in the tenant. Consumed before PAYG credits.",
+    "prepaidCredits": "Credits purchased at a discounted price. Consumed after existing credits.",
+    "discount": "Percentage discount applied to the price per credit in the prepaid plan.",
+    "monthlyBudget": "Maximum monthly budget available for Copilot. Triggers an alert if the estimated cost exceeds it."
+  },
+  "wizard": {
+    "title": "New Scenario",
+    "step": "Step {{current}} of {{total}}",
+    "saveDraft": "Save draft",
+    "saveReviewed": "Save as Reviewed",
+    "exitTitle": "Exit wizard?",
+    "exitBody": "You have unsaved changes. What do you want to do?",
+    "exitSaveDraft": "Save draft and exit",
+    "exitDiscard": "Exit without saving",
+    "exitCancel": "Stay in wizard",
+    "draftRecoveryTitle": "Draft found",
+    "draftRecoveryBody": "There is an autosaved draft from {{date}}. Do you want to resume it?",
+    "draftRecoveryResume": "Resume draft",
+    "draftRecoveryDiscard": "Start from scratch",
+    "draftSaved": "Draft saved automatically.",
+    "allSegmentsExcluded": "All segments are excluded from the calculation. You can save as a draft or include at least one segment.",
+    "noSegments": "Add at least one segment included in the calculation.",
+    "steps": {
+      "scenarioSetup": "Scenario",
+      "companyInfo": "Company",
+      "workforce": "Workforce",
+      "usageProfiles": "Profiles",
+      "modelsAssumptions": "Models",
+      "fundingBudget": "Funding",
+      "review": "Review",
+      "saveShare": "Save"
+    },
+    "scenarioSetup": {
+      "title": "Create your scenario",
+      "nameLabel": "Scenario name *",
+      "namePlaceholder": "e.g. Conservative scenario Q1",
+      "descLabel": "Description (optional)",
+      "companyMode": "Company",
+      "existing": "Existing company",
+      "newCompany": "Create new company",
+      "selectCompany": "Select a company...",
+      "noCompanies": "No companies saved. Create the first one now.",
+      "nameDuplicate": "A scenario with this name already exists."
+    },
+    "companyInfo": {
+      "title": "Company data",
+      "subtitle": "Enter the basic company information."
+    },
+    "workforce": {
+      "title": "Workforce segmentation",
+      "subtitle": "Define the groups of users who will use Copilot.",
+      "useBaseline": "Use company baseline",
+      "useBaselineDesc": "Load the segments saved in the company as a starting point.",
+      "useTemplate": "Use template",
+      "useTemplateDesc": "Choose a predefined template to start quickly.",
+      "addManual": "Add manually",
+      "addManualDesc": "Create segments one at a time."
+    },
+    "usageProfiles": {
+      "title": "Usage profiles",
+      "subtitle": "Review and customize the profile for each segment.",
+      "segmentProfile": "Profile for {{name}}"
+    },
+    "modelsAssumptions": {
+      "title": "Models & assumptions",
+      "subtitle": "Select the AI model and assumption pack for the calculation.",
+      "defaultModel": "Default model",
+      "globalModel": "Same model for all segments",
+      "perSegment": "Model per segment",
+      "packLabel": "Assumption Pack"
+    },
+    "fundingBudget": {
+      "title": "Funding plan & budget",
+      "subtitle": "Configure how credits are economically valued.",
+      "modeLabel": "Mode",
+      "priceLabel": "Price per credit ({{currency}})",
+      "existingLabel": "Existing monthly credits",
+      "prepaidLabel": "Prepaid credits",
+      "discountLabel": "Discount (%)",
+      "budgetMonthlyLabel": "Monthly budget",
+      "budgetAnnualLabel": "Annual budget",
+      "budgetOptional": "Optional — triggers alert if exceeded"
+    },
+    "review": {
+      "title": "Scenario review",
+      "subtitle": "Check results before saving.",
+      "warningsTitle": "Warnings to review",
+      "goToStep": "Go to step",
+      "canSaveReviewed": "The scenario is complete and can be saved as Reviewed.",
+      "mustFixErrors": "Fix blocking errors or save as a draft."
+    },
+    "saveShare": {
+      "title": "Save & share",
+      "subtitle": "Save your scenario and choose how to share it.",
+      "openReport": "Open full report",
+      "backDashboard": "Back to dashboard",
+      "exportCsv": "Export CSV",
+      "exportJson": "Export JSON"
+    }
   }
 }

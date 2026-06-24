@@ -420,6 +420,16 @@
       "excludeTitle": "Escludere un segmento",
       "excludeBody": "Usa il toggle 'Includi nel calcolo' per escludere temporaneamente un segmento senza eliminarlo. Utile per simulare rollout parziali."
     },
+    "wizard": {
+      "title": "Wizard guidato per nuovi scenari",
+      "body": "Il wizard guida la creazione di uno scenario in 7 step progressivi: non devi conoscere tutte le opzioni avanzate per ottenere una stima valida.",
+      "stepsTitle": "Gli step del wizard",
+      "stepsBody": "Scenario (nome + azienda) → Workforce → Profili di utilizzo → Modelli e assunzioni → Funding e budget → Review → Salva e condividi.",
+      "draftTitle": "Salvataggio automatico",
+      "draftBody": "Il wizard salva automaticamente una bozza locale. Se chiudi il browser per sbaglio, la bozza ti verrà proposta al rientro.",
+      "reviewTitle": "Step Review",
+      "reviewBody": "La review mostra crediti min/mid/max, costi, breakdown per segmento e tutti i warning. Puoi tornare agli step precedenti per correggere."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -489,6 +499,10 @@
       "title": "Scenari di stima",
       "body": "Uno scenario modella la forza lavoro in segmenti e calcola crediti e costi in modalità range."
     },
+    "wizardHeader": {
+      "title": "Wizard guidato",
+      "body": "Il wizard ti guida in 7 step: nome scenario, azienda, workforce, profili, modelli, funding e review. Puoi salvare una bozza in qualsiasi momento."
+    },
     "segmentsAdd": {
       "title": "Aggiungi segmenti",
       "body": "Crea i segmenti della forza lavoro: ogni segmento ha headcount, percentuali di abilitazione e un profilo di utilizzo."
@@ -533,6 +547,106 @@
     "companyTags": "Etichette libere per classificare e filtrare l'azienda nel portfolio.",
     "companyCurrency": "Valuta predefinita per valorizzare i costi di questa azienda. Sovrascrive il default globale.",
     "companyMonthlyCost": "Somma dei costi mensili stimati (midpoint) di tutti gli scenari attivi di questa azienda.",
-    "companyAnnualCost": "Proiezione annuale della somma dei costi mensili (× 12)."
+    "companyAnnualCost": "Proiezione annuale della somma dei costi mensili (× 12).",
+    "pricePerCredit": "Prezzo unitario per credito nel piano PAYG. Determina il costo economico finale.",
+    "existingCredits": "Crediti già disponibili nel tenant. Vengono consumati prima di quelli PAYG.",
+    "prepaidCredits": "Crediti prepagati a un prezzo scontato. Vengono consumati dopo i crediti esistenti.",
+    "discount": "Sconto percentuale applicato al prezzo per credito nel piano prepagato.",
+    "monthlyBudget": "Budget mensile massimo disponibile per Copilot. Genera alert se il costo stimato lo supera."
+  },
+  "wizard": {
+    "title": "Nuovo Scenario",
+    "step": "Step {{current}} di {{total}}",
+    "saveDraft": "Salva bozza",
+    "saveReviewed": "Salva come Revisionato",
+    "exitTitle": "Uscire dal wizard?",
+    "exitBody": "Hai modifiche non salvate. Cosa vuoi fare?",
+    "exitSaveDraft": "Salva bozza ed esci",
+    "exitDiscard": "Esci senza salvare",
+    "exitCancel": "Rimani nel wizard",
+    "draftRecoveryTitle": "Bozza trovata",
+    "draftRecoveryBody": "Esiste una bozza autosalvata da {{date}}. Vuoi riprenderla?",
+    "draftRecoveryResume": "Riprendi bozza",
+    "draftRecoveryDiscard": "Inizia da zero",
+    "draftSaved": "Bozza salvata automaticamente.",
+    "allSegmentsExcluded": "Tutti i segmenti sono esclusi dal calcolo. Puoi salvare come bozza o includere almeno un segmento.",
+    "noSegments": "Aggiungi almeno un segmento incluso nel calcolo.",
+    "steps": {
+      "scenarioSetup": "Scenario",
+      "companyInfo": "Azienda",
+      "workforce": "Workforce",
+      "usageProfiles": "Profili",
+      "modelsAssumptions": "Modelli",
+      "fundingBudget": "Funding",
+      "review": "Review",
+      "saveShare": "Salva"
+    },
+    "scenarioSetup": {
+      "title": "Crea il tuo scenario",
+      "nameLabel": "Nome scenario *",
+      "namePlaceholder": "es. Scenario conservativo Q1",
+      "descLabel": "Descrizione (opzionale)",
+      "companyMode": "Azienda",
+      "existing": "Azienda esistente",
+      "newCompany": "Crea nuova azienda",
+      "selectCompany": "Seleziona un'azienda...",
+      "noCompanies": "Nessuna azienda salvata. Crea la prima ora.",
+      "nameDuplicate": "Esiste già uno scenario con questo nome."
+    },
+    "companyInfo": {
+      "title": "Dati azienda",
+      "subtitle": "Inserisci le informazioni di base dell'azienda."
+    },
+    "workforce": {
+      "title": "Segmentazione workforce",
+      "subtitle": "Definisci i gruppi di utenti che utilizzeranno Copilot.",
+      "useBaseline": "Usa baseline aziendale",
+      "useBaselineDesc": "Carica i segmenti salvati nell'azienda come punto di partenza.",
+      "useTemplate": "Usa template",
+      "useTemplateDesc": "Scegli un template predefinito per iniziare rapidamente.",
+      "addManual": "Aggiungi manualmente",
+      "addManualDesc": "Crea i segmenti uno alla volta."
+    },
+    "usageProfiles": {
+      "title": "Profili di utilizzo",
+      "subtitle": "Verifica e personalizza i profili di ogni segmento.",
+      "segmentProfile": "Profilo per {{name}}"
+    },
+    "modelsAssumptions": {
+      "title": "Modelli e assunzioni",
+      "subtitle": "Seleziona il modello AI e l'assumption pack per il calcolo.",
+      "defaultModel": "Modello predefinito",
+      "globalModel": "Stesso modello per tutti i segmenti",
+      "perSegment": "Modello per segmento",
+      "packLabel": "Assumption Pack"
+    },
+    "fundingBudget": {
+      "title": "Piano di finanziamento e budget",
+      "subtitle": "Configura come vengono valorizzati economicamente i crediti.",
+      "modeLabel": "Modalità",
+      "priceLabel": "Prezzo per credito ({{currency}})",
+      "existingLabel": "Crediti mensili esistenti",
+      "prepaidLabel": "Crediti prepagati",
+      "discountLabel": "Sconto (%)",
+      "budgetMonthlyLabel": "Budget mensile",
+      "budgetAnnualLabel": "Budget annuale",
+      "budgetOptional": "Opzionale — genera alert se superato"
+    },
+    "review": {
+      "title": "Riepilogo scenario",
+      "subtitle": "Verifica i risultati prima di salvare.",
+      "warningsTitle": "Warning da verificare",
+      "goToStep": "Vai allo step",
+      "canSaveReviewed": "Lo scenario è completo e può essere salvato come Revisionato.",
+      "mustFixErrors": "Correggi gli errori bloccanti o salva come bozza."
+    },
+    "saveShare": {
+      "title": "Salva e condividi",
+      "subtitle": "Salva lo scenario e scegli come condividerlo.",
+      "openReport": "Apri report completo",
+      "backDashboard": "Torna alla dashboard",
+      "exportCsv": "Esporta CSV",
+      "exportJson": "Esporta JSON"
+    }
   }
 }

@@ -55,6 +55,7 @@ export default function Help() {
     { id: 'quickstart', icon: Rocket, label: t('help.quickstart.title') },
     { id: 'companies', icon: Building2, label: t('nav.companies') },
     { id: 'segments', icon: Users, label: t('scenarios.segments') },
+    { id: 'wizard', icon: Rocket, label: t('help.wizard.title') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -178,6 +179,31 @@ export default function Help() {
               { title: 'help.segments.calcTitle', body: 'help.segments.calcBody' },
               { title: 'help.segments.baselineTitle', body: 'help.segments.baselineBody' },
               { title: 'help.segments.excludeTitle', body: 'help.segments.excludeBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}>
+                <p className="font-semibold">{t(title)}</p>
+                <p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Wizard */}
+        <SectionAnchor id="wizard" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Rocket className="size-4 text-primary" />
+              {t('help.wizard.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.wizard.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.wizard.stepsTitle', body: 'help.wizard.stepsBody' },
+              { title: 'help.wizard.draftTitle', body: 'help.wizard.draftBody' },
+              { title: 'help.wizard.reviewTitle', body: 'help.wizard.reviewBody' },
             ].map(({ title, body }, i) => (
               <div key={i}>
                 <p className="font-semibold">{t(title)}</p>
