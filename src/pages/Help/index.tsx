@@ -55,6 +55,7 @@ export default function Help() {
 
   const toc = [
     { id: 'intro', icon: Lightbulb, label: t('help.intro.title') },
+    { id: 'quickEstimate', icon: Rocket, label: t('help.quickEstimate.title') },
     { id: 'quickstart', icon: Rocket, label: t('help.quickstart.title') },
     { id: 'companies', icon: Building2, label: t('nav.companies') },
     { id: 'segments', icon: Users, label: t('scenarios.segments') },
@@ -121,6 +122,23 @@ export default function Help() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground leading-relaxed">{t('help.intro.body')}</p>
+          </CardContent>
+        </Card>
+
+        {/* Quick start */}
+        <SectionAnchor id="quickEstimate" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Rocket className="size-4 text-primary" />
+              {t('help.quickEstimate.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.quickEstimate.body')}</p>
+            <Separator />
+            <div><p className="font-semibold">{t('help.quickEstimate.saveTitle')}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t('help.quickEstimate.saveBody')}</p></div>
+            <div><p className="font-semibold">{t('help.quickEstimate.scopeTitle')}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t('help.quickEstimate.scopeBody')}</p></div>
           </CardContent>
         </Card>
 

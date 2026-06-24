@@ -28,6 +28,11 @@ of the app. You can:
 
 ### Quick start (4 steps)
 
+If you need a very fast estimate, open **Quick Estimate** from the sidebar. It asks only for the
+core data (population, enabled/active percentages, usage profile, model and price per credit) and
+shows a live preview. If the estimate is useful, save it as a scenario and refine it later in the
+full wizard.
+
 1. **Create a company** — go to **Companies → New Company**, set a name and the number of employees.
 2. **Create a scenario** — start a **New Scenario**, pick the company and add workforce segments
    (e.g. Sales, IT, Managers).
@@ -116,6 +121,11 @@ dell'app. Puoi:
 - **Riavviarlo** in seguito da **Guida → Avvia il tour guidato**.
 
 ### Avvio rapido (4 passi)
+
+Se ti serve una stima velocissima, apri **Stima Rapida** dalla sidebar. Richiede solo i dati core
+(popolazione, percentuali abilitati/attivi, profilo di utilizzo, modello e prezzo per credito) e
+mostra una preview live. Se la stima è utile, salvala come scenario e rifiniscila poi nel wizard
+completo.
 
 1. **Crea un'azienda** — vai in **Aziende → Nuova Azienda**, imposta nome e numero di dipendenti.
 2. **Crea uno scenario** — avvia un **Nuovo Scenario**, scegli l'azienda e aggiungi i segmenti della

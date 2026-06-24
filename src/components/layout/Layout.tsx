@@ -3,6 +3,7 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
   LayoutDashboard,
+  Calculator,
   Building2,
   FlaskConical,
   BookOpen,
@@ -92,6 +93,7 @@ export default function Layout() {
 
   const navItems = [
     { to: '/', icon: LayoutDashboard, label: t('nav.dashboard'), tour: 'nav-dashboard' },
+    { to: '/quick', icon: Calculator, label: t('nav.quick'), tour: 'nav-quick' },
     { to: '/companies', icon: Building2, label: t('nav.companies'), tour: 'nav-companies' },
     { to: '/portfolio', icon: BriefcaseBusiness, label: t('nav.portfolio'), tour: 'nav-portfolio' },
     { to: '/scenarios', icon: FlaskConical, label: t('nav.scenarios'), tour: 'nav-scenarios' },

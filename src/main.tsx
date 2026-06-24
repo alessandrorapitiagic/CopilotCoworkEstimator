@@ -25,6 +25,7 @@ import ScenarioWizardPage from '@/pages/Wizard'
 import UsageProfilesPage from '@/pages/Profiles'
 import PortfolioPage from '@/pages/Portfolio'
 import ScenarioReportPage from '@/pages/Report'
+import QuickEstimatePage from '@/pages/Quick'
 
 function AppRoot() {
   const hydrate = useAppStore((s) => s.hydrate)
@@ -49,6 +50,7 @@ function AppRoot() {
               <Route path="assumptions" element={<Assumptions />} />
               <Route path="profiles" element={<UsageProfilesPage />} />
               <Route path="portfolio" element={<PortfolioPage />} />
+              <Route path="quick" element={<QuickEstimatePage />} />
               <Route path="compare" element={<Compare />} />
               <Route path="settings" element={<Settings />} />
               <Route path="help" element={<Help />} />

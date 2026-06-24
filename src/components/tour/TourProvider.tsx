@@ -34,6 +34,7 @@ const TourContext = createContext<TourContextValue | null>(null)
 export const DEFAULT_TOUR_STEPS: TourStep[] = [
   { titleKey: 'tour.welcome.title', bodyKey: 'tour.welcome.body' },
   { target: 'nav', titleKey: 'tour.nav.title', bodyKey: 'tour.nav.body' },
+  { target: 'nav-quick', titleKey: 'tour.quickEstimate.title', bodyKey: 'tour.quickEstimate.body' },
   { target: 'nav-companies', titleKey: 'tour.companies.title', bodyKey: 'tour.companies.body' },
   { target: 'company-new-btn', titleKey: 'tour.companyNew.title', bodyKey: 'tour.companyNew.body' },
   { target: 'nav-scenarios', titleKey: 'tour.scenarios.title', bodyKey: 'tour.scenarios.body' },

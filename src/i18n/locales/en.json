@@ -13,7 +13,8 @@
     "settings": "Settings",
     "help": "Help",
     "profiles": "Usage Profiles",
-    "portfolio": "Portfolio"
+    "portfolio": "Portfolio",
+    "quick": "Quick Estimate"
   },
   "common": {
     "save": "Save",
@@ -634,6 +635,14 @@
       "commercialTitle": "How to use them",
       "commercialBody": "Use them in the report to explain why an expensive scenario can still create value, while keeping caveats and disclaimers when budget is at risk."
     },
+    "quickEstimate": {
+      "title": "Quick estimate",
+      "body": "Quick estimate gives an order of magnitude with a few inputs, without completing the extended wizard.",
+      "saveTitle": "Save as scenario",
+      "saveBody": "After the preview you can save the result as a scenario linked to a new or existing company, then refine it later in the full wizard.",
+      "scopeTitle": "When to use it",
+      "scopeBody": "Use it in early commercial conversations, when you need a fast answer on cost and credits before modeling all segments."
+    },
     "quickstart": {
       "title": "Quick start in 4 steps",
       "step1Title": "1. Create a company",
@@ -746,6 +755,10 @@
     "reportPrint": {
       "title": "Print / PDF",
       "body": "This button opens browser print. You can save the report as PDF or send it to stakeholders."
+    },
+    "quickEstimate": {
+      "title": "Quick estimate",
+      "body": "Here you get an immediate order of magnitude with a few fields. If the result is useful, save it as a scenario."
     },
     "valueInsights": {
       "title": "Commercial value insights",
@@ -1124,5 +1137,28 @@
     "partialResult": "Partial report: this scenario has no calculated result yet.",
     "activeUsers": "Active users",
     "includedSegments": "Included segments"
+  },
+  "quick": {
+    "title": "Quick estimate",
+    "subtitle": "Get an order of magnitude with a few inputs. You can save it as a scenario and refine it in the full wizard.",
+    "estimateName": "Estimate name",
+    "companyMode": "Company",
+    "existingCompany": "Use existing company",
+    "newCompany": "Create new company",
+    "companyName": "Company name",
+    "totalEmployees": "Total employees",
+    "enabledPct": "% enabled users",
+    "activePct": "% active users",
+    "usageProfile": "Usage profile",
+    "model": "AI model",
+    "assumptionPack": "Assumption pack",
+    "pricePerCredit": "Price per credit",
+    "monthlyBudget": "Monthly budget (optional)",
+    "livePreview": "Live preview",
+    "saveScenario": "Save as scenario",
+    "openScenario": "Open scenario",
+    "saved": "Quick estimate saved as scenario.",
+    "cohortName": "Quick estimate cohort",
+    "preliminary": "Preliminary estimate: use the full wizard to model segments and advanced assumptions."
   }
 }

@@ -13,7 +13,8 @@
     "settings": "Impostazioni",
     "help": "Guida",
     "profiles": "Profili di Utilizzo",
-    "portfolio": "Portfolio"
+    "portfolio": "Portfolio",
+    "quick": "Stima Rapida"
   },
   "common": {
     "save": "Salva",
@@ -634,6 +635,14 @@
       "commercialTitle": "Come usarli",
       "commercialBody": "Usali nel report per spiegare perché uno scenario costoso può comunque creare valore, mantenendo caveat e disclaimer quando il budget è a rischio."
     },
+    "quickEstimate": {
+      "title": "Stima rapida",
+      "body": "La stima rapida serve per ottenere un ordine di grandezza con pochi input, senza completare il wizard esteso.",
+      "saveTitle": "Salvataggio scenario",
+      "saveBody": "Dopo la preview puoi salvare il risultato come scenario collegato a una company nuova o esistente, e rifinirlo successivamente nel wizard completo.",
+      "scopeTitle": "Quando usarla",
+      "scopeBody": "Usala nelle prime conversazioni commerciali, quando serve una risposta veloce su costo e crediti senza modellare ancora tutti i segmenti."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -746,6 +755,10 @@
     "reportPrint": {
       "title": "Stampa / PDF",
       "body": "Questo pulsante apre la stampa del browser. Puoi salvare il report come PDF o inviarlo agli stakeholder."
+    },
+    "quickEstimate": {
+      "title": "Stima rapida",
+      "body": "Qui ottieni subito un ordine di grandezza con pochi campi. Se il risultato è interessante, puoi salvarlo come scenario."
     },
     "valueInsights": {
       "title": "Insight commerciali",
@@ -1124,5 +1137,28 @@
     "partialResult": "Report parziale: lo scenario non ha ancora un risultato calcolato.",
     "activeUsers": "Utenti attivi",
     "includedSegments": "Segmenti inclusi"
+  },
+  "quick": {
+    "title": "Stima rapida",
+    "subtitle": "Ottieni un ordine di grandezza in pochi input. Puoi salvarlo come scenario e rifinirlo nel wizard completo.",
+    "estimateName": "Nome stima",
+    "companyMode": "Azienda",
+    "existingCompany": "Usa azienda esistente",
+    "newCompany": "Crea nuova azienda",
+    "companyName": "Nome azienda",
+    "totalEmployees": "Totale dipendenti",
+    "enabledPct": "% utenti abilitati",
+    "activePct": "% utenti attivi",
+    "usageProfile": "Profilo di utilizzo",
+    "model": "Modello AI",
+    "assumptionPack": "Assumption pack",
+    "pricePerCredit": "Prezzo per credito",
+    "monthlyBudget": "Budget mensile (opzionale)",
+    "livePreview": "Preview live",
+    "saveScenario": "Salva come scenario",
+    "openScenario": "Apri scenario",
+    "saved": "Stima rapida salvata come scenario.",
+    "cohortName": "Quick estimate cohort",
+    "preliminary": "Stima preliminare: usa il wizard completo per modellare segmenti e assunzioni avanzate."
   }
 }
