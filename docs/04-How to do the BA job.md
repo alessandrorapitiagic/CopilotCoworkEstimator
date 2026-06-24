@@ -1,6 +1,5 @@
-A new request in the same thread:
-
-Come posso andare in dettaglio per ogni FP?
+Ora io non so come andare in dettaglio e quindi me lo faccio spiegare. Perché capita che io non lo sappia.
+E gli chiedo: «Come posso andare in dettaglio per ogni FP?»
 
 Response:
 
@@ -584,4 +583,8 @@ Il sistema calcola un solo valore puntuale e lo marca come point estimate.
 ---
 
 Il modo migliore è quindi procedere così: **non dettagliare tutti gli FP insieme in un unico blocco**, ma prendere un FP alla volta e trasformarlo in una scheda completa usando questa struttura. Parti dai FP core: **FP-003 Segmentazione workforce**, **FP-008 Assumption pack**, **FP-009 Funding plan**, **FP-010 Motore di calcolo**, **FP-011 Breakdown risultati**. Questi determinano tutta la logica dell’app.
+
+
+
+Dentro la cartella 05-BA troverete quindi il dettaglio di ogni FP, gli ho detto semplicemente a questo punto di partire con un step by step di dettaglio per ogni FP e mi ha iniziato a creare gli FP di dettaglio.
 
