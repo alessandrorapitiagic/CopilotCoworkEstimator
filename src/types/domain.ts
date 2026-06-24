@@ -143,6 +143,7 @@ export interface UsageProfileImpact {
 export type ContextComplexity = 'low' | 'medium' | 'high'
 export type ToolsUsage = 'none' | 'light' | 'heavy'
 export type RuntimeComplexity = 'fast' | 'medium' | 'slow'
+export type TaskPresetSource = 'system' | 'manual' | 'imported' | 'copied'
 
 export interface TaskPreset extends Auditable {
   name: string
@@ -159,11 +160,16 @@ export interface TaskPreset extends Auditable {
   imageUsage: boolean
   notes: string | null
   isSystemDefault: boolean
+  isEditable: boolean
+  source: TaskPresetSource
+  category: string | null   // e.g. "research", "legal", "sales", "content"
+  metadata: Record<string, unknown>
 }
 
 // ----- Model Assumption --------------------------------------
 
 export type ModelClass = 'standard' | 'advanced' | 'frontier' | 'image' | 'auto'
+export type ModelSource = 'system' | 'manual' | 'imported'
 
 export interface ModelAssumption extends Auditable {
   name: string
@@ -178,6 +184,8 @@ export interface ModelAssumption extends Auditable {
   isOfficiallyDocumented: boolean
   isEditable: boolean
   isEnabled: boolean
+  source: ModelSource
+  metadata: Record<string, unknown>
 }
 
 // ----- Assumption Pack ---------------------------------------

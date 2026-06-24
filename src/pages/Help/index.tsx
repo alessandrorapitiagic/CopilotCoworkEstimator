@@ -57,6 +57,7 @@ export default function Help() {
     { id: 'segments', icon: Users, label: t('scenarios.segments') },
     { id: 'wizard', icon: Rocket, label: t('help.wizard.title') },
     { id: 'profiles', icon: SlidersHorizontal, label: t('help.profiles.title') },
+    { id: 'taskPresets', icon: BookOpen, label: t('help.taskPresets.title') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -231,6 +232,31 @@ export default function Help() {
               { title: 'help.profiles.customTitle', body: 'help.profiles.customBody' },
               { title: 'help.profiles.factorsTitle', body: 'help.profiles.factorsBody' },
               { title: 'help.profiles.impactTitle', body: 'help.profiles.impactBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}>
+                <p className="font-semibold">{t(title)}</p>
+                <p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Task Presets & Models */}
+        <SectionAnchor id="taskPresets" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <BookOpen className="size-4 text-primary" />
+              {t('help.taskPresets.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.taskPresets.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.taskPresets.presetTitle', body: 'help.taskPresets.presetBody' },
+              { title: 'help.taskPresets.modelTitle', body: 'help.taskPresets.modelBody' },
+              { title: 'help.taskPresets.packsTitle', body: 'help.taskPresets.packsBody' },
             ].map(({ title, body }, i) => (
               <div key={i}>
                 <p className="font-semibold">{t(title)}</p>

@@ -343,7 +343,58 @@
     "browserMultiplier": "Browser Multiplier",
     "imageMultiplier": "Image Multiplier",
     "isOfficial": "Documentato ufficialmente",
-    "notOfficial": "Stima non ufficiale"
+    "notOfficial": "Stima non ufficiale",
+    "taskPresets": "Task Preset",
+    "newPreset": "Nuovo task preset",
+    "editPreset": "Modifica preset",
+    "intensity": "Intensità",
+    "category": "Categoria",
+    "creditsRange": "Crediti stimati",
+    "contextComplexity": "Contesto",
+    "toolsUsage": "Tool",
+    "runtimeComplexity": "Runtime",
+    "browserUsage": "Browser",
+    "imageUsage": "Image",
+    "browserWarning": "Attenzione: questo task usa il browser, il consumo potrebbe aumentare significativamente.",
+    "imageWarning": "Attenzione: questo task genera immagini, il consumo dipende dal modello image.",
+    "deletePresetError": "Questo preset è di sistema e non può essere eliminato.",
+    "presetDuplicated": "Task preset duplicato.",
+    "presetSaved": "Task preset salvato.",
+    "presetDeleted": "Task preset eliminato.",
+    "modelEnabled": "Modello abilitato.",
+    "modelDisabled": "Modello disabilitato.",
+    "modelFactorUpdated": "Model factor aggiornato.",
+    "categories": {
+      "general": "Generale",
+      "content": "Content",
+      "analysis": "Analisi",
+      "research": "Ricerca",
+      "automation": "Automazione",
+      "support": "Support",
+      "sales": "Sales",
+      "legal": "Legal",
+      "creative": "Creativo"
+    },
+    "intensity": {
+      "light": "Light",
+      "medium": "Medium",
+      "heavy": "Heavy"
+    },
+    "contextLevels": {
+      "low": "Basso",
+      "medium": "Medio",
+      "high": "Alto"
+    },
+    "toolsLevels": {
+      "none": "Nessuno",
+      "light": "Leggero",
+      "heavy": "Intenso"
+    },
+    "runtimeLevels": {
+      "fast": "Veloce",
+      "medium": "Medio",
+      "slow": "Lento"
+    }
   },
   "funding": {
     "title": "Piano di Finanziamento",
@@ -475,6 +526,16 @@
       "impactTitle": "Preview impatto",
       "impactBody": "Ogni profilo mostra crediti e costo stimato per un singolo utente attivo, calcolati con l'assumption pack di default."
     },
+    "taskPresets": {
+      "title": "Task preset e modelli AI",
+      "body": "I task preset descrivono tipologie di attività AI (deep research, document analysis, agent task...). Ogni preset ha una banda di crediti min/mid/max e fattori di complessità.",
+      "presetTitle": "Task preset",
+      "presetBody": "Usa i preset di sistema come riferimento. Puoi duplicarli e personalizzarli. I preset con browser o image generation hanno un consumo potenzialmente maggiore.",
+      "modelTitle": "Modelli AI",
+      "modelBody": "Ogni modello ha un 'model factor' che moltiplica il consumo base. Auto è il modello default. Puoi abilitare/disabilitare modelli e modificare il factor (solo sui modelli editabili).",
+      "packsTitle": "Assumption pack",
+      "packsBody": "L'assumption pack contiene le bande di crediti (min/mid/max) per task light/medium/heavy e i fattori moltiplicatori. I valori sono stime indicative, non prezzi ufficiali."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -555,6 +616,18 @@
     "profilesList": {
       "title": "Card profili",
       "body": "Ogni card mostra la distribuzione dei task e il costo stimato per utente attivo. Clicca 'Dettagli' per vedere i fattori avanzati."
+    },
+    "assumptionsTabs": {
+      "title": "Sezione Assunzioni",
+      "body": "Qui trovi task preset, modelli AI e assumption pack. I valori sono stime indicative — non prezzi ufficiali Microsoft."
+    },
+    "tasksList": {
+      "title": "Task preset",
+      "body": "Ogni preset ha una banda crediti min/mid/max e indicatori di complessità. I preset con browser o image generation hanno un consumo potenzialmente più alto."
+    },
+    "modelsList": {
+      "title": "Modelli AI",
+      "body": "Abilita o disabilita modelli, e modifica il model factor per i modelli editabili. Il fattore moltiplica il consumo base del task."
     },
     "segmentsAdd": {
       "title": "Aggiungi segmenti",

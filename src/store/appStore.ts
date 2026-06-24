@@ -56,6 +56,16 @@ interface AppState {
   deleteUsageProfile: (id: string) => { success: boolean; reason?: string }
   isProfileInUse: (id: string) => boolean
 
+  // Task Presets (custom management)
+  addTaskPreset: (preset: Omit<TaskPreset, 'id' | 'createdAt' | 'updatedAt'>) => TaskPreset
+  updateTaskPreset: (id: string, updates: Partial<TaskPreset>) => void
+  duplicateTaskPreset: (id: string) => TaskPreset | null
+  deleteTaskPreset: (id: string) => { success: boolean; reason?: string }
+
+  // Model Assumptions (enable/disable + factor edit)
+  updateModelAssumption: (id: string, updates: Partial<ModelAssumption>) => void
+  toggleModelEnabled: (id: string) => void
+
   // Preferences
   updatePreferences: (prefs: Partial<UIPreferences>) => void
 
@@ -67,7 +77,7 @@ function now() {
   return new Date().toISOString()
 }
 
-function persist(state: Omit<AppState, 'hydrate' | 'addCompany' | 'updateCompany' | 'deleteCompany' | 'duplicateCompany' | 'saveBaselineFromScenario' | 'copyBaselineToScenario' | 'addScenario' | 'updateScenario' | 'deleteScenario' | 'recalculateScenario' | 'addSegment' | 'updateSegment' | 'deleteSegment' | 'upsertFundingPlan' | 'addUsageProfile' | 'updateUsageProfile' | 'duplicateUsageProfile' | 'deleteUsageProfile' | 'isProfileInUse' | 'updatePreferences' | 'resetAll'>) {
+function persist(state: Omit<AppState, 'hydrate' | 'addCompany' | 'updateCompany' | 'deleteCompany' | 'duplicateCompany' | 'saveBaselineFromScenario' | 'copyBaselineToScenario' | 'addScenario' | 'updateScenario' | 'deleteScenario' | 'recalculateScenario' | 'addSegment' | 'updateSegment' | 'deleteSegment' | 'upsertFundingPlan' | 'addUsageProfile' | 'updateUsageProfile' | 'duplicateUsageProfile' | 'deleteUsageProfile' | 'isProfileInUse' | 'addTaskPreset' | 'updateTaskPreset' | 'duplicateTaskPreset' | 'deleteTaskPreset' | 'updateModelAssumption' | 'toggleModelEnabled' | 'updatePreferences' | 'resetAll'>) {
   storageService.save({
     schemaVersion: '1.0.0',
     companies: state.companies,
@@ -437,6 +447,82 @@ export const useAppStore = create<AppState>((set, get) => ({
   isProfileInUse(id) {
     const s = get()
     return s.scenarios.some((sc) => sc.segments.some((seg) => seg.usageProfileId === id))
+  },
+
+  // ---- Task Presets ----
+
+  addTaskPreset(data) {
+    const preset: TaskPreset = { ...data, id: nanoid(), createdAt: now(), updatedAt: now() }
+    set((s) => {
+      const taskPresets = [...s.taskPresets, preset]
+      persist({ ...s, taskPresets })
+      return { taskPresets }
+    })
+    return preset
+  },
+
+  updateTaskPreset(id, updates) {
+    set((s) => {
+      const taskPresets = s.taskPresets.map((p) =>
+        p.id === id && !p.isSystemDefault ? { ...p, ...updates, updatedAt: now() } : p,
+      )
+      persist({ ...s, taskPresets })
+      return { taskPresets }
+    })
+  },
+
+  duplicateTaskPreset(id) {
+    const s = get()
+    const original = s.taskPresets.find((p) => p.id === id)
+    if (!original) return null
+    const copy: TaskPreset = {
+      ...original,
+      id: nanoid(),
+      name: `Copy of ${original.name}`,
+      isSystemDefault: false,
+      isEditable: true,
+      source: 'copied',
+      createdAt: now(),
+      updatedAt: now(),
+    }
+    set((state) => {
+      const taskPresets = [...state.taskPresets, copy]
+      persist({ ...state, taskPresets })
+      return { taskPresets }
+    })
+    return copy
+  },
+
+  deleteTaskPreset(id) {
+    const s = get()
+    const preset = s.taskPresets.find((p) => p.id === id)
+    if (!preset) return { success: false, reason: 'not_found' }
+    if (preset.isSystemDefault) return { success: false, reason: 'system_preset' }
+    set((state) => {
+      const taskPresets = state.taskPresets.filter((p) => p.id !== id)
+      persist({ ...state, taskPresets })
+      return { taskPresets }
+    })
+    return { success: true }
+  },
+
+  // ---- Model Assumptions ----
+
+  updateModelAssumption(id, updates) {
+    set((s) => {
+      const modelAssumptions = s.modelAssumptions.map((m) =>
+        m.id === id && m.isEditable ? { ...m, ...updates, updatedAt: now() } : m,
+      )
+      persist({ ...s, modelAssumptions })
+      return { modelAssumptions }
+    })
+  },
+
+  toggleModelEnabled(id) {
+    const s = get()
+    const model = s.modelAssumptions.find((m) => m.id === id)
+    if (!model) return
+    get().updateModelAssumption(id, { isEnabled: !model.isEnabled })
   },
 
   // ---- Preferences ----

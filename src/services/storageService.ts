@@ -100,8 +100,8 @@ function migrateScenarios(scenarios: unknown[]): import('@/types/domain').Scenar
 }
 
 function migrateProfileIfNeeded<T extends { id: string; isSystemDefault?: boolean }>(item: T): T {
-  // If this is a UsageProfile-like object, add missing fields
   const p = item as Record<string, unknown>
+  // Migrate UsageProfile
   if ('lightTasksPerUserPerMonth' in p) {
     return {
       ...item,
@@ -113,6 +113,24 @@ function migrateProfileIfNeeded<T extends { id: string; isSystemDefault?: boolea
       recommendedFor: p.recommendedFor ?? [],
       examples: p.examples ?? [],
       notes: p.notes ?? null,
+    }
+  }
+  // Migrate TaskPreset
+  if ('defaultCreditsMin' in p) {
+    return {
+      ...item,
+      isEditable: p.isEditable !== false,
+      source: p.source ?? 'manual',
+      category: p.category ?? null,
+      metadata: p.metadata ?? {},
+    }
+  }
+  // Migrate ModelAssumption
+  if ('modelFactor' in p) {
+    return {
+      ...item,
+      source: p.source ?? 'system',
+      metadata: p.metadata ?? {},
     }
   }
   return item

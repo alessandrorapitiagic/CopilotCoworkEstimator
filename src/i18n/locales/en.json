@@ -343,7 +343,58 @@
     "browserMultiplier": "Browser Multiplier",
     "imageMultiplier": "Image Multiplier",
     "isOfficial": "Officially documented",
-    "notOfficial": "Unofficial estimate"
+    "notOfficial": "Unofficial estimate",
+    "taskPresets": "Task Presets",
+    "newPreset": "New task preset",
+    "editPreset": "Edit preset",
+    "intensity": "Intensity",
+    "category": "Category",
+    "creditsRange": "Estimated credits",
+    "contextComplexity": "Context",
+    "toolsUsage": "Tools",
+    "runtimeComplexity": "Runtime",
+    "browserUsage": "Browser",
+    "imageUsage": "Image",
+    "browserWarning": "Warning: this task uses the browser, consumption may increase significantly.",
+    "imageWarning": "Warning: this task generates images, consumption depends on the image model.",
+    "deletePresetError": "This is a system preset and cannot be deleted.",
+    "presetDuplicated": "Task preset duplicated.",
+    "presetSaved": "Task preset saved.",
+    "presetDeleted": "Task preset deleted.",
+    "modelEnabled": "Model enabled.",
+    "modelDisabled": "Model disabled.",
+    "modelFactorUpdated": "Model factor updated.",
+    "categories": {
+      "general": "General",
+      "content": "Content",
+      "analysis": "Analysis",
+      "research": "Research",
+      "automation": "Automation",
+      "support": "Support",
+      "sales": "Sales",
+      "legal": "Legal",
+      "creative": "Creative"
+    },
+    "intensity": {
+      "light": "Light",
+      "medium": "Medium",
+      "heavy": "Heavy"
+    },
+    "contextLevels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "toolsLevels": {
+      "none": "None",
+      "light": "Light",
+      "heavy": "Heavy"
+    },
+    "runtimeLevels": {
+      "fast": "Fast",
+      "medium": "Medium",
+      "slow": "Slow"
+    }
   },
   "funding": {
     "title": "Funding Plan",
@@ -475,6 +526,16 @@
       "impactTitle": "Impact preview",
       "impactBody": "Each profile shows estimated credits and cost for a single active user, calculated with the default assumption pack."
     },
+    "taskPresets": {
+      "title": "Task presets & AI models",
+      "body": "Task presets describe types of AI activities (deep research, document analysis, agent tasks...). Each preset has a min/mid/max credit band and complexity factors.",
+      "presetTitle": "Task presets",
+      "presetBody": "Use system presets as a reference. You can duplicate and customize them. Presets using browser or image generation may have significantly higher consumption.",
+      "modelTitle": "AI models",
+      "modelBody": "Each model has a 'model factor' that multiplies the base consumption. Auto is the default model. You can enable/disable models and modify the factor (on editable models only).",
+      "packsTitle": "Assumption packs",
+      "packsBody": "The assumption pack contains the credit bands (min/mid/max) for light/medium/heavy tasks and multiplier factors. Values are indicative estimates, not official pricing."
+    },
     "quickstart": {
       "title": "Quick start in 4 steps",
       "step1Title": "1. Create a company",
@@ -555,6 +616,18 @@
     "profilesList": {
       "title": "Profile cards",
       "body": "Each card shows the task distribution and estimated cost per active user. Click 'Details' to see advanced factors."
+    },
+    "assumptionsTabs": {
+      "title": "Assumptions section",
+      "body": "Here you find task presets, AI models and assumption packs. Values are indicative estimates — not official Microsoft pricing."
+    },
+    "tasksList": {
+      "title": "Task presets",
+      "body": "Each preset has a min/mid/max credit band and complexity indicators. Presets using browser or image generation may have higher consumption."
+    },
+    "modelsList": {
+      "title": "AI models",
+      "body": "Enable or disable models, and modify the model factor for editable models. The factor multiplies the base task consumption."
     },
     "segmentsAdd": {
       "title": "Add segments",
