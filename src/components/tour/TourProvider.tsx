@@ -38,6 +38,7 @@ export const DEFAULT_TOUR_STEPS: TourStep[] = [
   { target: 'nav-scenarios', titleKey: 'tour.scenarios.title', bodyKey: 'tour.scenarios.body' },
   { target: 'theme-toggle', titleKey: 'tour.theme.title', bodyKey: 'tour.theme.body' },
   { target: 'nav-help', titleKey: 'tour.help.title', bodyKey: 'tour.help.body' },
+  { target: 'start-tour-button', titleKey: 'tour.restartStep.title', bodyKey: 'tour.restartStep.body' },
 ]
 
 export function TourProvider({ children }: { children: ReactNode }) {

@@ -16,6 +16,7 @@ import {
   Menu,
   X,
   HelpCircle,
+  PlayCircle,
 } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 import { useTour } from '@/components/tour/TourProvider'
@@ -229,22 +230,37 @@ export default function Layout() {
 
       {/* Main column */}
       <div className="flex flex-1 flex-col overflow-hidden">
-        {/* Mobile top bar */}
-        <header className="flex items-center gap-3 border-b bg-background px-4 py-3 md:hidden">
+        {/* Global top bar (all viewports) */}
+        <header className="flex items-center gap-3 border-b bg-background px-4 py-2.5">
+          {/* Mobile: hamburger + app name */}
           <Button
             variant="ghost"
             size="icon"
-            className="size-9"
+            className="size-9 md:hidden"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >
             <Menu className="size-5" />
           </Button>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 md:hidden">
             <div className="flex size-7 items-center justify-center rounded-lg bg-primary">
               <Cpu className="size-4 text-primary-foreground" />
             </div>
             <span className="text-sm font-semibold">Cowork Estimator</span>
+          </div>
+
+          {/* Right-aligned actions: always-available Start tour */}
+          <div className="ml-auto flex items-center gap-1.5">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={start}
+              data-tour="start-tour-button"
+              aria-label={t('tour.restart')}
+            >
+              <PlayCircle className="size-4" />
+              <span className="hidden sm:inline">{t('tour.restart')}</span>
+            </Button>
           </div>
         </header>
 

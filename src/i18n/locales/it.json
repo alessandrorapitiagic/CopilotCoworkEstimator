@@ -301,6 +301,7 @@
     "prev": "Indietro",
     "skip": "Salta",
     "finish": "Ho capito",
+    "restart": "Tour guidato",
     "stepOf": "{{current}} di {{total}}",
     "welcome": {
       "title": "Benvenuto in Copilot Cowork Estimator",
@@ -325,6 +326,10 @@
     "help": {
       "title": "Hai bisogno di aiuto?",
       "body": "Trovi sempre la Guida completa qui. Cerca le icone info accanto ai valori per spiegazioni rapide."
+    },
+    "restartStep": {
+      "title": "Riavvia il tour quando vuoi",
+      "body": "Questo pulsante riavvia il tour guidato in qualsiasi momento, da qualunque pagina. Dopo averlo visto, il tour non riparte da solo."
     }
   },
   "hints": {

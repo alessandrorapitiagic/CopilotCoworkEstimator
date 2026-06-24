@@ -301,6 +301,7 @@
     "prev": "Back",
     "skip": "Skip",
     "finish": "Got it",
+    "restart": "Guided tour",
     "stepOf": "{{current}} of {{total}}",
     "welcome": {
       "title": "Welcome to Copilot Cowork Estimator",
@@ -325,6 +326,10 @@
     "help": {
       "title": "Need help?",
       "body": "The full guide is always here. Look for the info icons next to values for quick explanations."
+    },
+    "restartStep": {
+      "title": "Restart the tour anytime",
+      "body": "This button restarts the guided tour at any time, from any page. Once you've seen it, the tour won't start on its own again."
     }
   },
   "hints": {
