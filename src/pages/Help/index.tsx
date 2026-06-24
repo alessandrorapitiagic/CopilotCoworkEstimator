@@ -13,6 +13,8 @@ import {
   SlidersHorizontal,
   BookOpen,
   Users,
+  GitCompareArrows,
+  DatabaseZap,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -60,6 +62,8 @@ export default function Help() {
     { id: 'taskPresets', icon: BookOpen, label: t('help.taskPresets.title') },
     { id: 'assumptionPacks', icon: BookOpen, label: t('help.assumptionPacks.title') },
     { id: 'fundingCalculation', icon: FlaskConical, label: t('help.fundingCalculation.title') },
+    { id: 'compareScenarios', icon: GitCompareArrows, label: t('help.compareScenarios.title') },
+    { id: 'localStorage', icon: ShieldCheck, label: t('help.localStorage.title') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -315,6 +319,50 @@ export default function Help() {
                 <p className="font-semibold">{t(title)}</p>
                 <p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p>
               </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Compare Scenarios */}
+        <SectionAnchor id="compareScenarios" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <GitCompareArrows className="size-4 text-primary" />
+              {t('help.compareScenarios.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.compareScenarios.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.compareScenarios.metricsTitle', body: 'help.compareScenarios.metricsBody' },
+              { title: 'help.compareScenarios.rangeTitle', body: 'help.compareScenarios.rangeBody' },
+              { title: 'help.compareScenarios.diffPackTitle', body: 'help.compareScenarios.diffPackBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}><p className="font-semibold">{t(title)}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p></div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Local Storage */}
+        <SectionAnchor id="localStorage" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <DatabaseZap className="size-4 text-primary" />
+              {t('help.localStorage.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.localStorage.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.localStorage.backupTitle', body: 'help.localStorage.backupBody' },
+              { title: 'help.localStorage.migrationTitle', body: 'help.localStorage.migrationBody' },
+              { title: 'help.localStorage.storageTitle', body: 'help.localStorage.storageBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}><p className="font-semibold">{t(title)}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p></div>
             ))}
           </CardContent>
         </Card>

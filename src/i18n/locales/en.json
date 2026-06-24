@@ -581,6 +581,26 @@
       "budgetTitle": "Budget guardrails",
       "budgetBody": "You can set a monthly and annual budget. If the estimated cost exceeds the budget a warning is shown (max > budget) or a critical alert (even min > budget)."
     },
+    "compareScenarios": {
+      "title": "Scenario comparison",
+      "body": "The Compare page lets you place two scenarios side-by-side on credits, costs, users and assumptions. See percentage deltas, side-by-side breakdown and assumption differences.",
+      "metricsTitle": "Metrics table",
+      "metricsBody": "Each row shows the value for A and B with a colored delta %: green = better value, red = worse. The color depends on the metric type (e.g. cost: lower is better).",
+      "rangeTitle": "Min/mid/max range",
+      "rangeBody": "The range bar shows three values. The center dot indicates the midpoint, which is the main value. Min and max define the uncertainty interval.",
+      "diffPackTitle": "Different assumptions",
+      "diffPackBody": "If the two scenarios use different assumption packs, a warning appears. Differences in packs can explain part of the economic delta."
+    },
+    "localStorage": {
+      "title": "Local storage",
+      "body": "All data stays in the browser (localStorage). It is never sent to a server. If you clear browser data, your simulations are lost too.",
+      "backupTitle": "JSON backup",
+      "backupBody": "Export a JSON backup regularly from Settings. The file contains all companies, scenarios and custom configurations. You can re-import it on any browser.",
+      "migrationTitle": "Schema and migration",
+      "migrationBody": "Saved data is automatically migrated to new app versions. The schema version number is visible in Settings.",
+      "storageTitle": "Storage usage",
+      "storageBody": "The bar in Settings shows the space used. If it approaches the limit (~5 MB), export a backup and consider resetting less-used data."
+    },
     "quickstart": {
       "title": "Quick start in 4 steps",
       "step1Title": "1. Create a company",
@@ -673,6 +693,14 @@
     "breakdownSegments": {
       "title": "Results breakdown",
       "body": "Here you see the breakdown by segment, model and intensity. The sum always matches the scenario total."
+    },
+    "compareSelectors": {
+      "title": "Scenario comparison",
+      "body": "Select two scenarios from the menu. The table shows delta %, side-by-side breakdown and differences in the assumptions used."
+    },
+    "settingsStorage": {
+      "title": "Local storage",
+      "body": "Here you see the space used, the number of saved items, the schema version and the last export. Export a JSON backup regularly."
     },
     "tasksList": {
       "title": "Task presets",
@@ -827,5 +855,53 @@
       "exportCsv": "Export CSV",
       "exportJson": "Export JSON"
     }
+  },
+  "compare": {
+    "title": "Scenario comparison",
+    "subtitle": "Select two scenarios to compare their credits, costs and assumptions.",
+    "selectA": "Scenario A",
+    "selectB": "Scenario B",
+    "placeholder": "Select scenario...",
+    "delta": "Δ A vs B",
+    "betterA": "A is cheaper",
+    "betterB": "B is cheaper",
+    "equal": "Equal",
+    "diffPackWarning": "The scenarios use different assumption packs — the comparison may not be homogeneous.",
+    "diffCompanyNote": "Portfolio comparison: scenarios belong to different companies.",
+    "noResults": "One or both scenarios have no calculated result.",
+    "addToCompare": "Add to comparison",
+    "removeFromCompare": "Remove from comparison",
+    "exportComparison": "Export comparison",
+    "breakdownTitle": "Side-by-side breakdown",
+    "metricsTitle": "Key metrics",
+    "metrics": {
+      "monthlyCredits": "Monthly credits (mid)",
+      "annualCredits": "Annual credits (mid)",
+      "monthlyCost": "Monthly cost (mid)",
+      "annualCost": "Annual cost (mid)",
+      "costPerEnabled": "Cost/enabled user",
+      "costPerActive": "Cost/active user",
+      "enabledUsers": "Enabled users",
+      "activeUsers": "Active users",
+      "segments": "Included segments",
+      "warnings": "Warnings"
+    }
+  },
+  "storage": {
+    "title": "Local storage",
+    "usedLabel": "Space used",
+    "schemaVersion": "Schema version",
+    "available": "Available",
+    "notAvailable": "Not available",
+    "nearLimit": "Almost full",
+    "privateMode": "Private mode detected",
+    "backupSuggestion": "Export a JSON backup regularly to avoid losing your data.",
+    "resetWarning": "Permanently deletes all local data.",
+    "lastExport": "Last export",
+    "never": "Never",
+    "companiesCount": "Companies",
+    "scenariosCount": "Scenarios",
+    "profilesCount": "Custom profiles",
+    "packsCount": "Custom packs"
   }
 }

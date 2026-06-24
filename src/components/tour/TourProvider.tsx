@@ -42,6 +42,8 @@ export const DEFAULT_TOUR_STEPS: TourStep[] = [
   { target: 'assumptions-tabs', titleKey: 'tour.assumptionsTabs.title', bodyKey: 'tour.assumptionsTabs.body' },
   { target: 'funding-editor', titleKey: 'tour.fundingEditor.title', bodyKey: 'tour.fundingEditor.body' },
   { target: 'breakdown-segments', titleKey: 'tour.breakdownSegments.title', bodyKey: 'tour.breakdownSegments.body' },
+  { target: 'compare-selectors', titleKey: 'tour.compareSelectors.title', bodyKey: 'tour.compareSelectors.body' },
+  { target: 'settings-storage', titleKey: 'tour.settingsStorage.title', bodyKey: 'tour.settingsStorage.body' },
   { target: 'theme-toggle', titleKey: 'tour.theme.title', bodyKey: 'tour.theme.body' },
   { target: 'nav-help', titleKey: 'tour.help.title', bodyKey: 'tour.help.body' },
   { target: 'start-tour-button', titleKey: 'tour.restartStep.title', bodyKey: 'tour.restartStep.body' },

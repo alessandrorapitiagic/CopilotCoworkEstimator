@@ -581,6 +581,26 @@
       "budgetTitle": "Budget guardrails",
       "budgetBody": "Puoi impostare un budget mensile e annuale. Se il costo stimato supera il budget viene mostrato un warning (max > budget) o un alert critico (anche il min > budget)."
     },
+    "compareScenarios": {
+      "title": "Confronto scenari",
+      "body": "La pagina Confronto permette di affiancare due scenari su crediti, costi, utenti e assunzioni. Vedi delta percentuali, breakdown affiancato e differenze nelle assunzioni.",
+      "metricsTitle": "Tabella metriche",
+      "metricsBody": "Ogni riga mostra il valore di A e B con il delta % colorato: verde = valore migliore, rosso = valore peggiore. Il colore dipende dal tipo di metrica (es. costo: meno è meglio).",
+      "rangeTitle": "Range min/mid/max",
+      "rangeBody": "Il range visualizza la barra con i tre valori. Il punto centrale indica il midpoint, che è il valore principale. Min e max definiscono l'intervallo di incertezza.",
+      "diffPackTitle": "Assunzioni diverse",
+      "diffPackBody": "Se i due scenari usano assumption pack diversi, compare un avviso. Le differenze nei pack possono spiegare parte del delta economico."
+    },
+    "localStorage": {
+      "title": "Salvataggio locale",
+      "body": "Tutti i dati restano nel browser (localStorage). Non vengono mai inviati a server. Se cancelli i dati del browser, perdi anche le simulazioni.",
+      "backupTitle": "Backup JSON",
+      "backupBody": "Esporta regolarmente un backup JSON da Impostazioni. Il file contiene tutte le aziende, scenari e configurazioni custom. Puoi reimportarlo su qualsiasi browser.",
+      "migrationTitle": "Schema e migrazione",
+      "migrationBody": "I dati salvati vengono migrati automaticamente alle nuove versioni dell'app. Il numero di versione schema è visibile in Impostazioni.",
+      "storageTitle": "Utilizzo spazio",
+      "storageBody": "La barra in Impostazioni mostra lo spazio usato. Se si avvicina al limite (5 MB ca.), esporta un backup e considera di resettare i dati meno utilizzati."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -673,6 +693,14 @@
     "breakdownSegments": {
       "title": "Breakdown risultati",
       "body": "Qui vedi il breakdown per segmento, per modello e per intensità. La somma combacia sempre con il totale dello scenario."
+    },
+    "compareSelectors": {
+      "title": "Confronto scenari",
+      "body": "Seleziona due scenari dal menu. La tabella mostra delta %, breakdown affiancato e differenze nelle assunzioni usate."
+    },
+    "settingsStorage": {
+      "title": "Salvataggio locale",
+      "body": "Qui vedi lo spazio usato, il numero di dati salvati, lo schema version e l'ultimo export. Esporta regolarmente un backup JSON."
     },
     "tasksList": {
       "title": "Task preset",
@@ -827,5 +855,53 @@
       "exportCsv": "Esporta CSV",
       "exportJson": "Esporta JSON"
     }
+  },
+  "compare": {
+    "title": "Confronto scenari",
+    "subtitle": "Seleziona due scenari per confrontarne crediti, costi e assunzioni.",
+    "selectA": "Scenario A",
+    "selectB": "Scenario B",
+    "placeholder": "Seleziona scenario...",
+    "delta": "Δ A vs B",
+    "betterA": "A più economico",
+    "betterB": "B più economico",
+    "equal": "Uguale",
+    "diffPackWarning": "Gli scenari usano assumption pack diversi — il confronto potrebbe non essere omogeneo.",
+    "diffCompanyNote": "Confronto portfolio: gli scenari appartengono ad aziende diverse.",
+    "noResults": "Uno o entrambi gli scenari non hanno un risultato calcolato.",
+    "addToCompare": "Aggiungi al confronto",
+    "removeFromCompare": "Rimuovi dal confronto",
+    "exportComparison": "Esporta confronto",
+    "breakdownTitle": "Breakdown affiancato",
+    "metricsTitle": "Metriche principali",
+    "metrics": {
+      "monthlyCredits": "Crediti mensili (mid)",
+      "annualCredits": "Crediti annuali (mid)",
+      "monthlyCost": "Costo mensile (mid)",
+      "annualCost": "Costo annuale (mid)",
+      "costPerEnabled": "Costo/utente abilitato",
+      "costPerActive": "Costo/utente attivo",
+      "enabledUsers": "Utenti abilitati",
+      "activeUsers": "Utenti attivi",
+      "segments": "Segmenti inclusi",
+      "warnings": "Warning"
+    }
+  },
+  "storage": {
+    "title": "Salvataggio locale",
+    "usedLabel": "Spazio utilizzato",
+    "schemaVersion": "Versione schema",
+    "available": "Disponibile",
+    "notAvailable": "Non disponibile",
+    "nearLimit": "Quasi pieno",
+    "privateMode": "Modalità privata rilevata",
+    "backupSuggestion": "Esporta regolarmente un backup JSON per non perdere i dati.",
+    "resetWarning": "Cancella tutti i dati locali in modo permanente.",
+    "lastExport": "Ultimo export",
+    "never": "Mai",
+    "companiesCount": "Aziende",
+    "scenariosCount": "Scenari",
+    "profilesCount": "Profili custom",
+    "packsCount": "Pack custom"
   }
 }
