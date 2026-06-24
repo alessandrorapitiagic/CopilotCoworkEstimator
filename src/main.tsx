@@ -4,6 +4,9 @@ import { HashRouter, Routes, Route } from 'react-router-dom'
 import './i18n'
 import './index.css'
 import { useAppStore } from '@/store/appStore'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { TourProvider } from '@/components/tour/TourProvider'
+import { TourOverlay } from '@/components/tour/TourOverlay'
 import Layout from '@/components/layout/Layout'
 import Dashboard from '@/pages/Dashboard'
 import Companies from '@/pages/Companies'
@@ -15,28 +18,35 @@ import ScenarioDetail from '@/pages/Scenarios/ScenarioDetail'
 import Assumptions from '@/pages/Assumptions'
 import Compare from '@/pages/Compare'
 import Settings from '@/pages/Settings'
+import Help from '@/pages/Help'
 
 function AppRoot() {
   const hydrate = useAppStore((s) => s.hydrate)
   useEffect(() => { hydrate() }, [hydrate])
   return (
-    <HashRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="companies" element={<Companies />} />
-          <Route path="companies/new" element={<CompanyForm />} />
-          <Route path="companies/:id" element={<CompanyDetail />} />
-          <Route path="companies/:id/edit" element={<CompanyForm />} />
-          <Route path="scenarios" element={<Scenarios />} />
-          <Route path="scenarios/new" element={<ScenarioNew />} />
-          <Route path="scenarios/:id" element={<ScenarioDetail />} />
-          <Route path="assumptions" element={<Assumptions />} />
-          <Route path="compare" element={<Compare />} />
-          <Route path="settings" element={<Settings />} />
-        </Route>
-      </Routes>
-    </HashRouter>
+    <TooltipProvider delayDuration={200}>
+      <TourProvider>
+        <HashRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="companies" element={<Companies />} />
+              <Route path="companies/new" element={<CompanyForm />} />
+              <Route path="companies/:id" element={<CompanyDetail />} />
+              <Route path="companies/:id/edit" element={<CompanyForm />} />
+              <Route path="scenarios" element={<Scenarios />} />
+              <Route path="scenarios/new" element={<ScenarioNew />} />
+              <Route path="scenarios/:id" element={<ScenarioDetail />} />
+              <Route path="assumptions" element={<Assumptions />} />
+              <Route path="compare" element={<Compare />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="help" element={<Help />} />
+            </Route>
+          </Routes>
+        </HashRouter>
+        <TourOverlay />
+      </TourProvider>
+    </TooltipProvider>
   )
 }
 

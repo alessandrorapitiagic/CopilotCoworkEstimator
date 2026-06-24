@@ -10,7 +10,8 @@
     "scenarios": "Scenari",
     "assumptions": "Assunzioni",
     "compare": "Confronto",
-    "settings": "Impostazioni"
+    "settings": "Impostazioni",
+    "help": "Guida"
   },
   "common": {
     "save": "Salva",
@@ -246,5 +247,101 @@
     "energy": "Energia",
     "media": "Media & Entertainment",
     "other": "Altro"
+  },
+  "help": {
+    "title": "Guida all'uso",
+    "subtitle": "Tutto quello che serve per stimare i crediti Copilot Cowork.",
+    "startTour": "Avvia il tour guidato",
+    "version": "Versione",
+    "build": "Build",
+    "intro": {
+      "title": "Cos'è questa app",
+      "body": "Copilot Cowork Estimator è uno strumento di pianificazione che stima il consumo e il costo dei Copilot Credits per la tua organizzazione. Funziona interamente nel browser: nessun dato viene inviato a server esterni e tutto resta salvato localmente. Le stime sono basate su assunzioni trasparenti e modificabili, non su prezzi ufficiali Microsoft."
+    },
+    "quickstart": {
+      "title": "Avvio rapido in 4 passi",
+      "step1Title": "1. Crea un'azienda",
+      "step1Body": "Vai in Aziende e crea un nuovo cliente indicando nome e numero di dipendenti.",
+      "step2Title": "2. Crea uno scenario",
+      "step2Body": "Avvia un nuovo scenario, scegli l'azienda e definisci i segmenti della forza lavoro (es. Sales, IT, Manager).",
+      "step3Title": "3. Configura i segmenti",
+      "step3Body": "Per ogni segmento imposta numero persone, percentuale di utenti abilitati e attivi, profilo di utilizzo e modello AI preferito.",
+      "step4Title": "4. Leggi i risultati",
+      "step4Body": "Lo scenario calcola automaticamente crediti e costi mensili/annuali in range min/mid/max, con breakdown per segmento."
+    },
+    "concepts": {
+      "title": "Concetti chiave",
+      "creditsTitle": "Copilot Credits",
+      "creditsBody": "Unità di consumo del modello Cowork. Ogni task consuma crediti in base a modello, contesto, tool e complessità.",
+      "rangeTitle": "Range min / mid / max",
+      "rangeBody": "Le stime non sono un numero singolo ma un intervallo. Il midpoint è il valore principale; min e max mostrano lo scenario migliore e peggiore.",
+      "profileTitle": "Profili di utilizzo",
+      "profileBody": "Light, Medium e Heavy descrivono quanto intensamente un segmento usa Copilot ogni mese. Puoi anche crearne di personalizzati.",
+      "assumptionTitle": "Assumption Pack",
+      "assumptionBody": "Insieme versionato di regole di calcolo (bande crediti, fattori modello). Separato dai dati aziendali e aggiornabile."
+    },
+    "dataPrivacy": {
+      "title": "Privacy dei dati",
+      "body": "Tutti i dati restano nel localStorage del tuo browser. Esporta regolarmente un backup JSON dalle Impostazioni per non perdere il lavoro: cancellare i dati del browser elimina anche le simulazioni."
+    },
+    "faqTitle": "Domande frequenti",
+    "faq": {
+      "q1": "I costi mostrati sono ufficiali?",
+      "a1": "No. Sono stime di pianificazione basate su assunzioni. Non rappresentano un preventivo o prezzo contrattuale Microsoft.",
+      "q2": "Dove vengono salvati i miei dati?",
+      "a2": "Esclusivamente nel browser (localStorage). Nessun server, nessun login, nessun tracciamento.",
+      "q3": "Posso condividere uno scenario?",
+      "a3": "Sì, tramite export JSON o (in arrivo) link condivisibile. Il destinatario può importare la configurazione.",
+      "q4": "Come aggiorno le assunzioni di calcolo?",
+      "a4": "Nella sezione Assunzioni puoi consultare e duplicare gli assumption pack per crearne versioni personalizzate."
+    }
+  },
+  "tour": {
+    "next": "Avanti",
+    "prev": "Indietro",
+    "skip": "Salta",
+    "finish": "Ho capito",
+    "stepOf": "{{current}} di {{total}}",
+    "welcome": {
+      "title": "Benvenuto in Copilot Cowork Estimator",
+      "body": "Ti mostriamo in pochi passi come usare l'app. Puoi saltare il tour in qualsiasi momento e riavviarlo dalla Guida."
+    },
+    "nav": {
+      "title": "Navigazione",
+      "body": "Da qui accedi a Dashboard, Aziende, Scenari, Assunzioni e Confronto. Su mobile usa il menu in alto a sinistra."
+    },
+    "companies": {
+      "title": "Gestione aziende",
+      "body": "Inizia creando un'azienda con il numero di dipendenti. Ogni azienda può avere più scenari di stima."
+    },
+    "scenarios": {
+      "title": "Scenari di stima",
+      "body": "Uno scenario modella la forza lavoro in segmenti e calcola crediti e costi in modalità range."
+    },
+    "theme": {
+      "title": "Tema e lingua",
+      "body": "Cambia tema chiaro/scuro e passa da italiano a inglese in qualsiasi momento."
+    },
+    "help": {
+      "title": "Hai bisogno di aiuto?",
+      "body": "Trovi sempre la Guida completa qui. Cerca le icone info accanto ai valori per spiegazioni rapide."
+    }
+  },
+  "hints": {
+    "monthlyCredits": "Somma dei crediti mensili stimati per tutti gli scenari attivi, secondo il range selezionato (min/mid/max).",
+    "monthlyCost": "Costo economico mensile stimato, ottenuto valorizzando i crediti con il prezzo per credito del piano di finanziamento.",
+    "annualCost": "Proiezione annuale del costo mensile (× 12). È una stima, non un impegno di spesa.",
+    "warnings": "Numero di avvisi funzionali sugli scenari: assunzioni custom, budget superati, dati incompleti, ecc.",
+    "rangeSelector": "Cambia il valore mostrato: Min (ottimistico), Mid (atteso), Max (prudenziale).",
+    "enabledPct": "Percentuale di persone del segmento a cui viene assegnata una licenza Copilot.",
+    "activePct": "Percentuale di utenti abilitati che usa effettivamente Copilot in modo ricorrente.",
+    "usageProfile": "Intensità d'uso media del segmento: definisce quanti task light/medium/heavy esegue ogni utente al mese.",
+    "preferredModel": "Modello AI usato dal segmento. Modelli più potenti consumano più crediti per task.",
+    "assumptionPack": "Set versionato di regole di calcolo applicato allo scenario. Determina bande crediti e fattori.",
+    "headcount": "Numero totale di persone in questo segmento della forza lavoro.",
+    "modelFactor": "Moltiplicatore che riflette il maggior consumo di crediti dei modelli più capaci.",
+    "creditBands": "Crediti stimati per task in base all'intensità (light/medium/heavy), in valori min/mid/max.",
+    "costPerActive": "Costo mensile medio per ogni utente che usa attivamente Copilot.",
+    "costPerEnabled": "Costo mensile medio per ogni utente a cui è assegnata una licenza."
   }
 }

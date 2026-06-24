@@ -1,0 +1,201 @@
+import { useTranslation } from 'react-i18next'
+import {
+  Rocket,
+  Lightbulb,
+  Building2,
+  FlaskConical,
+  ListChecks,
+  ShieldCheck,
+  PlayCircle,
+  HelpCircle,
+  Sparkles,
+  Layers,
+  SlidersHorizontal,
+  BookOpen,
+} from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
+import { useTour } from '@/components/tour/TourProvider'
+import { APP_VERSION, BUILD_DATE } from '@/lib/appInfo'
+
+function SectionAnchor({ id }: { id: string }) {
+  return <span id={id} className="block -mt-20 pt-20" aria-hidden />
+}
+
+export default function Help() {
+  const { t } = useTranslation()
+  const { start } = useTour()
+
+  const quickSteps = [
+    { icon: Building2, titleKey: 'help.quickstart.step1Title', bodyKey: 'help.quickstart.step1Body' },
+    { icon: FlaskConical, titleKey: 'help.quickstart.step2Title', bodyKey: 'help.quickstart.step2Body' },
+    { icon: SlidersHorizontal, titleKey: 'help.quickstart.step3Title', bodyKey: 'help.quickstart.step3Body' },
+    { icon: ListChecks, titleKey: 'help.quickstart.step4Title', bodyKey: 'help.quickstart.step4Body' },
+  ]
+
+  const concepts = [
+    { icon: Sparkles, titleKey: 'help.concepts.creditsTitle', bodyKey: 'help.concepts.creditsBody' },
+    { icon: SlidersHorizontal, titleKey: 'help.concepts.rangeTitle', bodyKey: 'help.concepts.rangeBody' },
+    { icon: Layers, titleKey: 'help.concepts.profileTitle', bodyKey: 'help.concepts.profileBody' },
+    { icon: BookOpen, titleKey: 'help.concepts.assumptionTitle', bodyKey: 'help.concepts.assumptionBody' },
+  ]
+
+  const faqs = [
+    { q: 'help.faq.q1', a: 'help.faq.a1' },
+    { q: 'help.faq.q2', a: 'help.faq.a2' },
+    { q: 'help.faq.q3', a: 'help.faq.a3' },
+    { q: 'help.faq.q4', a: 'help.faq.a4' },
+  ]
+
+  const toc = [
+    { id: 'intro', icon: Lightbulb, label: t('help.intro.title') },
+    { id: 'quickstart', icon: Rocket, label: t('help.quickstart.title') },
+    { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
+    { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
+    { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
+  ]
+
+  return (
+    <div className="mx-auto w-full max-w-4xl p-4 sm:p-6">
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">{t('help.title')}</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">{t('help.subtitle')}</p>
+          <div className="flex items-center gap-2 mt-2">
+            <Badge variant="secondary">
+              {t('help.version')} {APP_VERSION}
+            </Badge>
+            <span className="text-xs text-muted-foreground">
+              {t('help.build')}: {new Date(BUILD_DATE).toLocaleDateString()}
+            </span>
+          </div>
+        </div>
+        <Button onClick={start}>
+          <PlayCircle className="size-4" />
+          {t('help.startTour')}
+        </Button>
+      </div>
+
+      {/* Table of contents */}
+      <div className="mt-6 flex flex-wrap gap-2">
+        {toc.map(({ id, icon: Icon, label }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+          >
+            <Icon className="size-3.5" />
+            {label}
+          </a>
+        ))}
+      </div>
+
+      <div className="mt-6 flex flex-col gap-6">
+        {/* Intro */}
+        <SectionAnchor id="intro" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Lightbulb className="size-4 text-primary" />
+              {t('help.intro.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t('help.intro.body')}</p>
+          </CardContent>
+        </Card>
+
+        {/* Quick start */}
+        <SectionAnchor id="quickstart" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Rocket className="size-4 text-primary" />
+              {t('help.quickstart.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-4 sm:grid-cols-2">
+            {quickSteps.map(({ icon: Icon, titleKey, bodyKey }, i) => (
+              <div key={i} className="flex gap-3 rounded-lg border bg-muted/30 p-3">
+                <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  <Icon className="size-4 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">{t(titleKey)}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{t(bodyKey)}</p>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Concepts */}
+        <SectionAnchor id="concepts" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Sparkles className="size-4 text-primary" />
+              {t('help.concepts.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3">
+            {concepts.map(({ icon: Icon, titleKey, bodyKey }, i) => (
+              <div key={i}>
+                <div className="flex items-center gap-2">
+                  <Icon className="size-4 text-muted-foreground" />
+                  <p className="text-sm font-semibold">{t(titleKey)}</p>
+                </div>
+                <p className="text-sm text-muted-foreground mt-1 ml-6 leading-relaxed">{t(bodyKey)}</p>
+                {i < concepts.length - 1 && <Separator className="mt-3" />}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Privacy */}
+        <SectionAnchor id="privacy" />
+        <Card className="border-emerald-200/60 dark:border-emerald-900/40">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <ShieldCheck className="size-4 text-emerald-600 dark:text-emerald-400" />
+              {t('help.dataPrivacy.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t('help.dataPrivacy.body')}</p>
+          </CardContent>
+        </Card>
+
+        {/* FAQ */}
+        <SectionAnchor id="faq" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <HelpCircle className="size-4 text-primary" />
+              {t('help.faqTitle')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-4">
+            {faqs.map(({ q, a }, i) => (
+              <div key={i}>
+                <p className="text-sm font-semibold">{t(q)}</p>
+                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{t(a)}</p>
+                {i < faqs.length - 1 && <Separator className="mt-4" />}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Disclaimer */}
+        <Card className="bg-muted/40">
+          <CardContent className="pt-6">
+            <p className="text-xs text-muted-foreground leading-relaxed">{t('app.disclaimer')}</p>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}

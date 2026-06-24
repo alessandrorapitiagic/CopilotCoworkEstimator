@@ -33,8 +33,7 @@ export default function ScenarioDetail() {
   }
 
   // scenario is narrowed to non-null after the early return above
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const s = scenario!
+  const s = scenario
   const company = companies.find((c) => c.id === s.companyId)
   const pack = assumptionPacks.find((p) => p.id === s.assumptionPackId)
   const result = s.calculationResult

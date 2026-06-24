@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { InfoHint } from '@/components/shared/InfoHint'
 import { formatNumber } from '@/lib/utils'
 
 const STEPS = ['company', 'details', 'segments', 'review'] as const
@@ -165,7 +166,10 @@ export default function ScenarioNew() {
               <Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} />
             </div>
             <div className="grid gap-2">
-              <Label>{t('scenarios.assumptionPack')}</Label>
+              <Label className="flex items-center gap-1">
+                {t('scenarios.assumptionPack')}
+                <InfoHint hintKey="assumptionPack" />
+              </Label>
               <Select value={packId} onValueChange={setPackId}>
                 <SelectTrigger>
                   <SelectValue />
@@ -224,7 +228,10 @@ export default function ScenarioNew() {
                     />
                   </div>
                   <div className="grid gap-1">
-                    <Label className="text-xs">{t('segments.headcount')}</Label>
+                    <Label className="text-xs flex items-center gap-1">
+                      {t('segments.headcount')}
+                      <InfoHint hintKey="headcount" />
+                    </Label>
                     <Input
                       type="number"
                       value={seg.headcount}
@@ -232,7 +239,10 @@ export default function ScenarioNew() {
                     />
                   </div>
                   <div className="grid gap-1">
-                    <Label className="text-xs">{t('segments.enabledPct')} %</Label>
+                    <Label className="text-xs flex items-center gap-1">
+                      {t('segments.enabledPct')} %
+                      <InfoHint hintKey="enabledPct" />
+                    </Label>
                     <Input
                       type="number"
                       min={0}
@@ -242,7 +252,10 @@ export default function ScenarioNew() {
                     />
                   </div>
                   <div className="grid gap-1">
-                    <Label className="text-xs">{t('segments.activePct')} %</Label>
+                    <Label className="text-xs flex items-center gap-1">
+                      {t('segments.activePct')} %
+                      <InfoHint hintKey="activePct" />
+                    </Label>
                     <Input
                       type="number"
                       min={0}
@@ -252,7 +265,10 @@ export default function ScenarioNew() {
                     />
                   </div>
                   <div className="grid gap-1">
-                    <Label className="text-xs">{t('segments.usageProfile')}</Label>
+                    <Label className="text-xs flex items-center gap-1">
+                      {t('segments.usageProfile')}
+                      <InfoHint hintKey="usageProfile" />
+                    </Label>
                     <Select value={seg.profileId} onValueChange={(v) => updateSegmentField(seg.id, 'profileId', v)}>
                       <SelectTrigger className="h-8">
                         <SelectValue />
@@ -265,7 +281,10 @@ export default function ScenarioNew() {
                     </Select>
                   </div>
                   <div className="grid gap-1">
-                    <Label className="text-xs">{t('segments.preferredModel')}</Label>
+                    <Label className="text-xs flex items-center gap-1">
+                      {t('segments.preferredModel')}
+                      <InfoHint hintKey="preferredModel" />
+                    </Label>
                     <Select value={seg.modelId} onValueChange={(v) => updateSegmentField(seg.id, 'modelId', v)}>
                       <SelectTrigger className="h-8">
                         <SelectValue />

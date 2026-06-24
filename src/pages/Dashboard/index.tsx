@@ -10,6 +10,7 @@ import { RecentScenariosTable } from './RecentScenariosTable'
 import { DashboardAlertsPanel } from './DashboardAlertsPanel'
 import { EmptyDashboardState } from './EmptyDashboardState'
 import { StorageStatusBadge } from './StorageStatusBadge'
+import { InfoHint } from '@/components/shared/InfoHint'
 
 export default function Dashboard() {
   const { t } = useTranslation()
@@ -85,21 +86,24 @@ export default function Dashboard() {
         <>
           {/* Range selector + storage badge row */}
           <div className="flex items-center justify-between gap-3 flex-wrap">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <span className="text-xs text-muted-foreground font-medium">Vista:</span>
               <RangeSelector value={range} onChange={setRange} />
+              <InfoHint hintKey="rangeSelector" />
             </div>
             <StorageStatusBadge status={summary.storageStatus} />
           </div>
 
           {/* KPI cards */}
-          <DashboardKpiCards
-            kpi={summary.kpi}
-            range={range}
-            currency={preferences.currency}
-            totalWarnings={totalWarnings}
-            maxWarningSeverity={maxSev}
-          />
+          <div data-tour="kpi-cards">
+            <DashboardKpiCards
+              kpi={summary.kpi}
+              range={range}
+              currency={preferences.currency}
+              totalWarnings={totalWarnings}
+              maxWarningSeverity={maxSev}
+            />
+          </div>
 
           {/* Alerts panel */}
           {summary.alerts.length > 0 && (

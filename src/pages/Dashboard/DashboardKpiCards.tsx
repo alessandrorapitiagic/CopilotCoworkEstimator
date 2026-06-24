@@ -5,7 +5,7 @@ import {
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { InfoHint } from '@/components/shared/InfoHint'
 import { formatCurrency, formatNumber } from '@/lib/utils'
 import type { DashboardKpi, RangeMode } from './useDashboardSummary'
 
@@ -84,16 +84,9 @@ export function DashboardKpiCards({ kpi, range, currency, totalWarnings, maxWarn
       <Card className="col-span-1">
         <CardHeader className="pb-1">
           <div className="flex items-center justify-between">
-            <CardDescription>
+            <CardDescription className="flex items-center gap-1">
               {t('results.monthlyCredits')}
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span className="ml-1 cursor-help text-muted-foreground">ⓘ</span>
-                </TooltipTrigger>
-                <TooltipContent>
-                  Somma dei crediti mensili di tutti gli scenari attivi ({range.toUpperCase()})
-                </TooltipContent>
-              </Tooltip>
+              <InfoHint hintKey="monthlyCredits" />
             </CardDescription>
             <Zap className="size-4 text-muted-foreground" />
           </div>
@@ -112,7 +105,10 @@ export function DashboardKpiCards({ kpi, range, currency, totalWarnings, maxWarn
       <Card className="col-span-1 border-primary/30 bg-primary/5">
         <CardHeader className="pb-1">
           <div className="flex items-center justify-between">
-            <CardDescription>{t('results.monthlyCost')}</CardDescription>
+            <CardDescription className="flex items-center gap-1">
+              {t('results.monthlyCost')}
+              <InfoHint hintKey="monthlyCost" />
+            </CardDescription>
             <TrendingUp className="size-4 text-primary/70" />
           </div>
         </CardHeader>
@@ -132,7 +128,10 @@ export function DashboardKpiCards({ kpi, range, currency, totalWarnings, maxWarn
       <Card className="col-span-1 border-primary/20 bg-primary/3">
         <CardHeader className="pb-1">
           <div className="flex items-center justify-between">
-            <CardDescription>{t('results.annualCost')}</CardDescription>
+            <CardDescription className="flex items-center gap-1">
+              {t('results.annualCost')}
+              <InfoHint hintKey="annualCost" />
+            </CardDescription>
             <CalendarDays className="size-4 text-primary/70" />
           </div>
         </CardHeader>
@@ -158,7 +157,10 @@ export function DashboardKpiCards({ kpi, range, currency, totalWarnings, maxWarn
       >
         <CardHeader className="pb-1">
           <div className="flex items-center justify-between">
-            <CardDescription>{t('results.warnings')}</CardDescription>
+            <CardDescription className="flex items-center gap-1">
+              {t('results.warnings')}
+              <InfoHint hintKey="warnings" />
+            </CardDescription>
             <AlertTriangle
               className={`size-4 ${
                 maxWarningSeverity === 'error'

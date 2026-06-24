@@ -10,7 +10,8 @@
     "scenarios": "Scenarios",
     "assumptions": "Assumptions",
     "compare": "Compare",
-    "settings": "Settings"
+    "settings": "Settings",
+    "help": "Help"
   },
   "common": {
     "save": "Save",
@@ -246,5 +247,101 @@
     "energy": "Energy",
     "media": "Media & Entertainment",
     "other": "Other"
+  },
+  "help": {
+    "title": "User Guide",
+    "subtitle": "Everything you need to estimate Copilot Cowork credits.",
+    "startTour": "Start guided tour",
+    "version": "Version",
+    "build": "Build",
+    "intro": {
+      "title": "What this app is",
+      "body": "Copilot Cowork Estimator is a planning tool that estimates the consumption and cost of Copilot Credits for your organization. It runs entirely in the browser: no data is sent to external servers and everything is stored locally. Estimates are based on transparent, editable assumptions — not official Microsoft pricing."
+    },
+    "quickstart": {
+      "title": "Quick start in 4 steps",
+      "step1Title": "1. Create a company",
+      "step1Body": "Go to Companies and create a new client with its name and number of employees.",
+      "step2Title": "2. Create a scenario",
+      "step2Body": "Start a new scenario, pick the company and define the workforce segments (e.g. Sales, IT, Managers).",
+      "step3Title": "3. Configure segments",
+      "step3Body": "For each segment set headcount, enabled and active user percentages, usage profile and preferred AI model.",
+      "step4Title": "4. Read the results",
+      "step4Body": "The scenario automatically computes monthly/annual credits and cost as a min/mid/max range, with a per-segment breakdown."
+    },
+    "concepts": {
+      "title": "Key concepts",
+      "creditsTitle": "Copilot Credits",
+      "creditsBody": "The consumption unit of the Cowork model. Each task consumes credits based on model, context, tools and complexity.",
+      "rangeTitle": "Min / mid / max range",
+      "rangeBody": "Estimates are not a single number but a range. The midpoint is the main value; min and max show the best and worst case.",
+      "profileTitle": "Usage profiles",
+      "profileBody": "Light, Medium and Heavy describe how intensively a segment uses Copilot each month. You can also create custom ones.",
+      "assumptionTitle": "Assumption Pack",
+      "assumptionBody": "A versioned set of calculation rules (credit bands, model factors). Kept separate from company data and updatable."
+    },
+    "dataPrivacy": {
+      "title": "Data privacy",
+      "body": "All data stays in your browser's localStorage. Export a JSON backup regularly from Settings to avoid losing your work: clearing browser data also deletes your simulations."
+    },
+    "faqTitle": "Frequently asked questions",
+    "faq": {
+      "q1": "Are the shown costs official?",
+      "a1": "No. They are planning estimates based on assumptions. They do not represent a Microsoft quote or contractual price.",
+      "q2": "Where is my data stored?",
+      "a2": "Exclusively in the browser (localStorage). No server, no login, no tracking.",
+      "q3": "Can I share a scenario?",
+      "a3": "Yes, via JSON export or (coming soon) a shareable link. The recipient can import the configuration.",
+      "q4": "How do I update calculation assumptions?",
+      "a4": "In the Assumptions section you can review and duplicate assumption packs to create custom versions."
+    }
+  },
+  "tour": {
+    "next": "Next",
+    "prev": "Back",
+    "skip": "Skip",
+    "finish": "Got it",
+    "stepOf": "{{current}} of {{total}}",
+    "welcome": {
+      "title": "Welcome to Copilot Cowork Estimator",
+      "body": "Let's walk through the app in a few steps. You can skip the tour anytime and restart it from the Help page."
+    },
+    "nav": {
+      "title": "Navigation",
+      "body": "From here you reach Dashboard, Companies, Scenarios, Assumptions and Compare. On mobile use the menu at the top left."
+    },
+    "companies": {
+      "title": "Manage companies",
+      "body": "Start by creating a company with its employee count. Each company can have multiple estimation scenarios."
+    },
+    "scenarios": {
+      "title": "Estimation scenarios",
+      "body": "A scenario models the workforce in segments and computes credits and costs as a range."
+    },
+    "theme": {
+      "title": "Theme and language",
+      "body": "Switch between light/dark theme and English or Italian at any time."
+    },
+    "help": {
+      "title": "Need help?",
+      "body": "The full guide is always here. Look for the info icons next to values for quick explanations."
+    }
+  },
+  "hints": {
+    "monthlyCredits": "Sum of estimated monthly credits across all active scenarios, for the selected range (min/mid/max).",
+    "monthlyCost": "Estimated monthly cost, obtained by valuing the credits at the funding plan's price per credit.",
+    "annualCost": "Annual projection of the monthly cost (× 12). It is an estimate, not a spending commitment.",
+    "warnings": "Number of functional warnings across scenarios: custom assumptions, exceeded budgets, incomplete data, etc.",
+    "rangeSelector": "Change the displayed value: Min (optimistic), Mid (expected), Max (conservative).",
+    "enabledPct": "Percentage of people in the segment assigned a Copilot license.",
+    "activePct": "Percentage of enabled users who actually use Copilot on a recurring basis.",
+    "usageProfile": "Average usage intensity of the segment: defines how many light/medium/heavy tasks each user runs per month.",
+    "preferredModel": "AI model used by the segment. More powerful models consume more credits per task.",
+    "assumptionPack": "Versioned set of calculation rules applied to the scenario. Determines credit bands and factors.",
+    "headcount": "Total number of people in this workforce segment.",
+    "modelFactor": "Multiplier reflecting the higher credit consumption of more capable models.",
+    "creditBands": "Estimated credits per task by intensity (light/medium/heavy), in min/mid/max values.",
+    "costPerActive": "Average monthly cost per user actively using Copilot.",
+    "costPerEnabled": "Average monthly cost per user assigned a license."
   }
 }
