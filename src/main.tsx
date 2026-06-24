@@ -24,6 +24,7 @@ import WorkforceSegmentation from '@/pages/Segments'
 import ScenarioWizardPage from '@/pages/Wizard'
 import UsageProfilesPage from '@/pages/Profiles'
 import PortfolioPage from '@/pages/Portfolio'
+import ScenarioReportPage from '@/pages/Report'
 
 function AppRoot() {
   const hydrate = useAppStore((s) => s.hydrate)
@@ -42,6 +43,7 @@ function AppRoot() {
               <Route path="scenarios" element={<Scenarios />} />
               <Route path="scenarios/new" element={<ScenarioWizardPage />} />
               <Route path="scenarios/:id" element={<ScenarioDetail />} />
+              <Route path="scenarios/:id/report" element={<ScenarioReportPage />} />
               <Route path="scenarios/:scenarioId/segments" element={<WorkforceSegmentation />} />
               <Route path="assumptions" element={<Assumptions />} />
               <Route path="profiles" element={<UsageProfilesPage />} />

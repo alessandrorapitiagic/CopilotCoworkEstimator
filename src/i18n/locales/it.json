@@ -614,6 +614,16 @@
       "limitTitle": "Limite dimensioni link",
       "limitBody": "Per scenari grandi il link può superare il limite URL (~8KB). In quel caso l'app suggerisce automaticamente di usare l'export JSON."
     },
+    "scenarioReport": {
+      "title": "Report scenario",
+      "body": "Il report consolida executive summary, dati azienda, risultati, breakdown, funding, assunzioni, formula, warning e disclaimer in una vista stampabile e condivisibile.",
+      "printTitle": "Stampa o PDF",
+      "printBody": "Usa il pulsante Stampa / PDF per aprire la stampa del browser. Da lì puoi salvare il report come PDF.",
+      "sectionsTitle": "Sezioni incluse",
+      "sectionsBody": "Il report include KPI, configurazione, utenti, crediti, costi, funding plan, budget, breakdown per segmento e il pannello How this was calculated.",
+      "disclaimerTitle": "Uso corretto",
+      "disclaimerBody": "Il report è una stima basata su assumption pack. Non rappresenta un prezzo ufficiale o vincolante Microsoft."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -718,6 +728,14 @@
     "shareBtn": {
       "title": "Condividi scenario",
       "body": "Genera un link condivisibile per inviare questo scenario a un collega. Il link contiene tutti i dati — nessun server coinvolto."
+    },
+    "reportOpen": {
+      "title": "Report scenario",
+      "body": "Apri una vista finale stampabile, esportabile e condivisibile dello scenario, completa di assunzioni e formula."
+    },
+    "reportPrint": {
+      "title": "Stampa / PDF",
+      "body": "Questo pulsante apre la stampa del browser. Puoi salvare il report come PDF o inviarlo agli stakeholder."
     },
     "tasksList": {
       "title": "Task preset",
@@ -969,5 +987,27 @@
     "savedFromShare": "Scenario salvato dal link condiviso.",
     "payloadCorrupted": "Il link non è valido o è corrotto.",
     "payloadTooLargeUse": "Il link è troppo grande. Chiedi al mittente di esportare in JSON."
+  },
+  "report": {
+    "title": "Report scenario",
+    "openReport": "Report",
+    "print": "Stampa / PDF",
+    "exportSummaryCsv": "CSV riepilogo",
+    "exportSegmentsCsv": "CSV segmenti",
+    "exportJson": "JSON report",
+    "backToScenario": "Torna allo scenario",
+    "generatedAt": "Generato il",
+    "calculatedAt": "Calcolato il",
+    "executiveSummary": "Executive summary",
+    "configuration": "Configurazione scenario",
+    "estimates": "Stime crediti e costi",
+    "creditEstimate": "Stima crediti",
+    "costEstimate": "Stima costi",
+    "breakdown": "Breakdown",
+    "warningsLimitations": "Warning e limitazioni",
+    "metadata": "Metadata export e condivisione",
+    "partialResult": "Report parziale: lo scenario non ha ancora un risultato calcolato.",
+    "activeUsers": "Utenti attivi",
+    "includedSegments": "Segmenti inclusi"
   }
 }

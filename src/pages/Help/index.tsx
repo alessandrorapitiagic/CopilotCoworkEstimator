@@ -66,6 +66,7 @@ export default function Help() {
     { id: 'compareScenarios', icon: GitCompareArrows, label: t('help.compareScenarios.title') },
     { id: 'localStorage', icon: ShieldCheck, label: t('help.localStorage.title') },
     { id: 'exportImportShare', icon: Download, label: t('help.exportImportShare.title') },
+    { id: 'scenarioReport', icon: BookOpen, label: t('help.scenarioReport.title') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -386,6 +387,28 @@ export default function Help() {
               { title: 'help.exportImportShare.jsonTitle', body: 'help.exportImportShare.jsonBody' },
               { title: 'help.exportImportShare.shareTitle', body: 'help.exportImportShare.shareBody' },
               { title: 'help.exportImportShare.limitTitle', body: 'help.exportImportShare.limitBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}><p className="font-semibold">{t(title)}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p></div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Scenario Report */}
+        <SectionAnchor id="scenarioReport" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <BookOpen className="size-4 text-primary" />
+              {t('help.scenarioReport.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.scenarioReport.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.scenarioReport.printTitle', body: 'help.scenarioReport.printBody' },
+              { title: 'help.scenarioReport.sectionsTitle', body: 'help.scenarioReport.sectionsBody' },
+              { title: 'help.scenarioReport.disclaimerTitle', body: 'help.scenarioReport.disclaimerBody' },
             ].map(({ title, body }, i) => (
               <div key={i}><p className="font-semibold">{t(title)}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p></div>
             ))}

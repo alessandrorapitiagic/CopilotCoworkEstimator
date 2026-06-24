@@ -67,6 +67,16 @@ From **Settings → Data Management** you can:
 
 > ⚠️ Clearing your browser data deletes your simulations. Export a backup before clearing.
 
+### Scenario report
+
+Open **Scenario → Report** to generate the final printable view for a simulation. The report includes
+executive summary, company data, scenario configuration, min/mid/max credit and cost estimates,
+funding plan, budget guardrails, segment breakdown, assumptions, calculation formula, warnings,
+metadata and the estimation disclaimer.
+
+Use **Print / PDF** to save a PDF from the browser print dialog. You can also export summary CSV,
+segment CSV, report JSON, or share the scenario via link.
+
 ### Disclaimer
 
 All results are **planning estimates** based on assumptions. They **do not** represent an official
@@ -138,6 +148,16 @@ Da **Impostazioni → Gestione Dati** puoi:
 - **Reset Dati** — elimina permanentemente tutti i dati locali (chiede conferma).
 
 > ⚠️ Cancellare i dati del browser elimina le simulazioni. Esporta un backup prima di farlo.
+
+### Report scenario
+
+Apri **Scenario → Report** per generare la vista finale stampabile di una simulazione. Il report
+include executive summary, dati azienda, configurazione scenario, stime min/mid/max di crediti e
+costi, funding plan, budget guardrails, breakdown segmenti, assunzioni, formula di calcolo, warning,
+metadata e disclaimer.
+
+Usa **Stampa / PDF** per salvare un PDF dalla finestra di stampa del browser. Puoi anche esportare
+CSV riepilogo, CSV segmenti, JSON report o condividere lo scenario tramite link.
 
 ### Disclaimer
 

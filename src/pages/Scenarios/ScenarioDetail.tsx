@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, RefreshCw, Info, Users, Share2 } from 'lucide-react'
+import { ArrowLeft, RefreshCw, Info, Users, Share2, FileText } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -85,6 +85,11 @@ export default function ScenarioDetail() {
           <Button variant="outline" size="sm" asChild>
             <Link to={`/scenarios/${id}/segments`}>
               <Users className="size-4" /> {t('scenarios.segments')}
+            </Link>
+          </Button>
+          <Button variant="outline" size="sm" asChild data-tour="report-open">
+            <Link to={`/scenarios/${id}/report`}>
+              <FileText className="size-4" /> {t('report.openReport')}
             </Link>
           </Button>
           <Button variant="outline" size="sm" onClick={() => recalculateScenario(s.id)}>
