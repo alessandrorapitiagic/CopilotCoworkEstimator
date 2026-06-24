@@ -133,6 +133,21 @@ function migrateProfileIfNeeded<T extends { id: string; isSystemDefault?: boolea
       metadata: p.metadata ?? {},
     }
   }
+  // Migrate AssumptionPack
+  if ('creditBands' in p) {
+    return {
+      ...item,
+      sourceType: p.sourceType ?? (p.isSystemDefault ? 'system' : 'custom'),
+      sourceName: p.sourceName ?? p.source ?? null,
+      sourceUrl: p.sourceUrl ?? null,
+      isCurrentDefault: p.isCurrentDefault ?? (p.isSystemDefault ?? false),
+      isEditable: p.isEditable !== false ? !p.isSystemDefault : false,
+      isDeprecated: p.isDeprecated ?? false,
+      deprecatedReason: p.deprecatedReason ?? null,
+      notes: p.notes ?? null,
+      metadata: p.metadata ?? {},
+    }
+  }
   return item
 }
 

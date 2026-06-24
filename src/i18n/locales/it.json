@@ -536,6 +536,18 @@
       "packsTitle": "Assumption pack",
       "packsBody": "L'assumption pack contiene le bande di crediti (min/mid/max) per task light/medium/heavy e i fattori moltiplicatori. I valori sono stime indicative, non prezzi ufficiali."
     },
+    "assumptionPacks": {
+      "title": "Assumption Pack versionati",
+      "body": "Ogni assumption pack è versionato e auditabile. Il pack di sistema è il default. Puoi duplicarlo per creare versioni personalizzate da associare ai tuoi scenari.",
+      "versionTitle": "Versionamento",
+      "versionBody": "Ogni pack ha nome, versione e data fonte. Gli scenari salvano il riferimento al pack usato per garantire la riproducibilità del calcolo nel tempo.",
+      "customTitle": "Pack custom",
+      "customBody": "Duplica il pack di sistema per creare la tua variante. Puoi modificare credit bands, fattori e prezzo per credito. I pack custom sono esportabili nel backup JSON.",
+      "deprecationTitle": "Deprecazione",
+      "deprecationBody": "Puoi deprecare un pack custom per segnalare che è obsoleto. I pack deprecated non sono proposti come default ma rimangono disponibili per scenari storici.",
+      "compareTitle": "Confronto pack",
+      "compareBody": "Usa il pulsante ⇄ su due pack per confrontarne le credit bands e i fattori. Utile per valutare l'impatto di una modifica alle assunzioni."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",

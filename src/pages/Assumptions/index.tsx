@@ -2,20 +2,22 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   Plus, Copy, Edit, Trash2, AlertTriangle, Search,
-  Zap, BookOpen, Cpu,
+  Zap, BookOpen, Cpu, Star, StarOff,
 } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Switch } from '@/components/ui/switch'
 import { InfoHint } from '@/components/shared/InfoHint'
 import { TaskPresetForm } from './TaskPresetForm'
+import { AssumptionPackForm } from './AssumptionPackForm'
 
-import type { TaskPreset, ModelAssumption } from '@/types/domain'
+import type { TaskPreset, ModelAssumption, AssumptionPack } from '@/types/domain'
 
 const INTENSITY_COLORS = {
   light: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400',
@@ -34,16 +36,21 @@ const MODEL_CLASS_COLORS: Record<string, string> = {
 export default function Assumptions() {
   const { t } = useTranslation()
   const {
-    taskPresets, modelAssumptions, assumptionPacks,
+    taskPresets, modelAssumptions, assumptionPacks, scenarios,
     addTaskPreset, updateTaskPreset, duplicateTaskPreset, deleteTaskPreset,
     updateModelAssumption, toggleModelEnabled,
+    addAssumptionPack, updateAssumptionPack, duplicateAssumptionPack,
+    deleteAssumptionPack, setDefaultAssumptionPack, deprecateAssumptionPack, isPackInUse,
   } = useAppStore()
 
   const [search, setSearch] = useState('')
   const [filterIntensity, setFilterIntensity] = useState<string>('all')
   const [formTarget, setFormTarget] = useState<TaskPreset | null | 'new'>(null)
+  const [packFormTarget, setPackFormTarget] = useState<AssumptionPack | null | 'new'>(null)
   const [editingModel, setEditingModel] = useState<string | null>(null)
   const [editingFactor, setEditingFactor] = useState<string>('')
+  const [comparePackA, setComparePackA] = useState<string | null>(null)
+  const [comparePackB, setComparePackB] = useState<string | null>(null)
   const [toast, setToast] = useState('')
 
   function showToast(msg: string) {
@@ -76,6 +83,36 @@ export default function Assumptions() {
     setEditingModel(null)
     showToast(t('assumptions.modelFactorUpdated'))
   }
+
+  // ---- Pack handlers ----
+  function handlePackSave(data: Omit<AssumptionPack, 'id' | 'createdAt' | 'updatedAt'> & { id?: string }) {
+    if (data.id) {
+      updateAssumptionPack(data.id, data)
+      showToast('Pack salvato.')
+    } else {
+      addAssumptionPack(data)
+      showToast('Pack creato.')
+    }
+    setPackFormTarget(null)
+  }
+
+  function handlePackDelete(pack: AssumptionPack) {
+    if (pack.isSystemDefault) { showToast('I pack di sistema non possono essere eliminati.'); return }
+    if (isPackInUse(pack.id)) { showToast('Questo pack è usato da scenari. Migrali prima di eliminarlo.'); return }
+    if (!confirm(`Eliminare il pack "${pack.name}"?`)) return
+    deleteAssumptionPack(pack.id)
+    showToast('Pack eliminato.')
+  }
+
+  function handleComparePackSelect(id: string) {
+    if (comparePackA === id) { setComparePackA(null); return }
+    if (comparePackB === id) { setComparePackB(null); return }
+    if (!comparePackA) setComparePackA(id)
+    else if (!comparePackB) setComparePackB(id)
+  }
+
+  const packA = assumptionPacks.find((p) => p.id === comparePackA)
+  const packB = assumptionPacks.find((p) => p.id === comparePackB)
 
   // ---- Filtered presets ----
   const filteredPresets = taskPresets.filter((p) => {
@@ -362,61 +399,209 @@ export default function Assumptions() {
 
         {/* ---- ASSUMPTION PACKS tab ---- */}
         <TabsContent value="packs" className="flex flex-col gap-4">
-          {assumptionPacks.map((pack) => (
-            <Card key={pack.id}>
-              <CardHeader>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <CardTitle className="text-base">{pack.name}</CardTitle>
-                  <Badge variant="secondary">v{pack.version}</Badge>
-                  {pack.isSystemDefault && <Badge>{t('assumptions.systemDefault')}</Badge>}
-                </div>
-                <CardDescription>{pack.description}</CardDescription>
-                {pack.source && (
-                  <p className="text-xs text-muted-foreground">
-                    {t('assumptions.source')}: {pack.source}
-                    {pack.sourceDate ? ` · ${pack.sourceDate}` : ''}
-                  </p>
-                )}
-              </CardHeader>
-              <CardContent className="flex flex-col gap-4">
-                {/* Credit bands */}
-                <div>
-                  <p className="text-sm font-semibold mb-2">{t('assumptions.creditBands')}</p>
-                  <div className="grid grid-cols-3 gap-2 text-xs">
+          {/* Header with create + compare */}
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-sm text-muted-foreground">
+              {t('app.disclaimer')}
+            </p>
+            <Button size="sm" onClick={() => setPackFormTarget('new')}>
+              <Plus className="size-4" /> Nuovo pack
+            </Button>
+          </div>
+
+          {/* Pack compare selection banner */}
+          {(comparePackA || comparePackB) && (
+            <div className="rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 text-xs text-primary flex items-center justify-between">
+              <span>
+                Confronto: {[comparePackA, comparePackB].filter(Boolean).map((id) =>
+                  assumptionPacks.find((p) => p.id === id)?.name ?? id).join(' ↔ ')}
+              </span>
+              <Button variant="ghost" size="sm" className="h-6" onClick={() => { setComparePackA(null); setComparePackB(null) }}>
+                Annulla
+              </Button>
+            </div>
+          )}
+
+          {/* Pack compare view */}
+          {packA && packB && (
+            <div className="grid gap-4 sm:grid-cols-2 text-xs">
+              {[packA, packB].map((p) => (
+                <Card key={p.id} className="border-primary/30">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm">{p.name} <span className="text-muted-foreground">v{p.version}</span></CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex flex-col gap-2">
                     {(['light', 'medium', 'heavy'] as const).map((int) => (
-                      <div key={int} className="rounded-lg border p-3 bg-muted/30">
-                        <p className={`font-semibold text-sm mb-1 capitalize`}>
-                          <span className={`px-1.5 py-0.5 rounded-full ${INTENSITY_COLORS[int]}`}>
-                            {t(`assumptions.intensity.${int}`)}
-                          </span>
+                      <div key={int} className="flex justify-between items-center">
+                        <span className={`px-1.5 py-0.5 rounded-full text-[10px] ${INTENSITY_COLORS[int]}`}>{int}</span>
+                        <span>
+                          {p.creditBands[`${int}Min` as keyof typeof p.creditBands]}–
+                          {p.creditBands[`${int}Mid` as keyof typeof p.creditBands]}–
+                          {p.creditBands[`${int}Max` as keyof typeof p.creditBands]}
+                        </span>
+                      </div>
+                    ))}
+                    <Separator className="my-1" />
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">PAYG price</span>
+                      <span className="font-medium">{p.fundingDefaults.paygPricePerCredit} {p.fundingDefaults.currency}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+
+          {/* All packs */}
+          {assumptionPacks.map((pack) => {
+            const usedBy = scenarios.filter((sc) => sc.assumptionPackId === pack.id).length
+            const isSelected = comparePackA === pack.id || comparePackB === pack.id
+            return (
+              <Card key={pack.id} className={isSelected ? 'ring-2 ring-primary' : ''}>
+                <CardHeader>
+                  <div className="flex items-start justify-between gap-2 flex-wrap">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <CardTitle className="text-base">{pack.name}</CardTitle>
+                        <Badge variant="secondary">v{pack.version}</Badge>
+                        {pack.isSystemDefault && <Badge>{t('assumptions.systemDefault')}</Badge>}
+                        {!pack.isSystemDefault && <Badge variant="outline">{t('assumptions.custom')}</Badge>}
+                        {pack.isCurrentDefault && <Badge variant="success">Default</Badge>}
+                        {pack.isDeprecated && <Badge variant="destructive">Deprecated</Badge>}
+                      </div>
+                      {pack.sourceName && (
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {t('assumptions.source')}: {pack.sourceName}
+                          {pack.sourceDate ? ` · ${pack.sourceDate}` : ''}
                         </p>
-                        <p className="text-muted-foreground">Min: <span className="text-foreground font-medium">{pack.creditBands[`${int}Min` as keyof typeof pack.creditBands]}</span></p>
-                        <p className="text-muted-foreground">Mid: <span className="text-foreground font-medium">{pack.creditBands[`${int}Mid` as keyof typeof pack.creditBands]}</span></p>
-                        <p className="text-muted-foreground">Max: <span className="text-foreground font-medium">{pack.creditBands[`${int}Max` as keyof typeof pack.creditBands]}</span></p>
-                      </div>
-                    ))}
+                      )}
+                      {usedBy > 0 && (
+                        <p className="text-xs text-muted-foreground">{usedBy} scenari collegati</p>
+                      )}
+                    </div>
+                    {/* Actions */}
+                    <div className="flex gap-1 shrink-0">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant={isSelected ? 'default' : 'ghost'} size="icon" className="size-7"
+                            onClick={() => handleComparePackSelect(pack.id)}>
+                            ⇄
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Seleziona per confronto</TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant="ghost" size="icon" className="size-7"
+                            onClick={() => duplicateAssumptionPack(pack.id) && showToast('Pack duplicato.')}>
+                            <Copy className="size-3.5" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Duplica</TooltipContent>
+                      </Tooltip>
+                      {!pack.isSystemDefault && (
+                        <>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon" className="size-7"
+                                onClick={() => setPackFormTarget(pack)}>
+                                <Edit className="size-3.5" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Modifica</TooltipContent>
+                          </Tooltip>
+                          {!pack.isCurrentDefault && !pack.isDeprecated && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button variant="ghost" size="icon" className="size-7"
+                                  onClick={() => { setDefaultAssumptionPack(pack.id); showToast('Pack impostato come default.') }}>
+                                  <Star className="size-3.5" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Imposta come default</TooltipContent>
+                            </Tooltip>
+                          )}
+                          {!pack.isDeprecated && (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button variant="ghost" size="icon" className="size-7 text-amber-500 hover:text-amber-600"
+                                  onClick={() => {
+                                    const reason = prompt('Motivo obsolescenza:') ?? 'Versione superata'
+                                    deprecateAssumptionPack(pack.id, reason)
+                                    showToast('Pack deprecato.')
+                                  }}>
+                                  <StarOff className="size-3.5" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Depreca</TooltipContent>
+                            </Tooltip>
+                          )}
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon"
+                                className={`size-7 ${!isPackInUse(pack.id) ? 'text-destructive hover:text-destructive' : 'opacity-30 cursor-not-allowed'}`}
+                                onClick={() => !isPackInUse(pack.id) && handlePackDelete(pack)}>
+                                <Trash2 className="size-3.5" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              {isPackInUse(pack.id) ? 'Pack in uso' : 'Elimina'}
+                            </TooltipContent>
+                          </Tooltip>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-
-                {/* Factors */}
-                <div>
-                  <p className="text-sm font-semibold mb-2">{t('assumptions.factors')}</p>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                    {Object.entries(pack.factors).map(([key, value]) => (
-                      <div key={key} className="rounded border px-2 py-1.5 flex justify-between">
-                        <span className="text-muted-foreground truncate">{key}</span>
-                        <span className="font-semibold ml-2">{value}×</span>
-                      </div>
-                    ))}
+                  {pack.description && (
+                    <CardDescription>{pack.description}</CardDescription>
+                  )}
+                  {pack.isDeprecated && pack.deprecatedReason && (
+                    <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+                      <AlertTriangle className="size-3" />
+                      {pack.deprecatedReason}
+                    </p>
+                  )}
+                </CardHeader>
+                <CardContent className="flex flex-col gap-4">
+                  {/* Credit bands */}
+                  <div>
+                    <p className="text-sm font-semibold mb-2">{t('assumptions.creditBands')}</p>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      {(['light', 'medium', 'heavy'] as const).map((int) => (
+                        <div key={int} className="rounded-lg border p-3 bg-muted/30">
+                          <p className="font-semibold text-sm mb-1">
+                            <span className={`px-1.5 py-0.5 rounded-full ${INTENSITY_COLORS[int]}`}>
+                              {t(`assumptions.intensity.${int}`)}
+                            </span>
+                          </p>
+                          <p className="text-muted-foreground">Min: <span className="text-foreground font-medium">{pack.creditBands[`${int}Min` as keyof typeof pack.creditBands]}</span></p>
+                          <p className="text-muted-foreground">Mid: <span className="text-foreground font-medium">{pack.creditBands[`${int}Mid` as keyof typeof pack.creditBands]}</span></p>
+                          <p className="text-muted-foreground">Max: <span className="text-foreground font-medium">{pack.creditBands[`${int}Max` as keyof typeof pack.creditBands]}</span></p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                {pack.disclaimer && (
-                  <p className="text-xs text-muted-foreground border-t pt-2">{pack.disclaimer}</p>
-                )}
-              </CardContent>
-            </Card>
-          ))}
+                  {/* Factors */}
+                  <div>
+                    <p className="text-sm font-semibold mb-2">{t('assumptions.factors')}</p>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                      {Object.entries(pack.factors).map(([key, value]) => (
+                        <div key={key} className="rounded border px-2 py-1.5 flex justify-between">
+                          <span className="text-muted-foreground truncate">{key}</span>
+                          <span className="font-semibold ml-2">{value}×</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {pack.disclaimer && (
+                    <p className="text-xs text-muted-foreground border-t pt-2">{pack.disclaimer}</p>
+                  )}
+                </CardContent>
+              </Card>
+            )
+          })}
         </TabsContent>
       </Tabs>
 
@@ -427,6 +612,15 @@ export default function Assumptions() {
           models={modelAssumptions.filter((m) => m.isEnabled)}
           onSave={handlePresetSave}
           onClose={() => setFormTarget(null)}
+        />
+      )}
+
+      {/* Assumption Pack Form */}
+      {packFormTarget !== null && (
+        <AssumptionPackForm
+          pack={packFormTarget === 'new' ? null : packFormTarget}
+          onSave={handlePackSave}
+          onClose={() => setPackFormTarget(null)}
         />
       )}
     </div>

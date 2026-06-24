@@ -216,9 +216,12 @@ export interface AssumptionPackFactors {
   imageMultiplier: number
 }
 
+export type AssumptionPackSourceType = 'system' | 'custom' | 'imported' | 'shared'
+
 export interface AssumptionPack extends Auditable {
   name: string
   version: string
+  // Legacy field (source name/URL text) — kept for compat
   source: string | null
   sourceDate: string | null
   description: string | null
@@ -231,6 +234,16 @@ export interface AssumptionPack extends Auditable {
   }
   isSystemDefault: boolean
   disclaimer: string | null
+  // New fields per FP-008
+  sourceType: AssumptionPackSourceType
+  sourceName: string | null
+  sourceUrl: string | null
+  isCurrentDefault: boolean
+  isEditable: boolean
+  isDeprecated: boolean
+  deprecatedReason: string | null
+  notes: string | null
+  metadata: Record<string, unknown>
 }
 
 // ----- Funding Plan ------------------------------------------

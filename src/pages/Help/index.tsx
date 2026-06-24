@@ -58,6 +58,7 @@ export default function Help() {
     { id: 'wizard', icon: Rocket, label: t('help.wizard.title') },
     { id: 'profiles', icon: SlidersHorizontal, label: t('help.profiles.title') },
     { id: 'taskPresets', icon: BookOpen, label: t('help.taskPresets.title') },
+    { id: 'assumptionPacks', icon: BookOpen, label: t('help.assumptionPacks.title') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -257,6 +258,32 @@ export default function Help() {
               { title: 'help.taskPresets.presetTitle', body: 'help.taskPresets.presetBody' },
               { title: 'help.taskPresets.modelTitle', body: 'help.taskPresets.modelBody' },
               { title: 'help.taskPresets.packsTitle', body: 'help.taskPresets.packsBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}>
+                <p className="font-semibold">{t(title)}</p>
+                <p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Assumption Packs */}
+        <SectionAnchor id="assumptionPacks" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <BookOpen className="size-4 text-primary" />
+              {t('help.assumptionPacks.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.assumptionPacks.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.assumptionPacks.versionTitle', body: 'help.assumptionPacks.versionBody' },
+              { title: 'help.assumptionPacks.customTitle', body: 'help.assumptionPacks.customBody' },
+              { title: 'help.assumptionPacks.deprecationTitle', body: 'help.assumptionPacks.deprecationBody' },
+              { title: 'help.assumptionPacks.compareTitle', body: 'help.assumptionPacks.compareBody' },
             ].map(({ title, body }, i) => (
               <div key={i}>
                 <p className="font-semibold">{t(title)}</p>

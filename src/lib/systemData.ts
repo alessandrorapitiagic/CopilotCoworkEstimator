@@ -59,6 +59,15 @@ export const SYSTEM_ASSUMPTION_PACK: AssumptionPack = {
   isSystemDefault: true,
   disclaimer:
     'Queste sono stime basate su bande indicative. Non rappresentano un prezzo ufficiale o contrattuale Microsoft.',
+  sourceType: 'system',
+  sourceName: 'Microsoft Copilot Cowork documentation',
+  sourceUrl: null,
+  isCurrentDefault: true,
+  isEditable: false,
+  isDeprecated: false,
+  deprecatedReason: null,
+  notes: null,
+  metadata: {},
   createdAt: now,
   updatedAt: now,
 }

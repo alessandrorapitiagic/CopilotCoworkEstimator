@@ -66,6 +66,15 @@ interface AppState {
   updateModelAssumption: (id: string, updates: Partial<ModelAssumption>) => void
   toggleModelEnabled: (id: string) => void
 
+  // Assumption Packs (CRUD custom + set default + deprecate)
+  addAssumptionPack: (pack: Omit<AssumptionPack, 'id' | 'createdAt' | 'updatedAt'>) => AssumptionPack
+  updateAssumptionPack: (id: string, updates: Partial<AssumptionPack>) => void
+  duplicateAssumptionPack: (id: string) => AssumptionPack | null
+  deleteAssumptionPack: (id: string) => { success: boolean; reason?: string }
+  setDefaultAssumptionPack: (id: string) => void
+  deprecateAssumptionPack: (id: string, reason: string) => void
+  isPackInUse: (id: string) => boolean
+
   // Preferences
   updatePreferences: (prefs: Partial<UIPreferences>) => void
 
@@ -77,7 +86,7 @@ function now() {
   return new Date().toISOString()
 }
 
-function persist(state: Omit<AppState, 'hydrate' | 'addCompany' | 'updateCompany' | 'deleteCompany' | 'duplicateCompany' | 'saveBaselineFromScenario' | 'copyBaselineToScenario' | 'addScenario' | 'updateScenario' | 'deleteScenario' | 'recalculateScenario' | 'addSegment' | 'updateSegment' | 'deleteSegment' | 'upsertFundingPlan' | 'addUsageProfile' | 'updateUsageProfile' | 'duplicateUsageProfile' | 'deleteUsageProfile' | 'isProfileInUse' | 'addTaskPreset' | 'updateTaskPreset' | 'duplicateTaskPreset' | 'deleteTaskPreset' | 'updateModelAssumption' | 'toggleModelEnabled' | 'updatePreferences' | 'resetAll'>) {
+function persist(state: Omit<AppState, 'hydrate' | 'addCompany' | 'updateCompany' | 'deleteCompany' | 'duplicateCompany' | 'saveBaselineFromScenario' | 'copyBaselineToScenario' | 'addScenario' | 'updateScenario' | 'deleteScenario' | 'recalculateScenario' | 'addSegment' | 'updateSegment' | 'deleteSegment' | 'upsertFundingPlan' | 'addUsageProfile' | 'updateUsageProfile' | 'duplicateUsageProfile' | 'deleteUsageProfile' | 'isProfileInUse' | 'addTaskPreset' | 'updateTaskPreset' | 'duplicateTaskPreset' | 'deleteTaskPreset' | 'updateModelAssumption' | 'toggleModelEnabled' | 'addAssumptionPack' | 'updateAssumptionPack' | 'duplicateAssumptionPack' | 'deleteAssumptionPack' | 'setDefaultAssumptionPack' | 'deprecateAssumptionPack' | 'isPackInUse' | 'updatePreferences' | 'resetAll'>) {
   storageService.save({
     schemaVersion: '1.0.0',
     companies: state.companies,
@@ -523,6 +532,99 @@ export const useAppStore = create<AppState>((set, get) => ({
     const model = s.modelAssumptions.find((m) => m.id === id)
     if (!model) return
     get().updateModelAssumption(id, { isEnabled: !model.isEnabled })
+  },
+
+  // ---- Assumption Packs ----
+
+  addAssumptionPack(data) {
+    const pack: AssumptionPack = { ...data, id: nanoid(), createdAt: now(), updatedAt: now() }
+    set((s) => {
+      const assumptionPacks = [...s.assumptionPacks, pack]
+      persist({ ...s, assumptionPacks })
+      return { assumptionPacks }
+    })
+    return pack
+  },
+
+  updateAssumptionPack(id, updates) {
+    set((s) => {
+      const assumptionPacks = s.assumptionPacks.map((p) =>
+        p.id === id && !p.isSystemDefault ? { ...p, ...updates, updatedAt: now() } : p,
+      )
+      persist({ ...s, assumptionPacks })
+      return { assumptionPacks }
+    })
+  },
+
+  duplicateAssumptionPack(id) {
+    const s = get()
+    const original = s.assumptionPacks.find((p) => p.id === id)
+    if (!original) return null
+    const copy: AssumptionPack = {
+      ...original,
+      id: nanoid(),
+      name: `Copy of ${original.name}`,
+      version: '1.0.0',
+      isSystemDefault: false,
+      isCurrentDefault: false,
+      isEditable: true,
+      isDeprecated: false,
+      deprecatedReason: null,
+      sourceType: 'custom',
+      createdAt: now(),
+      updatedAt: now(),
+    }
+    set((state) => {
+      const assumptionPacks = [...state.assumptionPacks, copy]
+      persist({ ...state, assumptionPacks })
+      return { assumptionPacks }
+    })
+    return copy
+  },
+
+  deleteAssumptionPack(id) {
+    const s = get()
+    const pack = s.assumptionPacks.find((p) => p.id === id)
+    if (!pack) return { success: false, reason: 'not_found' }
+    if (pack.isSystemDefault) return { success: false, reason: 'system_pack' }
+    if (s.scenarios.some((sc) => sc.assumptionPackId === id)) {
+      return { success: false, reason: 'in_use' }
+    }
+    set((state) => {
+      const assumptionPacks = state.assumptionPacks.filter((p) => p.id !== id)
+      persist({ ...state, assumptionPacks })
+      return { assumptionPacks }
+    })
+    return { success: true }
+  },
+
+  setDefaultAssumptionPack(id) {
+    set((s) => {
+      const pack = s.assumptionPacks.find((p) => p.id === id)
+      if (!pack || pack.isDeprecated) return s
+      const assumptionPacks = s.assumptionPacks.map((p) => ({
+        ...p,
+        isCurrentDefault: p.id === id,
+        updatedAt: p.id === id ? now() : p.updatedAt,
+      }))
+      persist({ ...s, assumptionPacks })
+      return { assumptionPacks }
+    })
+  },
+
+  deprecateAssumptionPack(id, reason) {
+    const s = get()
+    const pack = s.assumptionPacks.find((p) => p.id === id)
+    if (!pack || pack.isSystemDefault) return
+    get().updateAssumptionPack(id, {
+      isDeprecated: true,
+      deprecatedReason: reason,
+      isCurrentDefault: false,
+    })
+  },
+
+  isPackInUse(id) {
+    return get().scenarios.some((sc) => sc.assumptionPackId === id)
   },
 
   // ---- Preferences ----
