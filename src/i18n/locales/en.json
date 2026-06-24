@@ -811,6 +811,8 @@
     "draftRecoveryResume": "Resume draft",
     "draftRecoveryDiscard": "Start from scratch",
     "draftSaved": "Draft saved automatically.",
+    "draftExplicitSaved": "Draft saved.",
+    "reviewedExplicitSaved": "Scenario saved as reviewed.",
     "allSegmentsExcluded": "All segments are excluded from the calculation. You can save as a draft or include at least one segment.",
     "noSegments": "Add at least one segment included in the calculation.",
     "steps": {

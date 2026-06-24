@@ -30,6 +30,7 @@ export default function ScenarioWizardPage() {
   const store = useAppStore()
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [savedScenarioId, setSavedScenarioId] = useState<string | null>(null)
+  const [saveFeedback, setSaveFeedback] = useState<{ type: 'draft' | 'reviewed'; at: string } | null>(null)
   const recalcTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Determine initial overrides from query params
@@ -98,7 +99,7 @@ export default function ScenarioWizardPage() {
     window.scrollTo(0, 0)
   }
 
-  function handleSaveDraft() {
+  function getOrCreateCompanyId(): string {
     // Create company if needed
     let companyId = state.companyId
     if (state.companyMode === 'new' && !companyId) {
@@ -116,56 +117,54 @@ export default function ScenarioWizardPage() {
       update({ companyId })
     }
 
-    const scenario = store.addScenario({
+    return companyId
+  }
+
+  function saveScenario(status: 'draft' | 'reviewed'): string {
+    const companyId = getOrCreateCompanyId()
+    const existingId = savedScenarioId ?? state.scenarioId
+    const existingScenario = store.scenarios.find((s) => s.id === existingId)
+
+    const scenarioPayload = {
       companyId,
-      name: state.scenarioName.trim() || 'Bozza scenario',
+      name: state.scenarioName.trim() || (status === 'draft' ? 'Bozza scenario' : 'Scenario'),
       description: state.scenarioDescription.trim() || null,
       assumptionPackId: state.assumptionPackId,
       fundingPlanId: null,
-      segments: state.segments.map((s) => ({ ...s, companyId })),
-      status: 'draft',
-      tags: [],
-    })
+      segments: state.segments.map((seg) => ({ ...seg, companyId })),
+      status,
+      tags: [] as string[],
+    }
 
-    upsertFundingPlan(scenario.id)
-    store.recalculateScenario(scenario.id)
-    setSavedScenarioId(scenario.id)
-    update({ scenarioId: scenario.id, isDirty: false })
-    goToStep('saveShare')
-  }
-
-  function handleSaveReviewed() {
-    let companyId = state.companyId
-    if (state.companyMode === 'new' && !companyId) {
-      const company = store.addCompany({
-        name: state.newCompanyName.trim(),
-        legalName: null, industry: state.newCompanyIndustry as import('@/types/domain').Industry || null,
-        country: state.newCompanyCountry.trim() || null,
-        region: null, totalEmployees: Number(state.newCompanyEmployees) || 1,
-        estimatedKnowledgeWorkers: null, status: 'active', source: 'manual',
-        description: null, notes: null, ownerNotes: null, tags: [],
-        currency: null, defaultAssumptionPackId: null, archivedAt: null,
-        metadata: {}, baselineSegments: [],
-      })
-      companyId = company.id
-      update({ companyId })
+    if (existingScenario) {
+      store.updateScenario(existingScenario.id, scenarioPayload)
+      upsertFundingPlan(existingScenario.id)
+      store.recalculateScenario(existingScenario.id)
+      setSavedScenarioId(existingScenario.id)
+      update({ scenarioId: existingScenario.id, companyId, isDirty: false })
+      return existingScenario.id
     }
 
     const scenario = store.addScenario({
-      companyId,
-      name: state.scenarioName.trim(),
-      description: state.scenarioDescription.trim() || null,
-      assumptionPackId: state.assumptionPackId,
-      fundingPlanId: null,
-      segments: state.segments.map((s) => ({ ...s, companyId })),
-      status: 'reviewed',
-      tags: [],
+      ...scenarioPayload,
     })
 
     upsertFundingPlan(scenario.id)
     store.recalculateScenario(scenario.id)
     setSavedScenarioId(scenario.id)
-    update({ scenarioId: scenario.id, isDirty: false })
+    update({ scenarioId: scenario.id, companyId, isDirty: false })
+    return scenario.id
+  }
+
+  function handleSaveDraft() {
+    saveScenario('draft')
+    setSaveFeedback({ type: 'draft', at: new Date().toISOString() })
+  }
+
+  function handleSaveReviewed() {
+    const id = saveScenario('reviewed')
+    setSaveFeedback({ type: 'reviewed', at: new Date().toISOString() })
+    setSavedScenarioId(id)
     goToStep('saveShare')
   }
 
@@ -259,7 +258,12 @@ export default function ScenarioWizardPage() {
         </Button>
         <div className="flex-1 overflow-hidden">
           <h1 className="text-sm font-semibold truncate">{t('wizard.title')}</h1>
-          {state.isAutosaved && state.lastAutosave && (
+          {saveFeedback ? (
+            <p className="text-xs text-emerald-600 dark:text-emerald-400">
+              {saveFeedback.type === 'draft' ? t('wizard.draftExplicitSaved') : t('wizard.reviewedExplicitSaved')}{' '}
+              {new Date(saveFeedback.at).toLocaleTimeString()}
+            </p>
+          ) : state.isAutosaved && state.lastAutosave && (
             <p className="text-xs text-muted-foreground">
               {t('wizard.draftSaved')} {new Date(state.lastAutosave).toLocaleTimeString()}
             </p>

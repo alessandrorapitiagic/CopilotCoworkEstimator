@@ -811,6 +811,8 @@
     "draftRecoveryResume": "Riprendi bozza",
     "draftRecoveryDiscard": "Inizia da zero",
     "draftSaved": "Bozza salvata automaticamente.",
+    "draftExplicitSaved": "Bozza salvata.",
+    "reviewedExplicitSaved": "Scenario salvato come revisionato.",
     "allSegmentsExcluded": "Tutti i segmenti sono esclusi dal calcolo. Puoi salvare come bozza o includere almeno un segmento.",
     "noSegments": "Aggiungi almeno un segmento incluso nel calcolo.",
     "steps": {
