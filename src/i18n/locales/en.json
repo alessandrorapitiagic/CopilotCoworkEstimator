@@ -406,12 +406,28 @@
     },
     "pricePerCredit": "Price per Credit",
     "prepaidCredits": "Prepaid Credits",
+    "prepaidEffectivePrice": "Effective prepaid price",
     "existingMonthly": "Available Monthly Credits",
     "discount": "Discount (%)",
     "budgetMonthly": "Monthly Budget",
     "budgetAnnual": "Annual Budget",
     "coverage": "Existing Coverage",
-    "spillover": "Spillover"
+    "spillover": "Spillover",
+    "billableCredits": "Billable Credits",
+    "netCost": "Net Cost",
+    "grossCost": "Gross Cost",
+    "savedVsPayg": "Savings vs PAYG",
+    "budgetStatus": "Budget Status",
+    "budgetOk": "Within budget",
+    "budgetWarning": "Warning: max exceeds budget",
+    "budgetCritical": "Critical: even min exceeds budget",
+    "modeDesc": {
+      "payg": "All estimated credits are valued at the price per credit. Most flexible mode.",
+      "prepaid": "Advance purchase of credits at a discounted price. Prepaid credits are consumed before PAYG.",
+      "existing_capacity": "Credits already available in the tenant. Consumed before generating additional costs.",
+      "blended": "Combines existing capacity, prepaid credits and PAYG for the remainder."
+    },
+    "saved": "Funding plan saved."
   },
   "results": {
     "monthlyCredits": "Monthly Credits",
@@ -426,7 +442,14 @@
     "rangeMode": "Range Mode",
     "pointMode": "Point Mode",
     "warnings": "Warnings",
-    "noWarnings": "No warnings"
+    "noWarnings": "No warnings",
+    "formula": "Calculation formula",
+    "calculatedWith": "Calculated with",
+    "fundingBreakdown": "Funding Detail",
+    "creditsCovered": "Credits covered",
+    "creditsSpillover": "Spillover credits",
+    "modelBreakdown": "Credits by Model (mid)",
+    "intensityBreakdown": "Credits by Intensity (mid)"
   },
   "settings": {
     "title": "Settings",
@@ -548,6 +571,16 @@
       "compareTitle": "Pack comparison",
       "compareBody": "Use the ⇄ button on two packs to compare their credit bands and factors. Useful for evaluating the impact of a change to assumptions."
     },
+    "fundingCalculation": {
+      "title": "Funding plan & calculation engine",
+      "body": "The funding plan transforms estimated credits into economic cost. The calculation engine produces min/mid/max credits from segments, profiles, models and assumption packs.",
+      "fundingTitle": "Funding modes",
+      "fundingBody": "PAYG: all credits at full price. Prepaid: credits purchased in advance at a discounted price. Existing Capacity: credits already available in the tenant (no additional cost). Blended: combination.",
+      "engineTitle": "Calculation engine",
+      "engineBody": "The formula is: credits = activeUsers × tasksPerMonth × creditsPerTask × modelFactor × contextFactor × toolsFactor × runtimeFactor. The result is always a min/mid/max range, never a single value.",
+      "budgetTitle": "Budget guardrails",
+      "budgetBody": "You can set a monthly and annual budget. If the estimated cost exceeds the budget a warning is shown (max > budget) or a critical alert (even min > budget)."
+    },
     "quickstart": {
       "title": "Quick start in 4 steps",
       "step1Title": "1. Create a company",
@@ -632,6 +665,14 @@
     "assumptionsTabs": {
       "title": "Assumptions section",
       "body": "Here you find task presets, AI models and assumption packs. Values are indicative estimates — not official Microsoft pricing."
+    },
+    "fundingEditor": {
+      "title": "Funding plan",
+      "body": "Configure how credits are valued: PAYG, prepaid, existing capacity or blended. The preview shows the monthly cost in real time."
+    },
+    "breakdownSegments": {
+      "title": "Results breakdown",
+      "body": "Here you see the breakdown by segment, model and intensity. The sum always matches the scenario total."
     },
     "tasksList": {
       "title": "Task presets",

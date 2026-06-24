@@ -59,6 +59,7 @@ export default function Help() {
     { id: 'profiles', icon: SlidersHorizontal, label: t('help.profiles.title') },
     { id: 'taskPresets', icon: BookOpen, label: t('help.taskPresets.title') },
     { id: 'assumptionPacks', icon: BookOpen, label: t('help.assumptionPacks.title') },
+    { id: 'fundingCalculation', icon: FlaskConical, label: t('help.fundingCalculation.title') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -284,6 +285,31 @@ export default function Help() {
               { title: 'help.assumptionPacks.customTitle', body: 'help.assumptionPacks.customBody' },
               { title: 'help.assumptionPacks.deprecationTitle', body: 'help.assumptionPacks.deprecationBody' },
               { title: 'help.assumptionPacks.compareTitle', body: 'help.assumptionPacks.compareBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}>
+                <p className="font-semibold">{t(title)}</p>
+                <p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Funding & Calculation */}
+        <SectionAnchor id="fundingCalculation" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <FlaskConical className="size-4 text-primary" />
+              {t('help.fundingCalculation.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.fundingCalculation.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.fundingCalculation.fundingTitle', body: 'help.fundingCalculation.fundingBody' },
+              { title: 'help.fundingCalculation.engineTitle', body: 'help.fundingCalculation.engineBody' },
+              { title: 'help.fundingCalculation.budgetTitle', body: 'help.fundingCalculation.budgetBody' },
             ].map(({ title, body }, i) => (
               <div key={i}>
                 <p className="font-semibold">{t(title)}</p>

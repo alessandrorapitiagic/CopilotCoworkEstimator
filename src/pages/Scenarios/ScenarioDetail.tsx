@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { formatCurrency, formatNumber } from '@/lib/utils'
+import { FundingPlanEditor } from './components/FundingPlanEditor'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as ReTooltip, ResponsiveContainer, Cell,
 } from 'recharts'
@@ -17,7 +18,8 @@ export default function ScenarioDetail() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
-  const { scenarios, companies, assumptionPacks, recalculateScenario, preferences } = useAppStore()
+  const { scenarios, companies, assumptionPacks, fundingPlans,
+    recalculateScenario, upsertFundingPlan, preferences } = useAppStore()
 
   const scenario = scenarios.find((s) => s.id === id) ?? null
 
@@ -38,6 +40,13 @@ export default function ScenarioDetail() {
   const pack = assumptionPacks.find((p) => p.id === s.assumptionPackId)
   const result = s.calculationResult
   const currency = preferences.currency
+  const existingFundingPlan = fundingPlans.find((fp) => fp.scenarioId === s.id) ?? null
+  const defaultPrice = pack?.fundingDefaults.paygPricePerCredit ?? 0.01
+
+  function handleSaveFunding(data: Parameters<typeof upsertFundingPlan>[0]) {
+    upsertFundingPlan(data)
+    recalculateScenario(s.id)
+  }
 
   const segmentChartData = result?.breakdownBySegment.map((b) => ({
     name: b.segmentName.length > 12 ? b.segmentName.slice(0, 12) + '…' : b.segmentName,
@@ -159,10 +168,11 @@ export default function ScenarioDetail() {
             </Card>
           </div>
 
-          {/* Tabs: Breakdown + Warnings + Formula */}
+          {/* Tabs: Breakdown + Funding + Warnings + Formula */}
           <Tabs defaultValue="segments">
             <TabsList>
               <TabsTrigger value="segments">{t('results.breakdownBySegment')}</TabsTrigger>
+              <TabsTrigger value="funding">{t('funding.title')}</TabsTrigger>
               <TabsTrigger value="warnings">
                 {t('results.warnings')}
                 {result.warnings.filter((w) => w.severity !== 'info').length > 0 && (
@@ -174,10 +184,10 @@ export default function ScenarioDetail() {
               <TabsTrigger value="formula">{t('scenarios.howCalculated')}</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="segments" className="flex flex-col gap-4">
+            <TabsContent value="segments" className="flex flex-col gap-4" data-tour="breakdown-segments">
               {segmentChartData.length > 0 && (
                 <Card>
-                  <CardHeader><CardTitle className="text-sm">Crediti mensili per segmento (mid)</CardTitle></CardHeader>
+                  <CardHeader><CardTitle className="text-sm">{t('results.breakdownBySegment')} (mid)</CardTitle></CardHeader>
                   <CardContent>
                     <ResponsiveContainer width="100%" height={200}>
                       <BarChart data={segmentChartData} margin={{ top: 0, right: 10, left: 0, bottom: 0 }}>
@@ -232,6 +242,63 @@ export default function ScenarioDetail() {
                   </table>
                 </CardContent>
               </Card>
+
+              {/* Breakdown by model */}
+              {Object.keys(result.breakdownByModel).length > 0 && (
+                <Card>
+                  <CardHeader><CardTitle className="text-sm">{t('results.modelBreakdown')}</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="flex flex-col gap-1">
+                      {Object.entries(result.breakdownByModel).map(([modelId, cr]) => {
+                        const modelName = modelId.replace('model-', '').replace(/-/g, ' ')
+                        const pct = result.monthlyCredits.mid > 0 ? (cr.mid / result.monthlyCredits.mid) * 100 : 0
+                        return (
+                          <div key={modelId} className="flex items-center gap-2 text-xs">
+                            <span className="text-muted-foreground w-32 truncate capitalize">{modelName}</span>
+                            <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
+                              <div className="h-full rounded-full bg-primary" style={{ width: `${pct}%` }} />
+                            </div>
+                            <span className="w-16 text-right font-medium">{formatNumber(Math.round(cr.mid))}</span>
+                            <span className="w-10 text-right text-muted-foreground">{pct.toFixed(1)}%</span>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Breakdown by intensity */}
+              <Card>
+                <CardHeader><CardTitle className="text-sm">{t('results.intensityBreakdown')}</CardTitle></CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-3 gap-3 text-xs">
+                    {(['light', 'medium', 'heavy'] as const).map((int) => {
+                      const cr = result.breakdownByIntensity[int]
+                      const pct = result.monthlyCredits.mid > 0 ? (cr.mid / result.monthlyCredits.mid) * 100 : 0
+                      return (
+                        <div key={int} className="rounded-lg border p-3 bg-muted/30 text-center">
+                          <p className="text-muted-foreground capitalize mb-1">{int}</p>
+                          <p className="font-bold text-sm">{formatNumber(Math.round(cr.mid))}</p>
+                          <p className="text-muted-foreground">{pct.toFixed(1)}%</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Funding tab */}
+            <TabsContent value="funding">
+              <FundingPlanEditor
+                scenarioId={s.id}
+                existingPlan={existingFundingPlan}
+                result={result}
+                currency={currency}
+                defaultPrice={defaultPrice}
+                onSave={handleSaveFunding}
+              />
             </TabsContent>
 
             <TabsContent value="warnings">

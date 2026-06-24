@@ -406,12 +406,28 @@
     },
     "pricePerCredit": "Prezzo per Credito",
     "prepaidCredits": "Crediti Prepagati",
+    "prepaidEffectivePrice": "Prezzo effettivo prepagato",
     "existingMonthly": "Crediti Mensili Disponibili",
     "discount": "Sconto (%)",
     "budgetMonthly": "Budget Mensile",
     "budgetAnnual": "Budget Annuale",
     "coverage": "Copertura Esistente",
-    "spillover": "Eccedenza"
+    "spillover": "Eccedenza",
+    "billableCredits": "Crediti Fatturabili",
+    "netCost": "Costo Netto",
+    "grossCost": "Costo Lordo",
+    "savedVsPayg": "Risparmio vs PAYG",
+    "budgetStatus": "Stato Budget",
+    "budgetOk": "Entro budget",
+    "budgetWarning": "Attenzione: il max supera il budget",
+    "budgetCritical": "Critico: anche il min supera il budget",
+    "modeDesc": {
+      "payg": "Tutti i crediti stimati vengono valorizzati al prezzo per credito. Modalità più flessibile.",
+      "prepaid": "Acquisto anticipato di crediti a prezzo scontato. I crediti prepagati vengono consumati prima del PAYG.",
+      "existing_capacity": "Crediti già disponibili nel tenant. Vengono consumati prima di generare costi aggiuntivi.",
+      "blended": "Combina capacità esistente, crediti prepagati e PAYG per il residuo."
+    },
+    "saved": "Piano di finanziamento salvato."
   },
   "results": {
     "monthlyCredits": "Crediti Mensili",
@@ -426,7 +442,14 @@
     "rangeMode": "Modalità Range",
     "pointMode": "Modalità Punto",
     "warnings": "Warning",
-    "noWarnings": "Nessun warning"
+    "noWarnings": "Nessun warning",
+    "formula": "Formula di calcolo",
+    "calculatedWith": "Calcolato con",
+    "fundingBreakdown": "Dettaglio Funding",
+    "creditsCovered": "Crediti coperti",
+    "creditsSpillover": "Crediti in eccedenza",
+    "modelBreakdown": "Crediti per Modello (mid)",
+    "intensityBreakdown": "Crediti per Intensità (mid)"
   },
   "settings": {
     "title": "Impostazioni",
@@ -548,6 +571,16 @@
       "compareTitle": "Confronto pack",
       "compareBody": "Usa il pulsante ⇄ su due pack per confrontarne le credit bands e i fattori. Utile per valutare l'impatto di una modifica alle assunzioni."
     },
+    "fundingCalculation": {
+      "title": "Funding plan e motore di calcolo",
+      "body": "Il funding plan trasforma i crediti stimati in costo economico. Il motore di calcolo produce crediti min/mid/max a partire da segmenti, profili, modelli e assumption pack.",
+      "fundingTitle": "Modalità di funding",
+      "fundingBody": "PAYG (pay-as-you-go): tutti i crediti a prezzo pieno. Prepaid: crediti acquistati in anticipo a prezzo scontato. Existing Capacity: crediti già disponibili nel tenant (zero costo aggiuntivo). Blended: combinazione.",
+      "engineTitle": "Motore di calcolo",
+      "engineBody": "La formula è: crediti = activeUsers × tasksPerMonth × creditsPerTask × modelFactor × contextFactor × toolsFactor × runtimeFactor. Il risultato è sempre un range min/mid/max, mai un valore puntuale.",
+      "budgetTitle": "Budget guardrails",
+      "budgetBody": "Puoi impostare un budget mensile e annuale. Se il costo stimato supera il budget viene mostrato un warning (max > budget) o un alert critico (anche il min > budget)."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -632,6 +665,14 @@
     "assumptionsTabs": {
       "title": "Sezione Assunzioni",
       "body": "Qui trovi task preset, modelli AI e assumption pack. I valori sono stime indicative — non prezzi ufficiali Microsoft."
+    },
+    "fundingEditor": {
+      "title": "Piano di finanziamento",
+      "body": "Configura come vengono valorizzati i crediti: PAYG, prepaid, capacità esistente o blended. Il preview mostra il costo mensile in tempo reale."
+    },
+    "breakdownSegments": {
+      "title": "Breakdown risultati",
+      "body": "Qui vedi il breakdown per segmento, per modello e per intensità. La somma combacia sempre con il totale dello scenario."
     },
     "tasksList": {
       "title": "Task preset",
