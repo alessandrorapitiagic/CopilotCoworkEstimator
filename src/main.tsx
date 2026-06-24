@@ -43,6 +43,7 @@ function AppRoot() {
               <Route path="scenarios" element={<Scenarios />} />
               <Route path="scenarios/new" element={<ScenarioWizardPage />} />
               <Route path="scenarios/:id" element={<ScenarioDetail />} />
+              <Route path="scenarios/:id/edit" element={<ScenarioWizardPage />} />
               <Route path="scenarios/:id/report" element={<ScenarioReportPage />} />
               <Route path="scenarios/:scenarioId/segments" element={<WorkforceSegmentation />} />
               <Route path="assumptions" element={<Assumptions />} />
@@ -53,9 +54,9 @@ function AppRoot() {
               <Route path="help" element={<Help />} />
             </Route>
           </Routes>
+          <SharedScenarioPreview />
         </HashRouter>
         <TourOverlay />
-        <SharedScenarioPreview />
       </TourProvider>
     </TooltipProvider>
   )

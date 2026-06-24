@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ArrowLeft, ArrowRight, Save } from 'lucide-react'
 
@@ -23,6 +23,7 @@ import { SaveShareStep } from './steps/SaveShareStep'
 export default function ScenarioWizardPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { id: editScenarioId } = useParams<{ id: string }>()
   const [searchParams] = useSearchParams()
   const preselectedCompanyId = searchParams.get('companyId') ?? ''
 
@@ -32,6 +33,7 @@ export default function ScenarioWizardPage() {
   const [savedScenarioId, setSavedScenarioId] = useState<string | null>(null)
   const [saveFeedback, setSaveFeedback] = useState<{ type: 'draft' | 'reviewed'; at: string } | null>(null)
   const recalcTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const editInitialized = useRef(false)
 
   // Determine initial overrides from query params
   const initialOverrides = preselectedCompanyId
@@ -39,13 +41,47 @@ export default function ScenarioWizardPage() {
     : {}
 
   const wizard = useWizard(initialOverrides)
-  const { state, update, recalculate, goNext, goPrev, goToStep, getCurrentStepIndex,
+  const { state, update, initialize, recalculate, goNext, goPrev, goToStep, getCurrentStepIndex,
     getVisibleStepsList, savedDraft, resumeDraft, discardDraft,
     showExitGuard, requestExit, confirmExitDiscard, confirmExitSaveDraft, cancelExit } = wizard
 
   const visibleSteps = getVisibleStepsList()
   const currentIndex = getCurrentStepIndex()
   const isFirstStep = currentIndex === 0
+
+  // Initialize wizard from an existing scenario when opened from /scenarios/:id/edit.
+  // This makes "Edit" an upsert workflow: saving updates the same scenario.
+  useEffect(() => {
+    if (!editScenarioId || editInitialized.current) return
+    const scenario = store.scenarios.find((s) => s.id === editScenarioId)
+    if (!scenario) return
+
+    const funding = store.fundingPlans.find((f) => f.scenarioId === scenario.id)
+    initialize({
+      source: 'manual',
+      currentStep: 'scenarioSetup',
+      scenarioId: scenario.id,
+      scenarioName: scenario.name,
+      scenarioDescription: scenario.description ?? '',
+      companyMode: 'existing',
+      companyId: scenario.companyId,
+      segments: scenario.segments,
+      assumptionPackId: scenario.assumptionPackId,
+      defaultModelId: scenario.segments[0]?.preferredModelId ?? 'model-auto',
+      fundingMode: funding?.mode ?? 'payg',
+      pricePerCredit: String(funding?.paygPricePerCredit ?? state.pricePerCredit),
+      existingCredits: String(funding?.existingMonthlyCredits ?? 0),
+      prepaidCredits: String(funding?.prepaidCredits ?? 0),
+      prepaidEffectivePrice: String(funding?.prepaidEffectivePricePerCredit ?? state.prepaidEffectivePrice),
+      discountPct: String(funding?.discountPercentage ?? 0),
+      budgetMonthly: funding?.budgetMonthly != null ? String(funding.budgetMonthly) : '',
+      budgetAnnual: funding?.budgetAnnual != null ? String(funding.budgetAnnual) : '',
+      currency: funding?.currency ?? state.currency,
+      calculationResult: scenario.calculationResult,
+    })
+    setSavedScenarioId(scenario.id)
+    editInitialized.current = true
+  }, [editScenarioId, initialize, state.currency, state.prepaidEffectivePrice, state.pricePerCredit, store.fundingPlans, store.scenarios])
 
   // Debounced recalculation
   function scheduleRecalculate() {

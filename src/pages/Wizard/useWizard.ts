@@ -232,6 +232,16 @@ export function useWizard(initialOverrides?: Partial<WizardState>) {
     setState((s) => ({ ...s, ...patch, isDirty: true, isAutosaved: false }))
   }
 
+  function initialize(patch: Partial<WizardState>) {
+    setState((s) => ({
+      ...s,
+      ...patch,
+      isDirty: false,
+      isAutosaved: false,
+      lastAutosave: null,
+    }))
+  }
+
   function resumeDraft() {
     if (!savedDraft) return
     setState(savedDraft)
@@ -304,6 +314,7 @@ export function useWizard(initialOverrides?: Partial<WizardState>) {
   return {
     state,
     update,
+    initialize,
     recalculate,
     goToStep,
     goNext,
