@@ -1064,6 +1064,24 @@
         "body": "Heavy segments indicate complex or frequent work. To justify the cost, connect these users to measurable use cases: deep research, multi-step workflows, document analysis or automations that free qualified capacity."
       }
     },
+    "commercial": {
+      "costWhy": {
+        "title": "Why it costs this much: not a license, operational capacity",
+        "body": "The strongest commercial framing is to separate the price from a simple software-license view. You are not only buying access to a tool: you are funding digital work capacity on activities that currently consume qualified hours, such as research, summarization, document analysis, report preparation and repetitive workflows. The cost should therefore be explained as additional operational capacity, not as an isolated IT expense."
+      },
+      "financeObjection": {
+        "title": "How to answer the Finance objection",
+        "body": "If Finance challenges the cost, do not defend it as technology spend. Move the conversation to scope, active population and covered activities: which segments will actually use Copilot, how many repetitive activities are absorbed and which processes can be accelerated. Then propose a controlled rollout with adoption measurement and budget guardrails."
+      },
+      "valueFrame": {
+        "title": "Sales frame: time released and work quality",
+        "body": "The narrative to use is: Copilot can free time from low-perceived-value but high-effort activities — preliminary research, summaries, rewriting, data gathering, document preparation — allowing teams to focus on decisions, customer relationships, quality control and execution."
+      },
+      "rolloutClose": {
+        "title": "Close the proposal: start where value is obvious",
+        "body": "To make an expensive scenario sustainable, propose a first phase on segments with clear and measurable value. Sales, Legal, IT, Finance or Customer Care often allow quick proof of reduced repetitive work and faster execution. Only after validation should the rollout expand."
+      }
+    },
     "risk": {
       "budgetWarning": {
         "title": "Budget at risk on maximum value",

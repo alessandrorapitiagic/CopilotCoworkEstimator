@@ -1064,6 +1064,24 @@
         "body": "La presenza di segmenti heavy indica attività complesse o frequenti. Per sostenere il costo, collega questi utenti a use case misurabili: deep research, workflow multi-step, analisi documentali o automazioni che liberano capacità qualificata."
       }
     },
+    "commercial": {
+      "costWhy": {
+        "title": "Perché costa così: non è licenza, è capacità operativa",
+        "body": "La lettura commerciale più efficace è separare il prezzo dal concetto di semplice licenza. Qui non stai acquistando solo accesso a uno strumento: stai finanziando capacità di lavoro digitale su attività che oggi consumano ore qualificate, come ricerca, sintesi, analisi documentale, preparazione report e workflow ripetitivi. Il costo va quindi spiegato come capacità operativa aggiuntiva, non come costo IT isolato."
+      },
+      "financeObjection": {
+        "title": "Come rispondere all'obiezione Finance",
+        "body": "Se Finance contesta il costo, evita di difenderlo come spesa tecnologica. Porta la conversazione su perimetro, popolazione attiva e attività coperte: quali segmenti usano davvero Copilot, quante attività ripetitive vengono assorbite e quali processi possono essere accelerati. Poi proponi un rollout controllato con misurazione adoption e budget guardrail."
+      },
+      "valueFrame": {
+        "title": "Cornice di vendita: tempo liberato e qualità del lavoro",
+        "body": "La narrativa da usare è: Copilot può liberare tempo su attività a basso valore percepito ma ad alto assorbimento di ore — ricerca preliminare, riassunti, riscrittura, raccolta dati, preparazione documenti — permettendo ai team di concentrarsi su decisioni, relazione cliente, controllo qualità e execution."
+      },
+      "rolloutClose": {
+        "title": "Chiudere la proposta: partire dove il valore è evidente",
+        "body": "Per rendere sostenibile uno scenario costoso, proponi una prima fase su segmenti con valore chiaro e misurabile. Sales, Legal, IT, Finance o Customer Care spesso permettono di dimostrare rapidamente riduzione attività ripetitive e velocizzazione del lavoro. Solo dopo la validazione si amplia il rollout."
+      }
+    },
     "risk": {
       "budgetWarning": {
         "title": "Budget a rischio sul valore massimo",

@@ -54,6 +54,37 @@ export const INSIGHT_TEMPLATES: InsightTemplate[] = [
     priority: 90,
   },
   {
+    id: 'commercial-cost-why',
+    category: 'talkingPoint',
+    condition: 'highCost',
+    titleKey: 'insights.commercial.costWhy.title',
+    bodyKey: 'insights.commercial.costWhy.body',
+    priority: 98,
+  },
+  {
+    id: 'commercial-finance-objection',
+    category: 'talkingPoint',
+    condition: 'highCost',
+    titleKey: 'insights.commercial.financeObjection.title',
+    bodyKey: 'insights.commercial.financeObjection.body',
+    priority: 97,
+  },
+  {
+    id: 'commercial-value-frame',
+    category: 'executive',
+    titleKey: 'insights.commercial.valueFrame.title',
+    bodyKey: 'insights.commercial.valueFrame.body',
+    priority: 88,
+  },
+  {
+    id: 'commercial-rollout-close',
+    category: 'optimization',
+    condition: 'highCost',
+    titleKey: 'insights.commercial.rolloutClose.title',
+    bodyKey: 'insights.commercial.rolloutClose.body',
+    priority: 86,
+  },
+  {
     id: 'budget-warning',
     category: 'risk',
     condition: 'budgetWarning',
@@ -233,10 +264,10 @@ export function generateValueInsights(args: GenerateArgs): GeneratedInsight[] {
     byCategory.set(insight.category, list)
   }
 
-  // Keep output compact and balanced: max 8 total, no more than 2 per category.
+  // Keep output compact and balanced: max 10 total, no more than 2 per category.
   const balanced: GeneratedInsight[] = []
-  for (const category of ['risk', 'executive', 'segment', 'valueDriver', 'activity', 'talkingPoint', 'optimization'] as InsightCategory[]) {
+  for (const category of ['talkingPoint', 'risk', 'executive', 'segment', 'valueDriver', 'activity', 'optimization'] as InsightCategory[]) {
     balanced.push(...(byCategory.get(category) ?? []).slice(0, 2))
   }
-  return balanced.slice(0, 8)
+  return balanced.slice(0, 10)
 }
