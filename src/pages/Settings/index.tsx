@@ -6,6 +6,8 @@ import { storageService } from '@/services/storageService'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Separator } from '@/components/ui/separator'
+import { cn } from '@/lib/utils'
 import type { Theme, Language } from '@/types/domain'
 
 const CURRENCIES = ['EUR', 'USD', 'GBP', 'CHF']
@@ -58,27 +60,36 @@ export default function Settings() {
   ]
 
   return (
-    <div className="flex flex-col gap-6 p-6 max-w-2xl">
-      <h1 className="text-2xl font-bold">{t('settings.title')}</h1>
+    <div className="mx-auto flex w-full max-w-2xl flex-col gap-6 p-4 sm:p-6">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight">{t('settings.title')}</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">
+          Personalizza aspetto, lingua e gestione dei dati.
+        </p>
+      </div>
 
       {/* Appearance */}
       <Card>
         <CardHeader>
           <CardTitle className="text-base">{t('settings.theme')}</CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-          <div className="flex gap-2">
+        <CardContent>
+          <div className="inline-grid grid-cols-3 gap-1 rounded-lg border bg-muted p-1 w-full max-w-sm">
             {themes.map(({ value, icon: Icon, label }) => (
-              <Button
+              <button
                 key={value}
-                variant={preferences.theme === value ? 'default' : 'outline'}
-                size="sm"
                 onClick={() => updatePreferences({ theme: value })}
-                className="flex-1"
+                className={cn(
+                  'flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-all',
+                  preferences.theme === value
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground',
+                )}
+                aria-pressed={preferences.theme === value}
               >
                 <Icon className="size-4" />
                 {label}
-              </Button>
+              </button>
             ))}
           </div>
         </CardContent>
@@ -89,19 +100,25 @@ export default function Settings() {
         <CardHeader>
           <CardTitle className="text-base">{t('settings.language')}</CardTitle>
         </CardHeader>
-        <CardContent className="flex gap-2">
-          {(['it', 'en'] as Language[]).map((lang) => (
-            <Button
-              key={lang}
-              variant={preferences.language === lang ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => updatePreferences({ language: lang })}
-              className="gap-2"
-            >
-              <Languages className="size-4" />
-              {lang === 'it' ? 'Italiano' : 'English'}
-            </Button>
-          ))}
+        <CardContent>
+          <div className="inline-grid grid-cols-2 gap-1 rounded-lg border bg-muted p-1 w-full max-w-xs">
+            {(['it', 'en'] as Language[]).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => updatePreferences({ language: lang })}
+                className={cn(
+                  'flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-all',
+                  preferences.language === lang
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground',
+                )}
+                aria-pressed={preferences.language === lang}
+              >
+                <Languages className="size-4" />
+                {lang === 'it' ? 'Italiano' : 'English'}
+              </button>
+            ))}
+          </div>
         </CardContent>
       </Card>
 
@@ -130,8 +147,8 @@ export default function Settings() {
           <CardTitle className="text-base">{t('settings.storage')}</CardTitle>
           <CardDescription>Esporta, importa o resetta tutti i dati locali.</CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col gap-3">
-          <div className="flex gap-2">
+        <CardContent className="flex flex-col gap-4">
+          <div className="flex flex-wrap gap-2">
             <Button variant="outline" onClick={handleExport}>
               <Download className="size-4" /> {t('settings.exportAll')}
             </Button>
@@ -140,12 +157,13 @@ export default function Settings() {
             </Button>
             <input ref={fileRef} type="file" accept=".json" className="hidden" onChange={handleImport} />
           </div>
-          <div className="border-t pt-3">
-            <Button variant="destructive" size="sm" onClick={handleReset}>
+          <Separator />
+          <div className="flex flex-col gap-2">
+            <Button variant="destructive" size="sm" className="w-fit" onClick={handleReset}>
               <Trash2 className="size-4" /> {t('settings.resetAll')}
             </Button>
-            <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-              <AlertTriangle className="size-3" />
+            <p className="text-xs text-muted-foreground flex items-center gap-1">
+              <AlertTriangle className="size-3 shrink-0" />
               {t('settings.resetConfirm')}
             </p>
           </div>
