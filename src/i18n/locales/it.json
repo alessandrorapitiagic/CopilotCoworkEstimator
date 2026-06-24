@@ -86,23 +86,89 @@
     "title": "Aziende",
     "new": "Nuova Azienda",
     "detail": "Dettaglio Azienda",
+    "edit": "Modifica Azienda",
     "name": "Nome Azienda",
+    "legalName": "Ragione Sociale",
     "industry": "Settore",
     "country": "Paese",
+    "region": "Regione / Area",
     "totalEmployees": "Totale Dipendenti",
+    "estimatedKnowledgeWorkers": "Knowledge Worker Stimati",
     "description": "Descrizione",
-    "notes": "Note",
+    "notes": "Note consulenziali",
+    "ownerNotes": "Note interne",
     "tags": "Tag",
+    "currency": "Valuta",
+    "defaultPack": "Assumption Pack Predefinito",
+    "source": {
+      "manual": "Creata manualmente",
+      "imported": "Importata",
+      "shared": "Condivisa",
+      "demo": "Demo"
+    },
     "status": {
       "active": "Attiva",
       "archived": "Archiviata"
     },
     "scenarios": "Scenari Collegati",
-    "noScenarios": "Nessuno scenario per questa azienda",
-    "deleteConfirm": "Sei sicuro di voler eliminare questa azienda? Tutti gli scenari collegati saranno eliminati.",
+    "noScenarios": "Nessuno scenario per questa azienda. Crea il primo scenario.",
+    "kpi": {
+      "activeScenarios": "Scenari attivi",
+      "monthlyCost": "Costo mensile (mid)",
+      "annualCost": "Costo annuale (mid)",
+      "monthlyCredits": "Crediti mensili (mid)"
+    },
+    "duplicateDialog": {
+      "title": "Duplica azienda",
+      "companyOnly": "Solo azienda",
+      "companyOnlyDesc": "Crea una nuova azienda con gli stessi dati anagrafici, senza scenari.",
+      "withScenarios": "Azienda e scenari",
+      "withScenariosDesc": "Duplica l'azienda con tutti gli scenari collegati (nuovi ID)."
+    },
+    "archiveDialog": {
+      "title": "Archivia azienda",
+      "body": "L'azienda non verrà eliminata. Sarà esclusa dai totali dashboard e potrà essere ripristinata in qualsiasi momento.",
+      "confirm": "Archivia"
+    },
+    "restoreDialog": {
+      "title": "Ripristina azienda",
+      "body": "L'azienda sarà di nuovo inclusa nei totali dashboard come azienda attiva.",
+      "confirm": "Ripristina"
+    },
+    "deleteDialog": {
+      "title": "Elimina azienda",
+      "bodyNoScenarios": "Vuoi eliminare definitivamente questa azienda?",
+      "bodyWithScenarios": "Questa azienda contiene {{count}} scenari collegati. Eliminandola rimuoverai anche tutti gli scenari associati. Questa azione non può essere annullata.",
+      "typeToConfirm": "Digita il nome dell'azienda per confermare:",
+      "confirm": "Elimina definitivamente"
+    },
+    "messages": {
+      "saved": "Azienda salvata correttamente.",
+      "updated": "Azienda aggiornata correttamente.",
+      "archived": "Azienda archiviata. Non sarà inclusa nei totali della dashboard.",
+      "restored": "Azienda ripristinata e nuovamente inclusa nei totali.",
+      "deleted": "Azienda eliminata correttamente.",
+      "duplicated": "Azienda duplicata correttamente.",
+      "exported": "Export azienda generato correttamente.",
+      "nameDuplicate": "Esiste già un'azienda con questo nome. Puoi continuare oppure modificarlo.",
+      "archivedNoEdit": "Questa azienda è archiviata. Ripristinala o duplicala per modificarla.",
+      "demoNoEdit": "Questa è un'azienda demo. Duplicala per modificarla come scenario reale."
+    },
     "employees": {
       "segmentWarning": "La somma dei segmenti supera il totale dipendenti",
       "segmentInfo": "Dipendenti non classificati nei segmenti"
+    },
+    "sortBy": "Ordina per",
+    "sortOptions": {
+      "name": "Nome",
+      "updatedAt": "Ultima modifica",
+      "totalEmployees": "Dipendenti",
+      "monthlyCost": "Costo mensile"
+    },
+    "emptyState": {
+      "title": "Nessuna azienda ancora",
+      "body": "Crea la tua prima azienda per iniziare a costruire scenari di stima.",
+      "createFirst": "Crea la prima azienda"
     }
   },
   "scenarios": {
@@ -258,6 +324,18 @@
       "title": "Cos'è questa app",
       "body": "Copilot Cowork Estimator è uno strumento di pianificazione che stima il consumo e il costo dei Copilot Credits per la tua organizzazione. Funziona interamente nel browser: nessun dato viene inviato a server esterni e tutto resta salvato localmente. Le stime sono basate su assunzioni trasparenti e modificabili, non su prezzi ufficiali Microsoft."
     },
+    "companies": {
+      "title": "Gestione aziende",
+      "body": "Le aziende sono il contenitore principale di tutte le simulazioni. Crea un'azienda per ogni cliente o organizzazione, poi aggiungi scenari di stima collegati.",
+      "createTitle": "Come creare un'azienda",
+      "createBody": "Vai in Aziende → Nuova Azienda. Bastano nome e numero di dipendenti per iniziare. I campi settore, paese, tag e note sono opzionali.",
+      "archiveTitle": "Archiviazione",
+      "archiveBody": "Archivia un'azienda per escluderla dai totali dashboard senza eliminarla. Puoi ripristinarla in qualsiasi momento.",
+      "deleteTitle": "Eliminazione",
+      "deleteBody": "L'eliminazione richiede conferma. Se l'azienda ha scenari collegati, devi digitare il nome per confermare: tutti gli scenari saranno rimossi.",
+      "duplicateTitle": "Duplicazione",
+      "duplicateBody": "Puoi duplicare un'azienda solo con i dati anagrafici, oppure con tutti gli scenari collegati (vengono assegnati nuovi ID)."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -315,6 +393,14 @@
       "title": "Gestione aziende",
       "body": "Inizia creando un'azienda con il numero di dipendenti. Ogni azienda può avere più scenari di stima."
     },
+    "companyNew": {
+      "title": "Nuova azienda",
+      "body": "Clicca qui per creare una nuova azienda. Bastano nome e numero dipendenti per iniziare."
+    },
+    "companiesFilters": {
+      "title": "Cerca e filtra",
+      "body": "Cerca aziende per nome, ordina per costo o dipendenti e mostra/nascondi le archiviate."
+    },
     "scenarios": {
       "title": "Scenari di stima",
       "body": "Uno scenario modella la forza lavoro in segmenti e calcola crediti e costi in modalità range."
@@ -347,6 +433,14 @@
     "modelFactor": "Moltiplicatore che riflette il maggior consumo di crediti dei modelli più capaci.",
     "creditBands": "Crediti stimati per task in base all'intensità (light/medium/heavy), in valori min/mid/max.",
     "costPerActive": "Costo mensile medio per ogni utente che usa attivamente Copilot.",
-    "costPerEnabled": "Costo mensile medio per ogni utente a cui è assegnata una licenza."
+    "costPerEnabled": "Costo mensile medio per ogni utente a cui è assegnata una licenza.",
+    "totalEmployees": "Numero complessivo di dipendenti dell'organizzazione. Usato per confrontare la copertura dei segmenti.",
+    "estimatedKnowledgeWorkers": "Stima degli utenti con attività compatibili con Copilot (worker della conoscenza). Utile per dimensionare la copertura.",
+    "legalName": "Ragione sociale ufficiale, se diversa dal nome commerciale usato nelle stime.",
+    "region": "Area geografica o mercato di riferimento, utile per segmentare portfolio multi-paese.",
+    "companyTags": "Etichette libere per classificare e filtrare l'azienda nel portfolio.",
+    "companyCurrency": "Valuta predefinita per valorizzare i costi di questa azienda. Sovrascrive il default globale.",
+    "companyMonthlyCost": "Somma dei costi mensili stimati (midpoint) di tutti gli scenari attivi di questa azienda.",
+    "companyAnnualCost": "Proiezione annuale della somma dei costi mensili (× 12)."
   }
 }

@@ -31,6 +31,7 @@ interface AppState {
   addCompany: (company: Omit<Company, 'id' | 'createdAt' | 'updatedAt'>) => Company
   updateCompany: (id: string, updates: Partial<Company>) => void
   deleteCompany: (id: string) => void
+  duplicateCompany: (id: string, withScenarios: boolean) => Company | null
 
   // Scenarios
   addScenario: (scenario: Omit<Scenario, 'id' | 'createdAt' | 'updatedAt' | 'calculationResult'>) => Scenario
@@ -126,9 +127,60 @@ export const useAppStore = create<AppState>((set, get) => ({
     set((s) => {
       const companies = s.companies.filter((c) => c.id !== id)
       const scenarios = s.scenarios.filter((sc) => sc.companyId !== id)
-      persist({ ...s, companies, scenarios })
-      return { companies, scenarios }
+      const fundingPlans = s.fundingPlans.filter((fp) =>
+        !scenarios.find((sc) => sc.id === fp.scenarioId)
+      )
+      persist({ ...s, companies, scenarios, fundingPlans })
+      return { companies, scenarios, fundingPlans }
     })
+  },
+
+  duplicateCompany(id, withScenarios) {
+    const s = get()
+    const original = s.companies.find((c) => c.id === id)
+    if (!original) return null
+
+    const newCompanyId = nanoid()
+    const newCompany: Company = {
+      ...original,
+      id: newCompanyId,
+      name: `Copy of ${original.name}`,
+      source: 'manual',
+      status: 'active',
+      archivedAt: null,
+      createdAt: now(),
+      updatedAt: now(),
+    }
+
+    let newScenarios = s.scenarios
+    if (withScenarios) {
+      const originalScenarios = s.scenarios.filter((sc) => sc.companyId === id)
+      const duplicated = originalScenarios.map((sc) => ({
+        ...sc,
+        id: nanoid(),
+        companyId: newCompanyId,
+        name: sc.name,
+        status: 'draft' as const,
+        calculationResult: null,
+        createdAt: now(),
+        updatedAt: now(),
+        segments: sc.segments.map((seg) => ({
+          ...seg,
+          id: nanoid(),
+          companyId: newCompanyId,
+          createdAt: now(),
+          updatedAt: now(),
+        })),
+      }))
+      newScenarios = [...s.scenarios, ...duplicated]
+    }
+
+    const companies = [...s.companies, newCompany]
+    set((state) => {
+      persist({ ...state, companies, scenarios: newScenarios })
+      return { companies, scenarios: newScenarios }
+    })
+    return newCompany
   },
 
   // ---- Scenarios ----

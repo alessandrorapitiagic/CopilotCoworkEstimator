@@ -28,16 +28,26 @@ export type Industry =
   | 'other'
 
 export type CompanyStatus = 'active' | 'archived'
+export type CompanySource = 'manual' | 'imported' | 'shared' | 'demo'
 
 export interface Company extends Auditable {
   name: string
+  legalName: string | null
   industry: Industry | null
   country: string | null
+  region: string | null
   description: string | null
   totalEmployees: number
+  estimatedKnowledgeWorkers: number | null
   status: CompanyStatus
+  source: CompanySource
   tags: string[]
   notes: string | null
+  ownerNotes: string | null
+  currency: string | null
+  defaultAssumptionPackId: string | null
+  archivedAt: string | null
+  metadata: Record<string, unknown>
 }
 
 // ----- Workforce Segment ------------------------------------

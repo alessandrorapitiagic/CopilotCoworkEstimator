@@ -35,6 +35,8 @@ export const DEFAULT_TOUR_STEPS: TourStep[] = [
   { titleKey: 'tour.welcome.title', bodyKey: 'tour.welcome.body' },
   { target: 'nav', titleKey: 'tour.nav.title', bodyKey: 'tour.nav.body' },
   { target: 'nav-companies', titleKey: 'tour.companies.title', bodyKey: 'tour.companies.body' },
+  { target: 'company-new-btn', titleKey: 'tour.companyNew.title', bodyKey: 'tour.companyNew.body' },
+  { target: 'companies-filters', titleKey: 'tour.companiesFilters.title', bodyKey: 'tour.companiesFilters.body' },
   { target: 'nav-scenarios', titleKey: 'tour.scenarios.title', bodyKey: 'tour.scenarios.body' },
   { target: 'theme-toggle', titleKey: 'tour.theme.title', bodyKey: 'tour.theme.body' },
   { target: 'nav-help', titleKey: 'tour.help.title', bodyKey: 'tour.help.body' },

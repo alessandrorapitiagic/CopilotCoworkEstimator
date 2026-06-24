@@ -52,6 +52,7 @@ export default function Help() {
   const toc = [
     { id: 'intro', icon: Lightbulb, label: t('help.intro.title') },
     { id: 'quickstart', icon: Rocket, label: t('help.quickstart.title') },
+    { id: 'companies', icon: Building2, label: t('nav.companies') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -127,6 +128,32 @@ export default function Help() {
                   <p className="text-sm font-semibold">{t(titleKey)}</p>
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{t(bodyKey)}</p>
                 </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Companies */}
+        <SectionAnchor id="companies" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Building2 className="size-4 text-primary" />
+              {t('help.companies.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.companies.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.companies.createTitle', body: 'help.companies.createBody' },
+              { title: 'help.companies.archiveTitle', body: 'help.companies.archiveBody' },
+              { title: 'help.companies.deleteTitle', body: 'help.companies.deleteBody' },
+              { title: 'help.companies.duplicateTitle', body: 'help.companies.duplicateBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}>
+                <p className="font-semibold">{t(title)}</p>
+                <p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p>
               </div>
             ))}
           </CardContent>

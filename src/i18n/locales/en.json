@@ -86,23 +86,89 @@
     "title": "Companies",
     "new": "New Company",
     "detail": "Company Detail",
+    "edit": "Edit Company",
     "name": "Company Name",
+    "legalName": "Legal Name",
     "industry": "Industry",
     "country": "Country",
+    "region": "Region / Area",
     "totalEmployees": "Total Employees",
+    "estimatedKnowledgeWorkers": "Estimated Knowledge Workers",
     "description": "Description",
-    "notes": "Notes",
+    "notes": "Consulting notes",
+    "ownerNotes": "Internal notes",
     "tags": "Tags",
+    "currency": "Currency",
+    "defaultPack": "Default Assumption Pack",
+    "source": {
+      "manual": "Created manually",
+      "imported": "Imported",
+      "shared": "Shared",
+      "demo": "Demo"
+    },
     "status": {
       "active": "Active",
       "archived": "Archived"
     },
     "scenarios": "Linked Scenarios",
-    "noScenarios": "No scenarios for this company",
-    "deleteConfirm": "Are you sure you want to delete this company? All linked scenarios will be deleted.",
+    "noScenarios": "No scenarios for this company yet. Create the first scenario.",
+    "kpi": {
+      "activeScenarios": "Active scenarios",
+      "monthlyCost": "Monthly cost (mid)",
+      "annualCost": "Annual cost (mid)",
+      "monthlyCredits": "Monthly credits (mid)"
+    },
+    "duplicateDialog": {
+      "title": "Duplicate company",
+      "companyOnly": "Company only",
+      "companyOnlyDesc": "Create a new company with the same profile data, without scenarios.",
+      "withScenarios": "Company and scenarios",
+      "withScenariosDesc": "Duplicate the company with all linked scenarios (new IDs assigned)."
+    },
+    "archiveDialog": {
+      "title": "Archive company",
+      "body": "The company will not be deleted. It will be excluded from dashboard totals and can be restored at any time.",
+      "confirm": "Archive"
+    },
+    "restoreDialog": {
+      "title": "Restore company",
+      "body": "The company will be included in dashboard totals again as an active company.",
+      "confirm": "Restore"
+    },
+    "deleteDialog": {
+      "title": "Delete company",
+      "bodyNoScenarios": "Are you sure you want to permanently delete this company?",
+      "bodyWithScenarios": "This company has {{count}} linked scenarios. Deleting it will also remove all associated scenarios. This action cannot be undone.",
+      "typeToConfirm": "Type the company name to confirm:",
+      "confirm": "Delete permanently"
+    },
+    "messages": {
+      "saved": "Company saved successfully.",
+      "updated": "Company updated successfully.",
+      "archived": "Company archived. It will not be included in dashboard totals.",
+      "restored": "Company restored and included in totals again.",
+      "deleted": "Company deleted successfully.",
+      "duplicated": "Company duplicated successfully.",
+      "exported": "Company export generated successfully.",
+      "nameDuplicate": "A company with this name already exists. You can continue or change the name.",
+      "archivedNoEdit": "This company is archived. Restore or duplicate it to edit.",
+      "demoNoEdit": "This is a demo company. Duplicate it to use it as a real scenario."
+    },
     "employees": {
       "segmentWarning": "Sum of segments exceeds total employees",
       "segmentInfo": "Employees not classified in segments"
+    },
+    "sortBy": "Sort by",
+    "sortOptions": {
+      "name": "Name",
+      "updatedAt": "Last updated",
+      "totalEmployees": "Employees",
+      "monthlyCost": "Monthly cost"
+    },
+    "emptyState": {
+      "title": "No companies yet",
+      "body": "Create your first company to start building estimation scenarios.",
+      "createFirst": "Create first company"
     }
   },
   "scenarios": {
@@ -258,6 +324,18 @@
       "title": "What this app is",
       "body": "Copilot Cowork Estimator is a planning tool that estimates the consumption and cost of Copilot Credits for your organization. It runs entirely in the browser: no data is sent to external servers and everything is stored locally. Estimates are based on transparent, editable assumptions — not official Microsoft pricing."
     },
+    "companies": {
+      "title": "Managing companies",
+      "body": "Companies are the main container for all simulations. Create a company for each client or organization, then add linked estimation scenarios.",
+      "createTitle": "How to create a company",
+      "createBody": "Go to Companies → New Company. Name and number of employees are all you need to start. Industry, country, tags and notes are optional.",
+      "archiveTitle": "Archiving",
+      "archiveBody": "Archive a company to exclude it from dashboard totals without deleting it. You can restore it at any time.",
+      "deleteTitle": "Deletion",
+      "deleteBody": "Deletion requires confirmation. If the company has linked scenarios, you must type its name to confirm: all scenarios will be removed.",
+      "duplicateTitle": "Duplication",
+      "duplicateBody": "You can duplicate a company with just the profile data, or with all linked scenarios (new IDs are assigned)."
+    },
     "quickstart": {
       "title": "Quick start in 4 steps",
       "step1Title": "1. Create a company",
@@ -315,6 +393,14 @@
       "title": "Manage companies",
       "body": "Start by creating a company with its employee count. Each company can have multiple estimation scenarios."
     },
+    "companyNew": {
+      "title": "New company",
+      "body": "Click here to create a new company. Name and number of employees are all you need to start."
+    },
+    "companiesFilters": {
+      "title": "Search and filter",
+      "body": "Search companies by name, sort by cost or headcount, and show/hide archived ones."
+    },
     "scenarios": {
       "title": "Estimation scenarios",
       "body": "A scenario models the workforce in segments and computes credits and costs as a range."
@@ -347,6 +433,14 @@
     "modelFactor": "Multiplier reflecting the higher credit consumption of more capable models.",
     "creditBands": "Estimated credits per task by intensity (light/medium/heavy), in min/mid/max values.",
     "costPerActive": "Average monthly cost per user actively using Copilot.",
-    "costPerEnabled": "Average monthly cost per user assigned a license."
+    "costPerEnabled": "Average monthly cost per user assigned a license.",
+    "totalEmployees": "Total number of employees in the organization. Used to compare segment coverage.",
+    "estimatedKnowledgeWorkers": "Estimated number of users whose work is compatible with Copilot (knowledge workers). Useful for sizing coverage.",
+    "legalName": "Official legal name, if different from the commercial name used in estimates.",
+    "region": "Geographic area or reference market, useful for segmenting multi-country portfolios.",
+    "companyTags": "Free labels to classify and filter the company in the portfolio.",
+    "companyCurrency": "Default currency for costing this company. Overrides the global default.",
+    "companyMonthlyCost": "Sum of estimated monthly costs (midpoint) across all active scenarios for this company.",
+    "companyAnnualCost": "Annual projection of the sum of monthly costs (× 12)."
   }
 }
