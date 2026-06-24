@@ -47,6 +47,7 @@ export const DEFAULT_TOUR_STEPS: TourStep[] = [
   { target: 'share-btn', titleKey: 'tour.shareBtn.title', bodyKey: 'tour.shareBtn.body' },
   { target: 'report-open', titleKey: 'tour.reportOpen.title', bodyKey: 'tour.reportOpen.body' },
   { target: 'report-print', titleKey: 'tour.reportPrint.title', bodyKey: 'tour.reportPrint.body' },
+  { target: 'value-insights', titleKey: 'tour.valueInsights.title', bodyKey: 'tour.valueInsights.body' },
   { target: 'theme-toggle', titleKey: 'tour.theme.title', bodyKey: 'tour.theme.body' },
   { target: 'nav-help', titleKey: 'tour.help.title', bodyKey: 'tour.help.body' },
   { target: 'start-tour-button', titleKey: 'tour.restartStep.title', bodyKey: 'tour.restartStep.body' },

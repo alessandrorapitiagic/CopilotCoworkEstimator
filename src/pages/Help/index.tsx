@@ -67,6 +67,7 @@ export default function Help() {
     { id: 'localStorage', icon: ShieldCheck, label: t('help.localStorage.title') },
     { id: 'exportImportShare', icon: Download, label: t('help.exportImportShare.title') },
     { id: 'scenarioReport', icon: BookOpen, label: t('help.scenarioReport.title') },
+    { id: 'valueInsights', icon: Sparkles, label: t('help.valueInsights.title') },
     { id: 'concepts', icon: Sparkles, label: t('help.concepts.title') },
     { id: 'privacy', icon: ShieldCheck, label: t('help.dataPrivacy.title') },
     { id: 'faq', icon: HelpCircle, label: t('help.faqTitle') },
@@ -409,6 +410,28 @@ export default function Help() {
               { title: 'help.scenarioReport.printTitle', body: 'help.scenarioReport.printBody' },
               { title: 'help.scenarioReport.sectionsTitle', body: 'help.scenarioReport.sectionsBody' },
               { title: 'help.scenarioReport.disclaimerTitle', body: 'help.scenarioReport.disclaimerBody' },
+            ].map(({ title, body }, i) => (
+              <div key={i}><p className="font-semibold">{t(title)}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p></div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Value Insights */}
+        <SectionAnchor id="valueInsights" />
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Sparkles className="size-4 text-primary" />
+              {t('help.valueInsights.title')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-3 text-sm">
+            <p className="text-muted-foreground leading-relaxed">{t('help.valueInsights.body')}</p>
+            <Separator />
+            {[
+              { title: 'help.valueInsights.noAiTitle', body: 'help.valueInsights.noAiBody' },
+              { title: 'help.valueInsights.rulesTitle', body: 'help.valueInsights.rulesBody' },
+              { title: 'help.valueInsights.commercialTitle', body: 'help.valueInsights.commercialBody' },
             ].map(({ title, body }, i) => (
               <div key={i}><p className="font-semibold">{t(title)}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t(body)}</p></div>
             ))}

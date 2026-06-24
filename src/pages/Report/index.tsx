@@ -21,6 +21,7 @@ import { BudgetStatusBadge } from '@/components/shared/BudgetStatusBadge'
 import { HowCalculatedPanel } from '@/components/shared/HowCalculatedPanel'
 import { ShareScenarioDialog } from '@/components/shared/ShareScenarioDialog'
 import { ValidationPanel } from '@/components/shared/ValidationPanel'
+import { ValueInsightsPanel } from '@/components/shared/ValueInsightsPanel'
 import { exportScenarioSummaryCsv, exportSegmentBreakdownCsv } from '@/services/exportService'
 import { validateScenario } from '@/services/validationService'
 import { formatCurrency, formatNumber } from '@/lib/utils'
@@ -51,6 +52,7 @@ export default function ScenarioReportPage() {
     companies,
     assumptionPacks,
     fundingPlans,
+    usageProfiles,
     preferences,
   } = useAppStore()
 
@@ -198,6 +200,16 @@ export default function ScenarioReportPage() {
               </CardContent>
             </Card>
           )}
+        </ReportSection>
+
+        {/* Value insights */}
+        <ReportSection title={t('insights.title')}>
+          <ValueInsightsPanel
+            company={company}
+            scenario={scenario}
+            funding={funding}
+            usageProfiles={usageProfiles}
+          />
         </ReportSection>
 
         {/* Configuration */}

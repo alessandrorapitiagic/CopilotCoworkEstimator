@@ -14,6 +14,7 @@ import { ShareScenarioDialog } from '@/components/shared/ShareScenarioDialog'
 import { HowCalculatedPanel } from '@/components/shared/HowCalculatedPanel'
 import { BudgetStatusBadge } from '@/components/shared/BudgetStatusBadge'
 import { ValidationPanel } from '@/components/shared/ValidationPanel'
+import { ValueInsightsPanel } from '@/components/shared/ValueInsightsPanel'
 import { exportScenarioSummaryCsv } from '@/services/exportService'
 import { validateScenario } from '@/services/validationService'
 import {
@@ -27,7 +28,7 @@ export default function ScenarioDetail() {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
   const [showShare, setShowShare] = useState(false)
-  const { scenarios, companies, assumptionPacks, fundingPlans,
+  const { scenarios, companies, assumptionPacks, fundingPlans, usageProfiles,
     recalculateScenario, upsertFundingPlan, preferences } = useAppStore()
 
   const scenario = scenarios.find((s) => s.id === id) ?? null
@@ -147,6 +148,13 @@ export default function ScenarioDetail() {
               </CardContent>
             </Card>
           </div>
+
+          <ValueInsightsPanel
+            company={company ?? null}
+            scenario={s}
+            funding={existingFundingPlan}
+            usageProfiles={usageProfiles}
+          />
 
           {/* Tabs: Breakdown + Funding + Warnings + Formula */}
           <Tabs defaultValue="segments">

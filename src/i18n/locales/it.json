@@ -624,6 +624,16 @@
       "disclaimerTitle": "Uso corretto",
       "disclaimerBody": "Il report è una stima basata su assumption pack. Non rappresenta un prezzo ufficiale o vincolante Microsoft."
     },
+    "valueInsights": {
+      "title": "Insight commerciali",
+      "body": "Gli insight commerciali sono testi statici e deterministici che aiutano a leggere il costo insieme al valore potenziale: attività ripetitive ridotte, velocizzazione processi e talking point per stakeholder.",
+      "noAiTitle": "Nessuna AI runtime",
+      "noAiBody": "I testi sono pre-costruiti, versionati e tradotti. Non viene effettuata alcuna chiamata esterna ad AI o backend.",
+      "rulesTitle": "Come vengono selezionati",
+      "rulesBody": "Il motore seleziona gli insight in base a industry, segmenti, profili di utilizzo, costo e stato budget.",
+      "commercialTitle": "Come usarli",
+      "commercialBody": "Usali nel report per spiegare perché uno scenario costoso può comunque creare valore, mantenendo caveat e disclaimer quando il budget è a rischio."
+    },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
       "step1Title": "1. Crea un'azienda",
@@ -736,6 +746,10 @@
     "reportPrint": {
       "title": "Stampa / PDF",
       "body": "Questo pulsante apre la stampa del browser. Puoi salvare il report come PDF o inviarlo agli stakeholder."
+    },
+    "valueInsights": {
+      "title": "Insight commerciali",
+      "body": "Questa sezione interpreta il risultato in chiave commerciale con testi pre-costruiti: value driver, attività impattate, caveat e suggerimenti di ottimizzazione."
     },
     "tasksList": {
       "title": "Task preset",
@@ -989,6 +1003,87 @@
     "savedFromShare": "Scenario salvato dal link condiviso.",
     "payloadCorrupted": "Il link non è valido o è corrotto.",
     "payloadTooLargeUse": "Il link è troppo grande. Chiedi al mittente di esportare in JSON."
+  },
+  "insights": {
+    "title": "Insight commerciali e value narrative",
+    "subtitle": "Testi pre-costruiti e deterministici: nessuna AI runtime, nessun dato inviato fuori dal browser.",
+    "reason": "Motivo selezione",
+    "exec": {
+      "default": {
+        "title": "Lettura executive",
+        "body": "Questo scenario aiuta a trasformare l'adozione Copilot in una discussione di capacità operativa: quali gruppi usano la tecnologia, quanto intensamente e con quale impatto economico stimato. Il valore va letto insieme a produttività, riduzione attività ripetitive e qualità del lavoro prodotto."
+      },
+      "highCost": {
+        "title": "Costo elevato: serve una narrativa di valore",
+        "body": "Il costo stimato è rilevante. Per sostenerlo commercialmente è utile collegare la spesa a casi d'uso ad alto valore: riduzione tempi su attività ricorrenti, aumento capacità analitica, accelerazione di review documentali e supporto a decisioni operative."
+      }
+    },
+    "industry": {
+      "manufacturing": {
+        "title": "Rollout prudente nel manufacturing",
+        "body": "In contesti manufacturing il valore tende a emergere prima su ruoli office, supervisori e operations digitalizzati. Evita rollout indiscriminati su popolazioni con basso utilizzo atteso: parti dai processi dove report, documenti e coordinamento pesano di più."
+      },
+      "finance": {
+        "title": "Finance: controllo, analisi e reporting",
+        "body": "Per il Finance, Copilot può aiutare a ridurre il tempo su preparazione report, riconciliazioni documentali, sintesi di variazioni e analisi preliminari. La narrativa più forte è migliorare velocità e tracciabilità del lavoro analitico, non solo ridurre costo operativo."
+      },
+      "professionalServices": {
+        "title": "Servizi professionali: delivery più scalabile",
+        "body": "Nei servizi professionali il valore può derivare da riuso di conoscenza, accelerazione di deliverable, sintesi di meeting e preparazione documenti cliente. Lo scenario può essere venduto come leva per aumentare capacità di delivery senza aumentare proporzionalmente lo sforzo manuale."
+      }
+    },
+    "segment": {
+      "sales": {
+        "title": "Sales: meno tempo su ricerca e preparazione",
+        "body": "Per il team Sales il valore principale può derivare da riduzione del tempo speso in ricerca clienti, preparazione account plan, sintesi riunioni e personalizzazione di proposte. La proposta commerciale può essere posizionata come acceleratore di produttività pre-sales ad alto volume."
+      },
+      "legal": {
+        "title": "Legal: review documentale più veloce",
+        "body": "Per Legal, l'uso intensivo può essere giustificato quando l'obiettivo è velocizzare revisione documentale, confronto clausole, sintesi contrattuali e due diligence preliminare. Il valore è aumentare capacità di analisi e tracciabilità, non sostituire il giudizio legale."
+      },
+      "hr": {
+        "title": "HR: policy, comunicazioni e materiali interni",
+        "body": "Per HR il valore può emergere da sintesi policy, creazione comunicazioni, analisi documenti e preparazione di materiali per dipendenti. È un buon candidato per profili Medium con attività ricorrenti ma non necessariamente heavy."
+      },
+      "it": {
+        "title": "IT: knowledge base, ticket e automazione",
+        "body": "Per IT il valore può concentrarsi su sintesi ticket, documentazione tecnica, knowledge base, troubleshooting e automazione di attività ripetitive. In scenari heavy va chiarito quali workflow sono davvero ad alto valore."
+      },
+      "customerCare": {
+        "title": "Customer care: risposte più coerenti e rapide",
+        "body": "Nel customer care, Copilot può aiutare a recuperare conoscenza, sintetizzare casi, preparare risposte e ridurre tempi di gestione ripetitiva. Il valore è maggiore quando la knowledge base è strutturata e aggiornata."
+      },
+      "whiteCollar": {
+        "title": "White collar: riduzione attrito sulle attività quotidiane",
+        "body": "Per white collar il valore spesso nasce da micro-attività ricorrenti: sintesi, email, report, ricerca interna e rielaborazione documenti. Anche piccoli risparmi unitari possono diventare rilevanti su popolazioni ampie."
+      }
+    },
+    "usage": {
+      "heavy": {
+        "title": "Uso heavy: posizionare su casi ad alto valore",
+        "body": "La presenza di segmenti heavy indica attività complesse o frequenti. Per sostenere il costo, collega questi utenti a use case misurabili: deep research, workflow multi-step, analisi documentali o automazioni che liberano capacità qualificata."
+      }
+    },
+    "risk": {
+      "budgetWarning": {
+        "title": "Budget a rischio sul valore massimo",
+        "body": "Il valore massimo supera il budget impostato. Prima di presentare lo scenario, valuta rollout progressivo, riduzione dei segmenti heavy, uso di Auto model o revisione dei task più costosi."
+      },
+      "budgetCritical": {
+        "title": "Budget superato anche nello scenario minimo",
+        "body": "Il costo minimo supera il budget: serve una revisione del perimetro. Riduci utenti attivi, posticipa segmenti non prioritari o valuta capacità/prepaid prima di proporre lo scenario come sostenibile."
+      },
+      "customAssumptions": {
+        "title": "Assunzioni personalizzate da spiegare",
+        "body": "Lo scenario usa task mix o fattori custom. In una conversazione con Finance o cliente, esplicita perché questi valori sono stati scelti e mantieni il pannello di calcolo come riferimento auditabile."
+      }
+    },
+    "optimization": {
+      "default": {
+        "title": "Come ottimizzare la proposta",
+        "body": "Se il costo appare alto, sposta la discussione su rollout graduale: parti dai segmenti con valore più chiaro, misura adozione reale e amplia progressivamente. Evita di abilitare popolazioni con basso utilizzo previsto nella prima fase."
+      }
+    }
   },
   "report": {
     "title": "Report scenario",

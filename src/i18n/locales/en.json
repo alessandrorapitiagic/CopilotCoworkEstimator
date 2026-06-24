@@ -624,6 +624,16 @@
       "disclaimerTitle": "Correct use",
       "disclaimerBody": "The report is an estimate based on assumption packs. It does not represent official or binding Microsoft pricing."
     },
+    "valueInsights": {
+      "title": "Commercial value insights",
+      "body": "Commercial insights are static deterministic texts that help read cost together with potential value: reduced repetitive work, faster processes and stakeholder talking points.",
+      "noAiTitle": "No AI runtime",
+      "noAiBody": "Texts are pre-built, versioned and translated. No external AI or backend call is made.",
+      "rulesTitle": "How they are selected",
+      "rulesBody": "The engine selects insights based on industry, segments, usage profiles, cost and budget status.",
+      "commercialTitle": "How to use them",
+      "commercialBody": "Use them in the report to explain why an expensive scenario can still create value, while keeping caveats and disclaimers when budget is at risk."
+    },
     "quickstart": {
       "title": "Quick start in 4 steps",
       "step1Title": "1. Create a company",
@@ -736,6 +746,10 @@
     "reportPrint": {
       "title": "Print / PDF",
       "body": "This button opens browser print. You can save the report as PDF or send it to stakeholders."
+    },
+    "valueInsights": {
+      "title": "Commercial value insights",
+      "body": "This section interprets the result commercially with pre-built texts: value drivers, impacted activities, caveats and optimization suggestions."
     },
     "tasksList": {
       "title": "Task presets",
@@ -989,6 +1003,87 @@
     "savedFromShare": "Scenario saved from shared link.",
     "payloadCorrupted": "The link is not valid or is corrupted.",
     "payloadTooLargeUse": "The link is too large. Ask the sender to export as JSON."
+  },
+  "insights": {
+    "title": "Commercial value insights",
+    "subtitle": "Pre-built deterministic text: no AI runtime and no data leaves the browser.",
+    "reason": "Selection reason",
+    "exec": {
+      "default": {
+        "title": "Executive reading",
+        "body": "This scenario helps turn Copilot adoption into an operational-capacity discussion: which groups use the technology, how intensively and with what estimated economic impact. Read the value together with productivity, reduction of repetitive work and quality of output."
+      },
+      "highCost": {
+        "title": "High cost: a value narrative is needed",
+        "body": "The estimated cost is material. To support it commercially, connect the spend to high-value use cases: reduced time on recurring work, increased analytical capacity, faster document review and support for operational decisions."
+      }
+    },
+    "industry": {
+      "manufacturing": {
+        "title": "Prudent rollout in manufacturing",
+        "body": "In manufacturing contexts, value usually appears first in office roles, supervisors and digitally enabled operations. Avoid broad rollouts to populations with low expected usage: start where reporting, documents and coordination matter most."
+      },
+      "finance": {
+        "title": "Finance: control, analysis and reporting",
+        "body": "For Finance, Copilot can reduce time spent preparing reports, reconciling documents, summarizing variances and doing preliminary analysis. The strongest narrative is speed and traceability of analytical work, not only operational cost reduction."
+      },
+      "professionalServices": {
+        "title": "Professional services: more scalable delivery",
+        "body": "In professional services, value can come from knowledge reuse, faster deliverables, meeting summaries and client-document preparation. Position the scenario as a lever to increase delivery capacity without proportional manual effort."
+      }
+    },
+    "segment": {
+      "sales": {
+        "title": "Sales: less time on research and preparation",
+        "body": "For Sales teams, the main value can come from reducing time spent on customer research, account planning, meeting summaries and proposal personalization. Position it as a productivity accelerator for high-volume pre-sales work."
+      },
+      "legal": {
+        "title": "Legal: faster document review",
+        "body": "For Legal, intensive usage can be justified when the goal is faster document review, clause comparison, contract summaries and preliminary due diligence. The value is more analytical capacity and traceability, not replacing legal judgment."
+      },
+      "hr": {
+        "title": "HR: policies, communications and internal materials",
+        "body": "For HR, value can emerge from policy summarization, communication drafting, document analysis and employee-material preparation. It is a good candidate for Medium profiles with recurring but not necessarily heavy activity."
+      },
+      "it": {
+        "title": "IT: knowledge base, tickets and automation",
+        "body": "For IT, value can concentrate on ticket summaries, technical documentation, knowledge bases, troubleshooting and automation of repetitive work. In heavy scenarios, clarify which workflows are truly high-value."
+      },
+      "customerCare": {
+        "title": "Customer care: faster, more consistent responses",
+        "body": "In customer care, Copilot can help retrieve knowledge, summarize cases, prepare responses and reduce repetitive handling time. Value is higher when the knowledge base is structured and up to date."
+      },
+      "whiteCollar": {
+        "title": "White collar: reducing friction in daily work",
+        "body": "For white-collar users, value often comes from recurring micro-tasks: summaries, email, reports, internal search and document rework. Even small individual savings can become material across large populations."
+      }
+    },
+    "usage": {
+      "heavy": {
+        "title": "Heavy usage: position on high-value cases",
+        "body": "Heavy segments indicate complex or frequent work. To justify the cost, connect these users to measurable use cases: deep research, multi-step workflows, document analysis or automations that free qualified capacity."
+      }
+    },
+    "risk": {
+      "budgetWarning": {
+        "title": "Budget at risk on maximum value",
+        "body": "The maximum value exceeds the configured budget. Before presenting the scenario, consider phased rollout, reducing heavy segments, using Auto models or reviewing the most expensive task assumptions."
+      },
+      "budgetCritical": {
+        "title": "Budget exceeded even in minimum case",
+        "body": "The minimum cost exceeds budget: the scope needs review. Reduce active users, postpone lower-priority segments or evaluate capacity/prepaid before positioning the scenario as sustainable."
+      },
+      "customAssumptions": {
+        "title": "Custom assumptions to explain",
+        "body": "The scenario uses custom task mix or factors. In conversations with Finance or customers, explain why these values were chosen and use the calculation panel as the auditable reference."
+      }
+    },
+    "optimization": {
+      "default": {
+        "title": "How to optimize the proposal",
+        "body": "If the cost looks high, move the conversation to phased rollout: start with segments where value is clearest, measure real adoption and expand progressively. Avoid enabling low-usage populations in the first phase."
+      }
+    }
   },
   "report": {
     "title": "Scenario report",

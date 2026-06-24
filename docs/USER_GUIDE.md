@@ -77,6 +77,13 @@ metadata and the estimation disclaimer.
 Use **Print / PDF** to save a PDF from the browser print dialog. You can also export summary CSV,
 segment CSV, report JSON, or share the scenario via link.
 
+### Commercial value insights
+
+The scenario report includes **Commercial value insights**: deterministic, pre-built text blocks
+selected from the scenario context. They explain which activities may be accelerated, which segments
+can benefit most, where caveats apply, and how to position a high-cost scenario in a sales or finance
+conversation. No AI runtime is used: all text is local, versioned and translated.
+
 ### Disclaimer
 
 All results are **planning estimates** based on assumptions. They **do not** represent an official
@@ -158,6 +165,14 @@ metadata e disclaimer.
 
 Usa **Stampa / PDF** per salvare un PDF dalla finestra di stampa del browser. Puoi anche esportare
 CSV riepilogo, CSV segmenti, JSON report o condividere lo scenario tramite link.
+
+### Insight commerciali
+
+Il report scenario include **Insight commerciali**: blocchi di testo deterministici e pre-costruiti,
+selezionati in base al contesto dello scenario. Spiegano quali attività possono essere velocizzate,
+quali segmenti possono beneficiare di più, dove applicare caveat e come posizionare uno scenario ad
+alto costo in una conversazione sales o finance. Non viene usata AI runtime: tutti i testi sono
+locali, versionati e tradotti.
 
 ### Disclaimer
 
