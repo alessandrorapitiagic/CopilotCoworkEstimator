@@ -41,7 +41,7 @@ interface DraftRecoveryProps {
 
 export function DraftRecoveryDialog({ open, draftDate, onResume, onDiscard }: DraftRecoveryProps) {
   const { t } = useTranslation()
-  const dateStr = draftDate ? new Date(draftDate).toLocaleString() : '—'
+  const dateStr = draftDate ? new Date(draftDate).toLocaleDateString() : '—'
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onDiscard()}>
       <DialogContent>

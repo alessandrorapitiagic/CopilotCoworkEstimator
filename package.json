@@ -1,6 +1,6 @@
 {
   "name": "copilot-cowork-estimator",
-  "version": "1.13.1",
+  "version": "1.13.2",
   "description": "Microsoft Copilot Cowork Credits Estimator - Static planning tool",
   "type": "module",
   "scripts": {

@@ -195,7 +195,7 @@ monthlyCost         = billableCredits × effectivePricePerCredit`}
       {/* Calculation metadata */}
       {result && (
         <div className="text-xs text-muted-foreground flex items-center justify-between border rounded-lg px-3 py-2">
-          <span>Calcolato il: <strong className="text-foreground">{new Date(result.calculatedAt).toLocaleString()}</strong></span>
+          <span>Calcolato il: <strong className="text-foreground">{new Date(result.calculatedAt).toLocaleDateString()}</strong></span>
           <span>Pack: <strong className="text-foreground">{pack?.name ?? '—'} v{pack?.version ?? '—'}</strong></span>
           {result.isRangeBased && <Badge variant="secondary" className="text-[10px]">Range</Badge>}
         </div>

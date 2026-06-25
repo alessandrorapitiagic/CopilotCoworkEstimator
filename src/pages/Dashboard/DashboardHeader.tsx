@@ -48,7 +48,7 @@ export function DashboardHeader({ storageStatus, lastUpdated, onImportDone }: Pr
     e.target.value = ''
   }
 
-  const lastUpdatedFormatted = new Date(lastUpdated).toLocaleString()
+  const lastUpdatedFormatted = new Date(lastUpdated).toLocaleDateString()
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">

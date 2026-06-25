@@ -304,11 +304,11 @@ export default function ScenarioWizardPage() {
           {saveFeedback ? (
             <p className="text-xs text-emerald-600 dark:text-emerald-400">
               {saveFeedback.type === 'draft' ? t('wizard.draftExplicitSaved') : t('wizard.reviewedExplicitSaved')}{' '}
-              {new Date(saveFeedback.at).toLocaleTimeString()}
+              {new Date(saveFeedback.at).toLocaleDateString()}
             </p>
           ) : state.isAutosaved && state.lastAutosave && (
             <p className="text-xs text-muted-foreground">
-              {t('wizard.draftSaved')} {new Date(state.lastAutosave).toLocaleTimeString()}
+              {t('wizard.draftSaved')} {new Date(state.lastAutosave).toLocaleDateString()}
             </p>
           )}
         </div>

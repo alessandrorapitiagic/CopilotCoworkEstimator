@@ -164,11 +164,11 @@ export default function ScenarioReportPage() {
                 <BudgetStatusBadge result={result} funding={funding} size="md" />
               </div>
               <p className="text-xs text-muted-foreground">
-                {t('report.generatedAt')}: {new Date(exportedAt).toLocaleString()}
+                {t('report.generatedAt')}: {new Date(exportedAt).toLocaleDateString()}
               </p>
               {result?.calculatedAt && (
                 <p className="text-xs text-muted-foreground">
-                  {t('report.calculatedAt')}: {new Date(result.calculatedAt).toLocaleString()}
+                  {t('report.calculatedAt')}: {new Date(result.calculatedAt).toLocaleDateString()}
                 </p>
               )}
             </div>
@@ -331,9 +331,9 @@ export default function ScenarioReportPage() {
               <div className="grid gap-2 sm:grid-cols-2">
                 <p>Scenario ID: <span className="text-foreground">{scenario.id}</span></p>
                 <p>Company ID: <span className="text-foreground">{scenario.companyId}</span></p>
-                <p>Created: <span className="text-foreground">{new Date(scenario.createdAt).toLocaleString()}</span></p>
-                <p>Updated: <span className="text-foreground">{new Date(scenario.updatedAt).toLocaleString()}</span></p>
-                <p>Exported: <span className="text-foreground">{new Date(exportedAt).toLocaleString()}</span></p>
+                <p>Created: <span className="text-foreground">{new Date(scenario.createdAt).toLocaleDateString()}</span></p>
+                <p>Updated: <span className="text-foreground">{new Date(scenario.updatedAt).toLocaleDateString()}</span></p>
+                <p>Exported: <span className="text-foreground">{new Date(exportedAt).toLocaleDateString()}</span></p>
                 <p>Status: <span className="text-foreground">{scenario.status}</span></p>
               </div>
               <Separator />
