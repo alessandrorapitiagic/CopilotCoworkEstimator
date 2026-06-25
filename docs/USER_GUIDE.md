@@ -51,6 +51,14 @@ full wizard.
 | **Assumption Pack** | A versioned set of calculation rules (credit bands, model factors). Kept separate from company data and updatable. |
 | **Funding plan** | How credits are priced (PAYG, prepaid, existing capacity, blended). Changes the *cost*, not the *credit* consumption. |
 
+### Microsoft Copilot Credits Guide — June 2026
+
+New scenarios use the **Official Guide Mode** by default. This follows the Microsoft guide-style
+planning method: users by persona, prompts per user by Light/Medium/Heavy intensity, and estimated
+credits per prompt. Advanced driver-adjusted mode is still available for internal planning, but it is
+marked as custom and is not presented as an official Microsoft rate card. Heavy tasks are modeled as
+`1,500+` credits and can use a planning cap when a numeric maximum is required.
+
 ### Contextual hints
 
 Throughout the UI you'll find small **info icons (ⓘ)** next to values and form fields. Hover (or
@@ -144,6 +152,14 @@ completo.
 | **Profilo di utilizzo** | *Light / Medium / Heavy* descrivono quanto intensamente un segmento usa Copilot ogni mese. Sono supportati profili personalizzati. |
 | **Assumption Pack** | Insieme versionato di regole di calcolo (bande crediti, fattori modello). Separato dai dati aziendali e aggiornabile. |
 | **Piano di finanziamento** | Come vengono valorizzati i crediti (PAYG, prepagato, capacità esistente, blended). Cambia il *costo*, non il *consumo* di crediti. |
+
+### Microsoft Copilot Credits Guide — June 2026
+
+I nuovi scenari usano di default la modalità **Official Guide Mode**. La metodologia segue la guida
+Microsoft: utenti per persona, prompt per utente per intensità Light/Medium/Heavy e crediti stimati
+per prompt. La modalità avanzata con driver resta disponibile per pianificazione interna, ma viene
+marcata come custom e non viene presentata come rate card ufficiale Microsoft. I task Heavy sono
+modellati come `1.500+` crediti e possono usare un planning cap quando serve un massimo numerico.
 
 ### Hint contestuali
 

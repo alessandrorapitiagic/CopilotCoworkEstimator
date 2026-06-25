@@ -88,6 +88,8 @@ export default function QuickEstimatePage() {
       calculationResult: null,
       status: 'draft',
       tags: ['quick-estimate'],
+      calculationMode: 'officialGuide',
+      workloadType: 'cowork',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
@@ -96,6 +98,7 @@ export default function QuickEstimatePage() {
       id: 'quick-funding',
       scenarioId,
       mode: 'payg',
+      construct: 'payg',
       paygPricePerCredit: Number(pricePerCredit) || pack.fundingDefaults.paygPricePerCredit,
       prepaidCredits: 0,
       prepaidEffectivePricePerCredit: Number(pricePerCredit) || pack.fundingDefaults.paygPricePerCredit,
@@ -105,6 +108,8 @@ export default function QuickEstimatePage() {
       budgetMonthly: monthlyBudget ? Number(monthlyBudget) : null,
       budgetAnnual: monthlyBudget ? Number(monthlyBudget) * 12 : null,
       notes: null,
+      p3: null,
+      budgetEvaluationBasis: 'monthlyPayg',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
@@ -149,6 +154,8 @@ export default function QuickEstimatePage() {
       segments: [],
       status: 'draft',
       tags: ['quick-estimate'],
+      calculationMode: 'officialGuide',
+      workloadType: 'cowork',
     })
 
     store.addSegment(scenario.id, {
@@ -180,6 +187,7 @@ export default function QuickEstimatePage() {
     store.upsertFundingPlan({
       scenarioId: scenario.id,
       mode: 'payg',
+      construct: 'payg',
       paygPricePerCredit: Number(pricePerCredit) || pack.fundingDefaults.paygPricePerCredit,
       prepaidCredits: 0,
       prepaidEffectivePricePerCredit: Number(pricePerCredit) || pack.fundingDefaults.paygPricePerCredit,
@@ -189,6 +197,8 @@ export default function QuickEstimatePage() {
       budgetMonthly: monthlyBudget ? Number(monthlyBudget) : null,
       budgetAnnual: monthlyBudget ? Number(monthlyBudget) * 12 : null,
       notes: t('quick.preliminary'),
+      p3: null,
+      budgetEvaluationBasis: 'monthlyPayg',
     })
     store.recalculateScenario(scenario.id)
     setSavedScenarioId(scenario.id)

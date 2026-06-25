@@ -214,6 +214,38 @@ function calculateCostFromCredits(
   credits: CreditsRange,
   funding: FundingPlan,
 ): { cost: CostRange; spilloverCredits: number; coverageByExisting: number } {
+  // P3 Pre-Purchase is an annual upfront pool. We return monthly cost as
+  // planning allocation (annual cost / 12) so the rest of the app can still
+  // compare monthly scenarios.
+  if ((funding.construct ?? (funding.mode === 'prepaid' ? 'p3PrePurchase' : funding.mode)) === 'p3PrePurchase' && funding.p3) {
+    const paygPrice = funding.paygPricePerCredit
+    const annualPrepaidCredits = funding.p3.annualPrepaidCredits
+    const annualPrepaidCost = funding.p3.annualPrepaidCost
+
+    const calcAnnualCost = (monthlyCredits: number): number => {
+      const annualEstimatedCredits = monthlyCredits * 12
+      const annualSpillover = Math.max(annualEstimatedCredits - annualPrepaidCredits, 0)
+      if (funding.p3?.spilloverMode === 'blocked' && annualSpillover > 0) {
+        return annualPrepaidCost
+      }
+      return annualPrepaidCost + annualSpillover * paygPrice
+    }
+
+    const annualMid = credits.mid * 12
+    const coveredAnnual = Math.min(annualMid, annualPrepaidCredits)
+    const spilloverAnnual = Math.max(annualMid - annualPrepaidCredits, 0)
+
+    return {
+      cost: {
+        min: calcAnnualCost(credits.min) / 12,
+        mid: calcAnnualCost(credits.mid) / 12,
+        max: calcAnnualCost(credits.max) / 12,
+      },
+      spilloverCredits: spilloverAnnual / 12,
+      coverageByExisting: coveredAnnual / 12,
+    }
+  }
+
   const existingCapacity = funding.existingMonthlyCredits
   const pricePerCredit = funding.paygPricePerCredit * (1 - funding.discountPercentage / 100)
 
@@ -372,6 +404,7 @@ export function calculateScenario(
     id: 'default',
     scenarioId: scenario.id,
     mode: 'payg',
+    construct: 'payg',
     paygPricePerCredit: pack.fundingDefaults.paygPricePerCredit,
     prepaidCredits: 0,
     prepaidEffectivePricePerCredit: pack.fundingDefaults.paygPricePerCredit,
@@ -381,6 +414,8 @@ export function calculateScenario(
     budgetMonthly: null,
     budgetAnnual: null,
     notes: null,
+    p3: null,
+    budgetEvaluationBasis: 'monthlyPayg',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   }
@@ -423,6 +458,39 @@ export function calculateScenario(
   }
 
   // Budget warnings
+  if ((defaultFunding.construct ?? defaultFunding.mode) === 'p3PrePurchase' && defaultFunding.p3) {
+    warnings.push({
+      code: 'P3_MONTHLY_COST_IS_ALLOCATION',
+      severity: 'info',
+      message: 'Monthly P3 cost is shown as a planning allocation of the annual upfront purchase.',
+    })
+    warnings.push({
+      code: 'P3_UNUSED_CREDITS_EXPIRE',
+      severity: 'info',
+      message: 'Unused P3 credits expire at the end of the annual term.',
+    })
+    if (annualCredits.mid > defaultFunding.p3.annualPrepaidCredits) {
+      warnings.push({
+        code: 'P3_ANNUAL_POOL_EXCEEDED',
+        severity: defaultFunding.p3.spilloverMode === 'blocked' ? 'error' : 'warning',
+        message: 'Estimated annual credits exceed the selected P3 pool.',
+      })
+      if (defaultFunding.p3.spilloverMode === 'payg') {
+        warnings.push({
+          code: 'P3_PAYG_SPILLOVER',
+          severity: 'warning',
+          message: 'Estimated usage exceeds prepaid credits and creates PAYG spillover.',
+        })
+      }
+    } else if (annualCredits.mid < defaultFunding.p3.annualPrepaidCredits * 0.5) {
+      warnings.push({
+        code: 'P3_LOW_UTILIZATION',
+        severity: 'warning',
+        message: 'The selected P3 tier may be underutilized.',
+      })
+    }
+  }
+
   if (defaultFunding.budgetMonthly !== null) {
     if (monthlyCost.min > defaultFunding.budgetMonthly) {
       warnings.push({

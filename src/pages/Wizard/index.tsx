@@ -67,6 +67,8 @@ export default function ScenarioWizardPage() {
       companyId: scenario.companyId,
       segments: scenario.segments,
       assumptionPackId: scenario.assumptionPackId,
+      calculationMode: scenario.calculationMode ?? 'advancedDriverAdjusted',
+      workloadType: scenario.workloadType ?? 'cowork',
       defaultModelId: scenario.segments[0]?.preferredModelId ?? 'model-auto',
       fundingMode: funding?.mode ?? 'payg',
       pricePerCredit: String(funding?.paygPricePerCredit ?? state.pricePerCredit),
@@ -170,6 +172,8 @@ export default function ScenarioWizardPage() {
       segments: state.segments.map((seg) => ({ ...seg, companyId })),
       status,
       tags: [] as string[],
+      calculationMode: state.calculationMode,
+      workloadType: state.workloadType,
     }
 
     if (existingScenario) {
@@ -208,6 +212,7 @@ export default function ScenarioWizardPage() {
     store.upsertFundingPlan({
       scenarioId,
       mode: state.fundingMode,
+      construct: state.fundingMode === 'prepaid' ? 'p3PrePurchase' : state.fundingMode === 'existing_capacity' ? 'existingCapacity' : state.fundingMode,
       paygPricePerCredit: Number(state.pricePerCredit) || 0.01,
       prepaidCredits: Number(state.prepaidCredits) || 0,
       prepaidEffectivePricePerCredit: Number(state.prepaidEffectivePrice) || Number(state.pricePerCredit) || 0.01,
@@ -217,6 +222,8 @@ export default function ScenarioWizardPage() {
       budgetMonthly: state.budgetMonthly ? Number(state.budgetMonthly) : null,
       budgetAnnual: state.budgetAnnual ? Number(state.budgetAnnual) : null,
       notes: null,
+      p3: null,
+      budgetEvaluationBasis: state.fundingMode === 'prepaid' ? 'annualP3Commitment' : 'monthlyPayg',
     })
   }
 

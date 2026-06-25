@@ -259,6 +259,7 @@ export interface AssumptionPack extends Auditable {
 export type FundingMode = 'payg' | 'prepaid' | 'existing_capacity' | 'blended'
 export type FundingConstruct = 'payg' | 'p3PrePurchase' | 'existingCapacity' | 'blended' | 'custom'
 export type P3SpilloverMode = 'payg' | 'additionalPurchase' | 'blocked'
+export type BudgetEvaluationBasis = 'monthlyPayg' | 'annualP3Commitment' | 'monthlyP3Allocation'
 
 export interface FundingPlan extends Auditable {
   scenarioId: ID
@@ -282,6 +283,7 @@ export interface FundingPlan extends Auditable {
     unusedCreditsExpire: boolean
     spilloverMode: P3SpilloverMode
   } | null
+  budgetEvaluationBasis?: BudgetEvaluationBasis
 }
 
 // ----- Calculation Result ------------------------------------

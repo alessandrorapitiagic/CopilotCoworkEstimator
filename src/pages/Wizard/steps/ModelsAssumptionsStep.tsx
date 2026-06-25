@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator'
 import { InfoHint } from '@/components/shared/InfoHint'
 import { useAppStore } from '@/store/appStore'
 import type { WizardState } from '../useWizard'
+import type { CalculationMode } from '@/types/domain'
 
 interface Props {
   state: WizardState
@@ -36,6 +37,31 @@ export function ModelsAssumptionsStep({ state, update, onRecalculate }: Props) {
       <div>
         <h2 className="text-lg font-semibold">{t('wizard.modelsAssumptions.title')}</h2>
         <p className="text-sm text-muted-foreground mt-0.5">{t('wizard.modelsAssumptions.subtitle')}</p>
+      </div>
+
+      {/* Calculation mode */}
+      <div className="flex flex-col gap-2">
+        <Label>Calculation mode</Label>
+        <Select
+          value={state.calculationMode ?? 'officialGuide'}
+          onValueChange={(v) => {
+            update({ calculationMode: v as CalculationMode })
+            onRecalculate()
+          }}
+        >
+          <SelectTrigger><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="officialGuide">Official Guide Mode</SelectItem>
+            <SelectItem value="advancedDriverAdjusted">Advanced Driver-Adjusted Mode</SelectItem>
+            <SelectItem value="customPlanning">Custom Planning Mode</SelectItem>
+          </SelectContent>
+        </Select>
+        {(state.calculationMode ?? 'officialGuide') !== 'officialGuide' && (
+          <p className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+            <AlertTriangle className="size-3" />
+            This mode applies custom planning factors and is not a Microsoft rate card.
+          </p>
+        )}
       </div>
 
       {/* Assumption pack */}

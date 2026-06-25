@@ -5,6 +5,8 @@ import type {
   FundingMode,
   FundingPlan,
   CalculationResult,
+  CalculationMode,
+  WorkloadType,
   Industry,
 } from '@/types/domain'
 import { useAppStore } from '@/store/appStore'
@@ -52,6 +54,8 @@ export interface WizardState {
   assumptionPackId: string
   modelSelectionMode: 'global' | 'per-segment'
   defaultModelId: string
+  calculationMode: CalculationMode
+  workloadType: WorkloadType
 
   // Step 6 — Funding & Budget
   fundingMode: FundingMode
@@ -91,6 +95,8 @@ export function defaultWizardState(overrides: Partial<WizardState> = {}): Wizard
     assumptionPackId: defaultPack?.id ?? '',
     modelSelectionMode: 'global',
     defaultModelId: 'model-auto',
+    calculationMode: 'officialGuide',
+    workloadType: 'cowork',
     fundingMode: 'payg',
     pricePerCredit: String(defaultPack?.fundingDefaults.paygPricePerCredit ?? 0.01),
     existingCredits: '0',
@@ -212,6 +218,8 @@ export function useWizard(initialOverrides?: Partial<WizardState>) {
         calculationResult: null,
         status: 'draft' as const,
         tags: [],
+        calculationMode: s.calculationMode,
+        workloadType: s.workloadType,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       }

@@ -53,6 +53,32 @@ function computeFundingKpi(
   const effectivePrice = price * (1 - discount / 100)
   const prepaidPrice = Number(funding.prepaidEffectivePricePerCredit) || effectivePrice
 
+  if ((funding.construct ?? funding.mode) === 'p3PrePurchase' && funding.p3) {
+    const annualMid = totalMid * 12
+    const annualPrepaidCredits = funding.p3.annualPrepaidCredits
+    const annualPrepaidCost = funding.p3.annualPrepaidCost
+    const annualSpillover = Math.max(annualMid - annualPrepaidCredits, 0)
+    const monthlyCostMid = (annualPrepaidCost + annualSpillover * price) / 12
+    const calcMonthly = (monthlyCredits: number) => {
+      const annualCredits = monthlyCredits * 12
+      const annualOverflow = Math.max(annualCredits - annualPrepaidCredits, 0)
+      return (annualPrepaidCost + annualOverflow * price) / 12
+    }
+    const savedVsPayg = totalMid * price - monthlyCostMid
+    return {
+      totalCredits: totalMid,
+      creditsCovered: Math.min(annualMid, annualPrepaidCredits) / 12,
+      billableCredits: annualSpillover / 12,
+      spilloverCredits: annualSpillover / 12,
+      monthlyCostMin: calcMonthly(result.monthlyCredits.min),
+      monthlyCostMid,
+      monthlyCostMax: calcMonthly(result.monthlyCredits.max),
+      annualCostMid: monthlyCostMid * 12,
+      savedVsPayg,
+      budgetStatus: null,
+    }
+  }
+
   const covered = Math.min(totalMid, existing)
   const afterExisting = Math.max(0, totalMid - existing)
   const prepaidUsed = Math.min(afterExisting, prepaid)
@@ -117,9 +143,15 @@ export function FundingPlanEditor({ scenarioId, existingPlan, result, currency, 
   const [budgetAnnual, setBudgetAnnual] = useState(String(existingPlan?.budgetAnnual ?? ''))
   const [notes, setNotes] = useState(existingPlan?.notes ?? '')
 
+  const selectedP3Preview = P3_TIERS.find((t) => String(t.tier) === p3Tier)
+  const p3AnnualCreditsPreview = selectedP3Preview?.annualCredits ?? Number(prepaidCredits) * 12
+  const p3DiscountPreview = selectedP3Preview?.discount ?? (Number(discount) || 0)
+  const p3AnnualCostPreview = p3AnnualCreditsPreview * (Number(pricePerCredit) || defaultPrice) * (1 - p3DiscountPreview / 100)
+
   // Live preview
   const previewPlan: Partial<FundingPlan> = {
     mode,
+    construct: mode === 'prepaid' ? 'p3PrePurchase' : mode === 'existing_capacity' ? 'existingCapacity' : mode,
     paygPricePerCredit: Number(pricePerCredit) || defaultPrice,
     existingMonthlyCredits: Number(existingCredits) || 0,
     prepaidCredits: Number(prepaidCredits) || 0,
@@ -127,6 +159,15 @@ export function FundingPlanEditor({ scenarioId, existingPlan, result, currency, 
     discountPercentage: Number(discount) || 0,
     budgetMonthly: budgetMonthly ? Number(budgetMonthly) : null,
     budgetAnnual: budgetAnnual ? Number(budgetAnnual) : null,
+    p3: mode === 'prepaid' ? {
+      tier: Number(p3Tier),
+      annualPrepaidCredits: p3AnnualCreditsPreview,
+      discountPercentage: p3DiscountPreview,
+      annualPrepaidCost: p3AnnualCostPreview,
+      effectivePricePerCredit: p3AnnualCostPreview / p3AnnualCreditsPreview,
+      unusedCreditsExpire: true,
+      spilloverMode: 'payg',
+    } : null,
   }
 
   const kpi = computeFundingKpi(result, previewPlan, currency)
