@@ -28,6 +28,30 @@ export function HowCalculatedPanel({ scenario, pack, funding }: Props) {
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
+          <div className="grid gap-2 rounded-lg border bg-muted/30 p-3 text-xs sm:grid-cols-3">
+            <div>
+              <p className="text-muted-foreground">Calculation mode</p>
+              <p className="font-semibold">{scenario.calculationMode ?? 'officialGuide'}</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground">Workload</p>
+              <p className="font-semibold">{scenario.workloadType ?? 'cowork'}</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground">Source guide</p>
+              <p className="font-semibold">{pack?.sourceGuideName ?? '—'} {pack?.sourceGuideVersion ?? ''}</p>
+            </div>
+          </div>
+          {scenario.calculationMode !== 'officialGuide' && (
+            <p className="rounded-lg border border-amber-200 bg-amber-50 p-2 text-xs text-amber-800 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-400">
+              This estimate applies custom planning factors beyond the official guide methodology. These factors are not a Microsoft rate card.
+            </p>
+          )}
+          {pack?.heavyDefaults.openEnded && (
+            <p className="rounded-lg border border-amber-200 bg-amber-50 p-2 text-xs text-amber-800 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-400">
+              Heavy tasks are modeled as 1,500+ Copilot Credits. Maximum values are open-ended unless a planning cap is configured.
+            </p>
+          )}
           <pre className="bg-muted rounded-md p-3 text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed">
 {`enabledUsers    = headcount × enabledPct / 100
 activeUsers     = enabledUsers × activePct / 100

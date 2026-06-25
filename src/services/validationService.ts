@@ -191,6 +191,35 @@ export function validateScenario(
 ): ValidationResult {
   const allItems: ValidationItem[] = []
 
+  if ((scenario.workloadType ?? 'cowork') !== 'cowork') {
+    allItems.push({
+      code: 'WORKLOAD_NOT_SUPPORTED',
+      severity: 'error',
+      scope: 'scenario',
+      message: 'This calculator currently estimates Copilot Cowork only.',
+      fix: 'Set workload type to Cowork or use a dedicated module when available.',
+    })
+  }
+
+  if ((scenario.calculationMode ?? 'officialGuide') === 'advancedDriverAdjusted') {
+    allItems.push({
+      code: 'CALCULATION_ADVANCED_MODE',
+      severity: 'warning',
+      scope: 'scenario',
+      message: 'This scenario uses advanced custom planning factors beyond the official guide methodology.',
+      fix: 'Use Official Guide Mode for Microsoft guide-aligned planning.',
+    })
+  }
+
+  if ((scenario.calculationMode ?? 'officialGuide') === 'customPlanning') {
+    allItems.push({
+      code: 'CALCULATION_CUSTOM_PLANNING_MODE',
+      severity: 'warning',
+      scope: 'scenario',
+      message: 'This scenario uses custom planning assumptions and should be reviewed before sharing.',
+    })
+  }
+
   if (company) allItems.push(...validateCompany(company))
   for (const seg of scenario.segments) {
     allItems.push(...validateSegment(seg, company))

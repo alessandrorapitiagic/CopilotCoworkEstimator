@@ -11,6 +11,7 @@ import type {
   CalculationResult,
   CalculationWarning,
   TaskIntensity,
+  CalculationMode,
 } from '@/types/domain'
 
 // ---- Core computation helpers ------------------------------
@@ -74,6 +75,7 @@ function calculateSegmentCredits(
   segment: WorkforceSegment,
   profile: UsageProfile,
   pack: AssumptionPack,
+  calculationMode: CalculationMode,
 ): { credits: CreditsRange; enabledUsers: number; activeUsers: number; warnings: CalculationWarning[] } {
   const warnings: CalculationWarning[] = []
 
@@ -169,7 +171,30 @@ function calculateSegmentCredits(
     })
   }
 
-  const adjustedCredits = computeAdjustedCredits(rawCredits, effectiveProfile, pack, segment.preferredModelId)
+  const isOfficialGuide = calculationMode === 'officialGuide'
+  const adjustedCredits = isOfficialGuide
+    ? rawCredits
+    : computeAdjustedCredits(rawCredits, effectiveProfile, pack, segment.preferredModelId)
+
+  if (!isOfficialGuide) {
+    warnings.push({
+      code: calculationMode === 'customPlanning' ? 'CALCULATION_CUSTOM_PLANNING_MODE' : 'CALCULATION_ADVANCED_MODE',
+      severity: 'warning',
+      message: calculationMode === 'customPlanning'
+        ? 'Questo scenario usa assunzioni di pianificazione custom e richiede review prima della condivisione.'
+        : 'Questo scenario usa factor custom oltre la metodologia ufficiale Microsoft Copilot Credits Guide.',
+      segmentId: segment.id,
+    })
+  }
+
+  if (pack.heavyDefaults.openEnded && heavyPerUser > 0) {
+    warnings.push({
+      code: 'HEAVY_RANGE_OPEN_ENDED',
+      severity: 'warning',
+      message: 'Heavy tasks are modeled as 1,500+ Copilot Credits. Add a planning cap if you need a numeric maximum estimate.',
+      segmentId: segment.id,
+    })
+  }
 
   if (heavyPerUser > 30) {
     warnings.push({
@@ -232,6 +257,8 @@ export function calculateScenario(
   funding: FundingPlan | null,
 ): CalculationResult {
   const warnings: CalculationWarning[] = []
+  const calculationMode = scenario.calculationMode ?? 'officialGuide'
+  const workloadType = scenario.workloadType ?? 'cowork'
   const breakdownBySegment: SegmentBreakdown[] = []
   const breakdownByModel: Record<string, CreditsRange> = {}
   const breakdownByIntensity: Record<TaskIntensity, CreditsRange> = {
@@ -279,6 +306,7 @@ export function calculateScenario(
       segment,
       profile,
       pack,
+      calculationMode,
     )
     warnings.push(...segWarnings)
 
@@ -428,5 +456,15 @@ export function calculateScenario(
     calculatedAt: new Date().toISOString(),
     assumptionPackId: pack.id,
     isRangeBased: true,
+    calculationMode,
+    workloadType,
+    sourceGuideName: pack.sourceGuideName,
+    sourceGuideVersion: pack.sourceGuideVersion,
+    usesOfficialGuideRanges: calculationMode === 'officialGuide',
+    usesAdvancedFactors: calculationMode !== 'officialGuide',
+    hasOpenEndedHeavyRange: pack.heavyDefaults.openEnded,
+    heavyPlanningCap: pack.heavyDefaults.planningCap,
+    maxIsOpenEnded: pack.heavyDefaults.openEnded && pack.heavyDefaults.planningCap == null,
+    usesCustomPlanningLogic: calculationMode !== 'officialGuide',
   }
 }

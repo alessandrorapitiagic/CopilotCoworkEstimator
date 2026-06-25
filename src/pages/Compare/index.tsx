@@ -99,6 +99,7 @@ export default function Compare() {
 
   const diffPacks = scenA && scenB && scenA.assumptionPackId !== scenB.assumptionPackId
   const diffCompanies = scenA && scenB && scenA.companyId !== scenB.companyId
+  const diffCalculationMode = scenA && scenB && (scenA.calculationMode ?? 'officialGuide') !== (scenB.calculationMode ?? 'officialGuide')
 
   return (
     <div className="flex flex-col gap-5 p-4 sm:p-6">
@@ -175,6 +176,12 @@ export default function Compare() {
         <div className="flex items-center gap-2 rounded-lg border bg-muted/40 p-3 text-sm text-muted-foreground">
           <AlertTriangle className="size-3.5 shrink-0" />
           {t('compare.diffCompanyNote')}
+        </div>
+      )}
+      {diffCalculationMode && (
+        <div className="flex items-center gap-2 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-3 text-sm text-amber-800 dark:text-amber-400">
+          <AlertTriangle className="size-4 shrink-0" />
+          Scenarios use different calculation modes. Differences may depend on methodology, not only usage.
         </div>
       )}
 

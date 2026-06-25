@@ -157,7 +157,7 @@ export function useDashboardSummary(
     }
 
     // ---- Build recent scenario rows ----
-    const currentSystemPack = assumptionPacks.find((p) => p.isSystemDefault)
+    const currentSystemPack = assumptionPacks.find((p) => p.isCurrentDefault) ?? assumptionPacks.find((p) => p.isSystemDefault)
 
     const rows: RecentScenarioRow[] = activeScenarios.map((s) => {
       const company = companies.find((c) => c.id === s.companyId)

@@ -110,6 +110,14 @@ export function AssumptionPackForm({ pack, onSave, onClose }: Props) {
       isDeprecated: false,
       deprecatedReason: null,
       sourceType: 'custom',
+      sourceGuideName: existing?.sourceGuideName ?? 'Custom planning assumptions',
+      sourceGuideVersion: existing?.sourceGuideVersion ?? version.trim(),
+      heavyDefaults: existing?.heavyDefaults ?? {
+        openEnded: false,
+        defaultMax: bands.heavyMax,
+        planningCap: bands.heavyMax,
+        notes: null,
+      },
       metadata: {},
     })
   }

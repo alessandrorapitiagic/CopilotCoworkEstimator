@@ -1,6 +1,7 @@
 import type { AppStorageSchema, UIPreferences } from '@/types/domain'
 import {
   SYSTEM_ASSUMPTION_PACK,
+  MICROSOFT_JUNE_2026_ASSUMPTION_PACK,
   SYSTEM_MODELS,
   SYSTEM_USAGE_PROFILES,
   SYSTEM_TASK_PRESETS,
@@ -18,7 +19,7 @@ function getDefaultSchema(): AppStorageSchema {
     usageProfiles: [...SYSTEM_USAGE_PROFILES],
     taskPresets: [...SYSTEM_TASK_PRESETS],
     modelAssumptions: [...SYSTEM_MODELS],
-    assumptionPacks: [SYSTEM_ASSUMPTION_PACK],
+    assumptionPacks: [MICROSOFT_JUNE_2026_ASSUMPTION_PACK, SYSTEM_ASSUMPTION_PACK],
     fundingPlans: [],
     preferences: { ...DEFAULT_PREFERENCES },
   }
@@ -95,6 +96,8 @@ function migrateScenarios(scenarios: unknown[]): import('@/types/domain').Scenar
     return {
       ...sc,
       segments: migrateSegments((sc.segments as unknown[]) ?? []),
+      calculationMode: sc.calculationMode ?? 'advancedDriverAdjusted',
+      workloadType: sc.workloadType ?? 'cowork',
     } as import('@/types/domain').Scenario
   })
 }
@@ -140,12 +143,20 @@ function migrateProfileIfNeeded<T extends { id: string; isSystemDefault?: boolea
       sourceType: p.sourceType ?? (p.isSystemDefault ? 'system' : 'custom'),
       sourceName: p.sourceName ?? p.source ?? null,
       sourceUrl: p.sourceUrl ?? null,
-      isCurrentDefault: p.isCurrentDefault ?? (p.isSystemDefault ?? false),
+      isCurrentDefault: p.isCurrentDefault ?? false,
       isEditable: p.isEditable !== false ? !p.isSystemDefault : false,
       isDeprecated: p.isDeprecated ?? false,
       deprecatedReason: p.deprecatedReason ?? null,
       notes: p.notes ?? null,
       metadata: p.metadata ?? {},
+      sourceGuideName: p.sourceGuideName ?? null,
+      sourceGuideVersion: p.sourceGuideVersion ?? null,
+      heavyDefaults: p.heavyDefaults ?? {
+        openEnded: false,
+        defaultMax: (p.creditBands as { heavyMax?: number })?.heavyMax ?? null,
+        planningCap: (p.creditBands as { heavyMax?: number })?.heavyMax ?? null,
+        notes: null,
+      },
     }
   }
   return item

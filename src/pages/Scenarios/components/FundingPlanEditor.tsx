@@ -5,12 +5,24 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { InfoHint } from '@/components/shared/InfoHint'
 import { formatCurrency, formatNumber } from '@/lib/utils'
 import type { FundingPlan, FundingMode, CalculationResult } from '@/types/domain'
 
 const FUNDING_MODES: FundingMode[] = ['payg', 'prepaid', 'existing_capacity', 'blended']
+const P3_TIERS = [
+  { tier: 1, annualCredits: 300_000, discount: 5 },
+  { tier: 2, annualCredits: 1_500_000, discount: 6 },
+  { tier: 3, annualCredits: 3_000_000, discount: 7 },
+  { tier: 4, annualCredits: 15_000_000, discount: 8 },
+  { tier: 5, annualCredits: 30_000_000, discount: 10 },
+  { tier: 6, annualCredits: 75_000_000, discount: 12 },
+  { tier: 7, annualCredits: 150_000_000, discount: 14 },
+  { tier: 8, annualCredits: 225_000_000, discount: 17 },
+  { tier: 9, annualCredits: 300_000_000, discount: 20 },
+]
 
 interface FundingKpi {
   totalCredits: number
@@ -100,6 +112,7 @@ export function FundingPlanEditor({ scenarioId, existingPlan, result, currency, 
   const [prepaidCredits, setPrepaidCredits] = useState(String(existingPlan?.prepaidCredits ?? 0))
   const [prepaidEffPrice, setPrepaidEffPrice] = useState(String(existingPlan?.prepaidEffectivePricePerCredit ?? defaultPrice))
   const [discount, setDiscount] = useState(String(existingPlan?.discountPercentage ?? 0))
+  const [p3Tier, setP3Tier] = useState(String(existingPlan?.p3?.tier ?? 1))
   const [budgetMonthly, setBudgetMonthly] = useState(String(existingPlan?.budgetMonthly ?? ''))
   const [budgetAnnual, setBudgetAnnual] = useState(String(existingPlan?.budgetAnnual ?? ''))
   const [notes, setNotes] = useState(existingPlan?.notes ?? '')
@@ -119,10 +132,15 @@ export function FundingPlanEditor({ scenarioId, existingPlan, result, currency, 
   const kpi = computeFundingKpi(result, previewPlan, currency)
 
   function handleSave() {
+    const selectedP3 = P3_TIERS.find((t) => String(t.tier) === p3Tier)
+    const p3AnnualCredits = selectedP3?.annualCredits ?? Number(prepaidCredits) * 12
+    const p3Discount = selectedP3?.discount ?? (Number(discount) || 0)
+    const p3AnnualCost = p3AnnualCredits * (Number(pricePerCredit) || defaultPrice) * (1 - p3Discount / 100)
     onSave({
       ...(existingPlan?.id ? { id: existingPlan.id } : {}),
       scenarioId,
       mode,
+      construct: mode === 'prepaid' ? 'p3PrePurchase' : mode === 'existing_capacity' ? 'existingCapacity' : mode,
       paygPricePerCredit: Number(pricePerCredit) || defaultPrice,
       existingMonthlyCredits: Number(existingCredits) || 0,
       prepaidCredits: Number(prepaidCredits) || 0,
@@ -132,7 +150,26 @@ export function FundingPlanEditor({ scenarioId, existingPlan, result, currency, 
       budgetMonthly: budgetMonthly ? Number(budgetMonthly) : null,
       budgetAnnual: budgetAnnual ? Number(budgetAnnual) : null,
       notes: notes.trim() || null,
+      p3: mode === 'prepaid' ? {
+        tier: Number(p3Tier),
+        annualPrepaidCredits: p3AnnualCredits,
+        discountPercentage: p3Discount,
+        annualPrepaidCost: p3AnnualCost,
+        effectivePricePerCredit: p3AnnualCost / p3AnnualCredits,
+        unusedCreditsExpire: true,
+        spilloverMode: 'payg',
+      } : null,
     })
+  }
+
+  function handleP3TierChange(tier: string) {
+    setP3Tier(tier)
+    const selected = P3_TIERS.find((t) => String(t.tier) === tier)
+    if (!selected) return
+    setPrepaidCredits(String(Math.round(selected.annualCredits / 12)))
+    setDiscount(String(selected.discount))
+    const effective = (Number(pricePerCredit) || defaultPrice) * (1 - selected.discount / 100)
+    setPrepaidEffPrice(String(effective))
   }
 
   const showExisting = mode === 'existing_capacity' || mode === 'blended'
@@ -199,6 +236,22 @@ export function FundingPlanEditor({ scenarioId, existingPlan, result, currency, 
       {/* Prepaid */}
       {showPrepaid && (
         <div className="grid gap-3 sm:grid-cols-2">
+          {mode === 'prepaid' && (
+            <div className="grid gap-1.5 sm:col-span-2">
+              <Label>P3 Pre-Purchase Plan (annual upfront pool)</Label>
+              <Select value={p3Tier} onValueChange={handleP3TierChange}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {P3_TIERS.map((tier) => (
+                    <SelectItem key={tier.tier} value={String(tier.tier)}>
+                      Tier {tier.tier}: {tier.annualCredits.toLocaleString()} credits/year · {tier.discount}% discount
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">P3 is modeled as an annual upfront credit pool. Monthly cost is shown as a planning allocation.</p>
+            </div>
+          )}
           <div className="grid gap-1.5">
             <Label className="flex items-center gap-1">
               {t('funding.prepaidCredits')}

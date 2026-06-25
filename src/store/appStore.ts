@@ -259,6 +259,8 @@ export const useAppStore = create<AppState>((set, get) => ({
       ...data,
       id: nanoid(),
       calculationResult: null,
+      calculationMode: data.calculationMode ?? 'officialGuide',
+      workloadType: data.workloadType ?? 'cowork',
       createdAt: now(),
       updatedAt: now(),
     }
@@ -374,6 +376,8 @@ export const useAppStore = create<AppState>((set, get) => ({
     const existing = s.fundingPlans.find((fp) => fp.id === existingId)
     const plan: FundingPlan = {
       ...data,
+      construct: data.construct ?? (data.mode === 'prepaid' ? 'p3PrePurchase' : data.mode === 'existing_capacity' ? 'existingCapacity' : data.mode),
+      p3: data.p3 ?? null,
       id: existingId,
       createdAt: existing?.createdAt ?? now(),
       updatedAt: now(),

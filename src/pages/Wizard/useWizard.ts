@@ -70,7 +70,7 @@ export interface WizardState {
 
 export function defaultWizardState(overrides: Partial<WizardState> = {}): WizardState {
   const store = useAppStore.getState()
-  const defaultPack = store.assumptionPacks.find((p) => p.isSystemDefault)
+  const defaultPack = store.assumptionPacks.find((p) => p.isCurrentDefault) ?? store.assumptionPacks.find((p) => p.isSystemDefault)
   return {
     wizardId: nanoid(),
     source: 'manual',

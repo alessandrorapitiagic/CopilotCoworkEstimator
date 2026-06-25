@@ -39,7 +39,7 @@ export default function UsageProfilesPage() {
   const [compareB, setCompareB] = useState<string | null>(null)
   const [toast, setToast] = useState('')
 
-  const pack = assumptionPacks.find((p) => p.isSystemDefault) ?? SYSTEM_ASSUMPTION_PACK
+  const pack = assumptionPacks.find((p) => p.isCurrentDefault) ?? assumptionPacks.find((p) => p.isSystemDefault) ?? SYSTEM_ASSUMPTION_PACK
   const pricePerCredit = pack.fundingDefaults.paygPricePerCredit
 
   const filtered = usageProfiles.filter((p) => {

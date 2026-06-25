@@ -216,7 +216,7 @@ export interface AssumptionPackFactors {
   imageMultiplier: number
 }
 
-export type AssumptionPackSourceType = 'system' | 'custom' | 'imported' | 'shared'
+export type AssumptionPackSourceType = 'system' | 'officialGuide' | 'custom' | 'imported' | 'shared' | 'legacy'
 
 export interface AssumptionPack extends Auditable {
   name: string
@@ -244,15 +244,26 @@ export interface AssumptionPack extends Auditable {
   deprecatedReason: string | null
   notes: string | null
   metadata: Record<string, unknown>
+  sourceGuideName: string | null
+  sourceGuideVersion: string | null
+  heavyDefaults: {
+    openEnded: boolean
+    defaultMax: number | null
+    planningCap: number | null
+    notes: string | null
+  }
 }
 
 // ----- Funding Plan ------------------------------------------
 
 export type FundingMode = 'payg' | 'prepaid' | 'existing_capacity' | 'blended'
+export type FundingConstruct = 'payg' | 'p3PrePurchase' | 'existingCapacity' | 'blended' | 'custom'
+export type P3SpilloverMode = 'payg' | 'additionalPurchase' | 'blocked'
 
 export interface FundingPlan extends Auditable {
   scenarioId: ID
   mode: FundingMode
+  construct?: FundingConstruct
   paygPricePerCredit: number
   prepaidCredits: number
   prepaidEffectivePricePerCredit: number
@@ -262,6 +273,15 @@ export interface FundingPlan extends Auditable {
   budgetMonthly: number | null
   budgetAnnual: number | null
   notes: string | null
+  p3?: {
+    tier: number
+    annualPrepaidCredits: number
+    discountPercentage: number
+    annualPrepaidCost: number
+    effectivePricePerCredit: number
+    unusedCreditsExpire: boolean
+    spilloverMode: P3SpilloverMode
+  } | null
 }
 
 // ----- Calculation Result ------------------------------------
@@ -312,11 +332,23 @@ export interface CalculationResult {
   calculatedAt: string
   assumptionPackId: ID
   isRangeBased: boolean
+  calculationMode?: CalculationMode
+  workloadType?: WorkloadType
+  sourceGuideName?: string | null
+  sourceGuideVersion?: string | null
+  usesOfficialGuideRanges?: boolean
+  usesAdvancedFactors?: boolean
+  hasOpenEndedHeavyRange?: boolean
+  heavyPlanningCap?: number | null
+  maxIsOpenEnded?: boolean
+  usesCustomPlanningLogic?: boolean
 }
 
 // ----- Scenario ----------------------------------------------
 
 export type ScenarioStatus = 'draft' | 'reviewed' | 'shared' | 'archived'
+export type CalculationMode = 'officialGuide' | 'advancedDriverAdjusted' | 'customPlanning'
+export type WorkloadType = 'cowork' | 'workIqApi' | 'copilotStudio' | 'businessApplications' | 'other'
 
 export interface Scenario extends Auditable {
   companyId: ID
@@ -328,6 +360,8 @@ export interface Scenario extends Auditable {
   calculationResult: CalculationResult | null
   status: ScenarioStatus
   tags: string[]
+  calculationMode?: CalculationMode
+  workloadType?: WorkloadType
 }
 
 // ----- Workforce Summary (computed, not stored) ---------------
