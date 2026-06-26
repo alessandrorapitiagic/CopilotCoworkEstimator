@@ -304,8 +304,8 @@ export default function QuickEstimatePage() {
             <div className="grid gap-1.5">
               <Label>{t('quick.assumptionPack')}</Label>
               <Select value={packId} onValueChange={setPackId}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>{store.assumptionPacks.map((p) => <SelectItem key={p.id} value={p.id}>{p.name} v{p.version}</SelectItem>)}</SelectContent>
+                <SelectTrigger className="min-w-0"><SelectValue /></SelectTrigger>
+                <SelectContent>{store.assumptionPacks.map((p) => <SelectItem key={p.id} value={p.id}><span className="block max-w-[260px] truncate">{p.name} v{p.version}</span></SelectItem>)}</SelectContent>
               </Select>
             </div>
             <div className="grid gap-1.5">
