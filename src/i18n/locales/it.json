@@ -641,7 +641,9 @@
       "saveTitle": "Salvataggio scenario",
       "saveBody": "Dopo la preview puoi salvare il risultato come scenario collegato a una company nuova o esistente, e rifinirlo successivamente nel wizard completo.",
       "scopeTitle": "Quando usarla",
-      "scopeBody": "Usala nelle prime conversazioni commerciali, quando serve una risposta veloce su costo e crediti senza modellare ancora tutti i segmenti."
+      "scopeBody": "Usala nelle prime conversazioni commerciali, quando serve una risposta veloce su costo e crediti senza modellare ancora tutti i segmenti.",
+      "benchmarkTitle": "Benchmark standard",
+      "benchmarkBody": "La sezione benchmark mostra un esempio per profilo utente standard con prompt Light/Medium/Heavy e crediti illustrativi 125/500/1.200. Serve per spiegare l'ordine di grandezza in modo semplice."
     },
     "quickstart": {
       "title": "Avvio rapido in 4 passi",
@@ -759,6 +761,10 @@
     "quickEstimate": {
       "title": "Stima rapida",
       "body": "Qui ottieni subito un ordine di grandezza con pochi campi. Se il risultato è interessante, puoi salvarlo come scenario."
+    },
+    "quickBenchmark": {
+      "title": "Benchmark profili standard",
+      "body": "Questa tabella mostra un esempio commerciale con profili corporate, customer-facing, technical e manager. Aiuta a spiegare perché l'uso heavy aumenta rapidamente il costo."
     },
     "valueInsights": {
       "title": "Insight commerciali",
@@ -1160,5 +1166,22 @@
     "saved": "Stima rapida salvata come scenario.",
     "cohortName": "Quick estimate cohort",
     "preliminary": "Stima preliminare: usa il wizard completo per modellare segmenti e assunzioni avanzate."
+  },
+  "quickBenchmark": {
+    "kicker": "Benchmark illustrativo",
+    "title": "Stima mensile per profilo utente standard",
+    "subtitle": "Esempio rapido con crediti per prompt: Light 125, Medium 500, Heavy 1.200. Utile per spiegare l'ordine di grandezza prima di salvare uno scenario.",
+    "profile": "Profilo",
+    "creditsMonth": "Crediti / mese",
+    "costUserMonth": "Costo utente / mese",
+    "chartTitle": "Costo utente / mese",
+    "howToReadTitle": "Come leggerla",
+    "howToReadBody": "questa tabella non sostituisce il calcolo ufficiale dello scenario. Serve come benchmark commerciale: mostra come cambia il costo se una persona fa più prompt light, medium o heavy. Per una stima salvabile usa il form sopra e salva come scenario.",
+    "rows": {
+      "corporate": "Dipendenti corporate",
+      "customerFacing": "Ruoli customer-facing",
+      "technical": "Ruoli tecnici",
+      "managers": "Manager"
+    }
   }
 }

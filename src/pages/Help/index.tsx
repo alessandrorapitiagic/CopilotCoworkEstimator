@@ -139,6 +139,7 @@ export default function Help() {
             <Separator />
             <div><p className="font-semibold">{t('help.quickEstimate.saveTitle')}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t('help.quickEstimate.saveBody')}</p></div>
             <div><p className="font-semibold">{t('help.quickEstimate.scopeTitle')}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t('help.quickEstimate.scopeBody')}</p></div>
+            <div><p className="font-semibold">{t('help.quickEstimate.benchmarkTitle')}</p><p className="text-muted-foreground mt-0.5 leading-relaxed">{t('help.quickEstimate.benchmarkBody')}</p></div>
           </CardContent>
         </Card>
 

@@ -12,6 +12,7 @@ import { InfoHint } from '@/components/shared/InfoHint'
 import { calculateScenario } from '@/engine/calculationEngine'
 import { formatCurrency, formatNumber } from '@/lib/utils'
 import type { FundingPlan, Industry, Scenario, WorkforceSegment } from '@/types/domain'
+import { StandardProfileBenchmark } from './StandardProfileBenchmark'
 
 export default function QuickEstimatePage() {
   const { t } = useTranslation()
@@ -351,6 +352,8 @@ export default function QuickEstimatePage() {
           </CardContent>
         </Card>
       </div>
+
+      <StandardProfileBenchmark />
     </div>
   )
 }

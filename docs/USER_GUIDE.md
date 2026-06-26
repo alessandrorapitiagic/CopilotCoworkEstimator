@@ -33,6 +33,10 @@ core data (population, enabled/active percentages, usage profile, model and pric
 shows a live preview. If the estimate is useful, save it as a scenario and refine it later in the
 full wizard.
 
+The Quick Estimate page also includes a **standard user profile benchmark** using illustrative
+credits per prompt (`Light 125`, `Medium 500`, `Heavy 1,200`). It is meant as a commercial reference
+to explain why heavy usage drives cost quickly; it does not replace the scenario calculation engine.
+
 1. **Create a company** — go to **Companies → New Company**, set a name and the number of employees.
 2. **Create a scenario** — start a **New Scenario**, pick the company and add workforce segments
    (e.g. Sales, IT, Managers).
@@ -134,6 +138,11 @@ Se ti serve una stima velocissima, apri **Stima Rapida** dalla sidebar. Richiede
 (popolazione, percentuali abilitati/attivi, profilo di utilizzo, modello e prezzo per credito) e
 mostra una preview live. Se la stima è utile, salvala come scenario e rifiniscila poi nel wizard
 completo.
+
+La pagina Stima Rapida include anche un **benchmark per profilo utente standard** con crediti per
+prompt illustrativi (`Light 125`, `Medium 500`, `Heavy 1.200`). Serve come riferimento commerciale
+per spiegare perché l'uso heavy aumenta rapidamente il costo; non sostituisce il motore di calcolo
+dello scenario.
 
 1. **Crea un'azienda** — vai in **Aziende → Nuova Azienda**, imposta nome e numero di dipendenti.
 2. **Crea uno scenario** — avvia un **Nuovo Scenario**, scegli l'azienda e aggiungi i segmenti della

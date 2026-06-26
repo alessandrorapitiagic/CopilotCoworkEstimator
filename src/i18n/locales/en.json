@@ -641,7 +641,9 @@
       "saveTitle": "Save as scenario",
       "saveBody": "After the preview you can save the result as a scenario linked to a new or existing company, then refine it later in the full wizard.",
       "scopeTitle": "When to use it",
-      "scopeBody": "Use it in early commercial conversations, when you need a fast answer on cost and credits before modeling all segments."
+      "scopeBody": "Use it in early commercial conversations, when you need a fast answer on cost and credits before modeling all segments.",
+      "benchmarkTitle": "Standard benchmark",
+      "benchmarkBody": "The benchmark section shows an example by standard user profile with Light/Medium/Heavy prompts and illustrative 125/500/1,200 credits. It helps explain order of magnitude simply."
     },
     "quickstart": {
       "title": "Quick start in 4 steps",
@@ -759,6 +761,10 @@
     "quickEstimate": {
       "title": "Quick estimate",
       "body": "Here you get an immediate order of magnitude with a few fields. If the result is useful, save it as a scenario."
+    },
+    "quickBenchmark": {
+      "title": "Standard profile benchmark",
+      "body": "This table shows a commercial example with corporate, customer-facing, technical and manager profiles. It helps explain why heavy usage quickly increases cost."
     },
     "valueInsights": {
       "title": "Commercial value insights",
@@ -1160,5 +1166,22 @@
     "saved": "Quick estimate saved as scenario.",
     "cohortName": "Quick estimate cohort",
     "preliminary": "Preliminary estimate: use the full wizard to model segments and advanced assumptions."
+  },
+  "quickBenchmark": {
+    "kicker": "Illustrative benchmark",
+    "title": "Monthly estimate by standard user profile",
+    "subtitle": "Quick example using credits per prompt: Light 125, Medium 500, Heavy 1,200. Useful to explain order of magnitude before saving a scenario.",
+    "profile": "Profile",
+    "creditsMonth": "Credits / month",
+    "costUserMonth": "Cost user / month",
+    "chartTitle": "Cost user / month",
+    "howToReadTitle": "How to read it",
+    "howToReadBody": "this table does not replace the official scenario calculation. It is a commercial benchmark: it shows how cost changes when a person runs more light, medium or heavy prompts. For a saveable estimate use the form above and save as scenario.",
+    "rows": {
+      "corporate": "Corporate employees",
+      "customerFacing": "Customer-facing roles",
+      "technical": "Technical roles",
+      "managers": "Managers"
+    }
   }
 }
