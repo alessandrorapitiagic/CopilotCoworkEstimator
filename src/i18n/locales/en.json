@@ -1016,7 +1016,7 @@
     "payloadTooLong": "The payload exceeds the URL limit. Use JSON export to share.",
     "payloadWarning": "The link is long. It may not work in all messaging systems.",
     "fallbackJson": "Use JSON export",
-    "disclaimerNote": "The link contains all scenario data. It does not include sensitive information.",
+    "disclaimerNote": "The link uses compact serialization: it passes only essential scenario values. It is not encryption: do not include sensitive data.",
     "previewTitle": "Shared scenario",
     "previewSave": "Save to browser",
     "previewView": "View without saving",

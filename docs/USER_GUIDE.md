@@ -94,6 +94,10 @@ metadata and the estimation disclaimer.
 Use **Print / PDF** to save a PDF from the browser print dialog. You can also export summary CSV,
 segment CSV, report JSON, or share the scenario via link.
 
+Share links use a compact pipe-style serialization with double URL-safe base64 encoding. The link
+contains only the essential scenario values when no custom dependencies are required; for complex
+custom scenarios the app falls back to the full JSON-based share payload or recommends JSON export.
+
 ### Commercial value insights
 
 The scenario report includes **Commercial value insights**: deterministic, pre-built text blocks
@@ -200,6 +204,10 @@ metadata e disclaimer.
 
 Usa **Stampa / PDF** per salvare un PDF dalla finestra di stampa del browser. Puoi anche esportare
 CSV riepilogo, CSV segmenti, JSON report o condividere lo scenario tramite link.
+
+I link condivisi usano una serializzazione compatta stile pipe, con doppio base64 URL-safe. Il link
+contiene solo i valori essenziali dello scenario quando non servono dipendenze custom; per scenari
+custom complessi l'app usa il payload JSON completo o suggerisce l'export JSON.
 
 ### Insight commerciali
 
