@@ -211,9 +211,6 @@ export default function Companies() {
                     >
                       <td className="px-4 py-3">
                         <div className="font-medium truncate max-w-[200px]">{c.name}</div>
-                        {c.legalName && (
-                          <div className="text-xs text-muted-foreground truncate">{c.legalName}</div>
-                        )}
                       </td>
                       <td className="px-4 py-3 text-muted-foreground text-xs">
                         {c.industry ? t(`industries.${c.industry}`) : '—'}

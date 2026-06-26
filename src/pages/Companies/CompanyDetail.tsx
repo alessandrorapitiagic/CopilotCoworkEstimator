@@ -192,30 +192,6 @@ export default function CompanyDetail() {
         </Card>
       </div>
 
-      {/* Company details */}
-      {(co.legalName || co.description || co.tags.length > 0) && (
-        <Card>
-          <CardContent className="pt-4 pb-3 flex flex-col gap-2 text-sm">
-            {co.legalName && (
-              <div className="flex gap-2">
-                <span className="text-muted-foreground min-w-[120px]">{t('companies.legalName')}</span>
-                <span>{co.legalName}</span>
-              </div>
-            )}
-            {co.description && (
-              <p className="text-muted-foreground">{co.description}</p>
-            )}
-            {co.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {co.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
-
       {/* Scenarios table */}
       <Card>
         <CardHeader>
