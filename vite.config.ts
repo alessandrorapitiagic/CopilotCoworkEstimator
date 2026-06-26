@@ -23,7 +23,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: '/CopilotCoworkEstimator/',
+  base: '/IP.copilot_cowork_estimator/',
   build: {
     rollupOptions: {
       output: {

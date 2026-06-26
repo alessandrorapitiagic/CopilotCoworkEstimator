@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alessandrorapitiagic/CopilotCoworkEstimator.git"
+    "url": "git+https://github.com/AgicCompany/IP.copilot_cowork_estimator.git"
   },
   "license": "MIT",
   "dependencies": {

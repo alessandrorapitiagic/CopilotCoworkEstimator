@@ -76,7 +76,7 @@ app and deploys `dist/` to **GitHub Pages** on every push to `main`.
 
 To enable it: **GitHub → Settings → Pages → Source: GitHub Actions**.
 
-The Vite `base` is set to `/CopilotCoworkEstimator/` — update it in `vite.config.ts` if the repo name
+The Vite `base` is set to `/IP.copilot_cowork_estimator/` — update it in `vite.config.ts` if the repo name
 changes.
 
 ## License
