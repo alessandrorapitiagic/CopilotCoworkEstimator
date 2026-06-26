@@ -125,7 +125,14 @@ export function ModelsAssumptionsStep({ state, update, onRecalculate }: Props) {
             ))}
           </SelectContent>
         </Select>
-        <p className="text-xs text-muted-foreground">{t('wizard.modelsAssumptions.globalModel')}</p>
+        {(state.calculationMode ?? 'officialGuide') === 'officialGuide' ? (
+          <p className="rounded-lg border border-blue-200 bg-blue-50 p-2 text-xs text-blue-800 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
+            {t('wizard.modelsAssumptions.officialGuideModelNote')}
+          </p>
+        ) : (
+          <p className="text-xs text-muted-foreground">{t('wizard.modelsAssumptions.globalModel')}</p>
+        )}
+        <p className="text-xs text-muted-foreground">{t('wizard.modelsAssumptions.modelFactorSource')}</p>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Plus, Layers, RefreshCw, AlertTriangle, Info } from 'lucide-react'
+import { Plus, Layers, RefreshCw, AlertTriangle, Info, Edit } from 'lucide-react'
 import { nanoid } from 'nanoid'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -185,7 +185,7 @@ export function WorkforceStep({ state, update, errors }: Props) {
                   <div className="flex gap-1">
                     <Button variant="ghost" size="icon" className="size-7"
                       onClick={() => { setEditingSegment(seg); setShowSegmentForm(true) }}>
-                      <Plus className="size-3.5 rotate-45" />
+                      <Edit className="size-3.5" />
                     </Button>
                     <Button variant="ghost" size="icon" className="size-7 text-destructive hover:text-destructive"
                       onClick={() => handleDeleteSegment(seg.id)}>

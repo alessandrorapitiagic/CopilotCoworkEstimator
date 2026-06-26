@@ -895,7 +895,9 @@
       "defaultModel": "Modello predefinito",
       "globalModel": "Stesso modello per tutti i segmenti",
       "perSegment": "Modello per segmento",
-      "packLabel": "Assumption Pack"
+      "packLabel": "Assumption Pack",
+      "officialGuideModelNote": "In Official Guide Mode la scelta del modello non modifica la stima: la guida Microsoft usa utenti × prompt × range Light/Medium/Heavy. I model factor 1.2×, 2×, ecc. si applicano solo in Advanced Driver-Adjusted o Custom Planning Mode.",
+      "modelFactorSource": "I factor modello sono assunzioni di pianificazione relative, non prezzi ufficiali Microsoft. Nel pack Microsoft June 2026 sono neutralizzati a 1×."
     },
     "fundingBudget": {
       "title": "Piano di finanziamento e budget",

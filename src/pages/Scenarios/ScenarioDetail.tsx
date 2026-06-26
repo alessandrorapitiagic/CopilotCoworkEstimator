@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, RefreshCw, Info, Users, Share2, FileText } from 'lucide-react'
+import { ArrowLeft, RefreshCw, Info, Users, Share2, FileText, Edit } from 'lucide-react'
 import { useAppStore } from '@/store/appStore'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -95,6 +95,11 @@ export default function ScenarioDetail() {
           </Button>
           <Button variant="outline" size="sm" onClick={() => recalculateScenario(s.id)}>
             <RefreshCw className="size-4" /> {t('scenarios.recalculate')}
+          </Button>
+          <Button variant="outline" size="sm" asChild>
+            <Link to={`/scenarios/${id}/edit`}>
+              <Edit className="size-4" /> {t('common.edit')}
+            </Link>
           </Button>
           <CsvExportMenu scenario={s} company={company} pack={pack} currency={currency} />
           <Button variant="outline" size="sm" onClick={() => setShowShare(true)} data-tour="share-btn">

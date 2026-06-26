@@ -299,6 +299,7 @@ export default function QuickEstimatePage() {
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>{store.modelAssumptions.filter((m) => m.isEnabled).map((m) => <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>)}</SelectContent>
               </Select>
+              <p className="text-xs text-muted-foreground">{t('wizard.modelsAssumptions.officialGuideModelNote')}</p>
             </div>
             <div className="grid gap-1.5">
               <Label>{t('quick.assumptionPack')}</Label>
